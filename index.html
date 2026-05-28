@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Yazid Asyharie — Portofolio</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{font-family:'Inter',sans-serif;box-sizing:border-box}
+        html{overflow-x:hidden!important;scroll-behavior:auto!important}
+        body{overflow-x:hidden!important;max-width:100vw}
+        .bg-grid{background-size:40px 40px;background-image:linear-gradient(to right,rgba(59,130,246,.20) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,0,0,.09) 1px,transparent 1px)}
+        .bg-dots{background-size:24px 24px;background-image:radial-gradient(circle,rgba(59,130,246,.23) 1px,transparent 1px)}
+        ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#F9F8F3}::-webkit-scrollbar-thumb{background:#18181b;border-radius:3px}
+        @keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-14px) rotate(0)}}
+        @keyframes float2{0%,100%{transform:translateY(0) rotate(3deg)}50%{transform:translateY(-8px) rotate(5deg)}}
+        @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+        @keyframes spinR{0%{transform:rotate(360deg)}100%{transform:rotate(0)}}
+        @keyframes drift{0%{transform:translate(0,0)}33%{transform:translate(25px,-20px)}66%{transform:translate(-15px,-35px)}100%{transform:translate(0,0)}}
+        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(245,158,11,.25)}50%{box-shadow:0 0 40px rgba(245,158,11,.5)}}
+        @keyframes orb1{0%{transform:rotate(0) translateX(var(--r)) rotate(0)}100%{transform:rotate(360deg) translateX(var(--r)) rotate(-360deg)}}
+        @keyframes orb2{0%{transform:rotate(0) translateX(var(--r2)) rotate(0)}100%{transform:rotate(-360deg) translateX(var(--r2)) rotate(360deg)}}
+        @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+        .anim-float{animation:float 5s ease-in-out infinite}
+        .anim-float2{animation:float2 6s ease-in-out infinite}
+        .anim-spin{animation:spin 22s linear infinite}
+        .anim-spinR{animation:spinR 28s linear infinite}
+        .anim-glow{animation:glow 3s ease-in-out infinite}
+        .ticker{display:flex;width:max-content;animation:tick 28s linear infinite}
+        .nav-link{position:relative;color:#52525b;transition:color .4s ease}
+        .nav-link::after{content:'';position:absolute;bottom:-4px;left:50%;width:0;height:3px;background:#f59e0b;border-radius:2px;transition:width .4s ease,left .4s ease}
+        .nav-link.active{color:#18181b}
+        .nav-link.active::after{width:100%;left:0}
+.mob-link {
+    transition: all .25s ease;
+    border-bottom: 2px solid transparent;
+}
+.mob-link.active {
+    background: #fef9c3!important;
+    color: #18181b!important;
+    border-bottom-color: #f59e0b!important;
+}
+
+/* KODE BARU: Murni menggunakan Opacity & Transform (Bebas Lag) */
+.mob-menu {
+    opacity: 0;
+    pointer-events: none; /* Biar ga bisa diklik pas ketutup */
+    transform: scale(0.85) translateY(-10px);
+    transform-origin: top right;
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Saat terbuka, langsung ubah opacity dan kembalikan ukurannya */
+.mob-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+}
+        .orb-d1{--r:100px;animation:orb1 13s linear infinite}
+        .orb-d2{--r2:80px;animation:orb2 10s linear infinite}
+        @media(min-width:640px){.orb-d1{--r:125px}.orb-d2{--r2:100px}}
+        @media(min-width:768px){.orb-d1{--r:150px}.orb-d2{--r2:120px}}
+        .nav-scroll{max-width:680px!important;border-radius:9999px!important;height:48px!important;background:rgba(249,248,243,.95)!important;backdrop-filter:blur(16px)!important;border:2px solid #18181b!important;box-shadow:4px 4px 0 0 rgba(0,0,0,1)!important;padding-left:20px!important;padding-right:20px!important}
+        @media(min-width:640px){.nav-scroll{height:54px!important}}
+        @media(min-width:768px){.nav-scroll{height:56px!important;max-width:700px!important}}
+        .ccard{transform:scale(.88);opacity:.45;filter:blur(1px);transition:all .5s cubic-bezier(.25,1,.5,1)}
+        .ccard.active{transform:scale(1)!important;opacity:1!important;filter:blur(0)!important;box-shadow:10px 10px 0 0 rgba(0,0,0,1)!important}
+        @media(max-width:639px){.ccard.active{transform:scale(.93)!important}}
+        .rv{opacity:0;transform:translateY(32px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+        .rv.show{opacity:1;transform:translateY(0)}
+        .rv-l{opacity:0;transform:translateX(-32px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+        .rv-l.show{opacity:1;transform:translateX(0)}
+        .rv-r{opacity:0;transform:translateX(32px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+        .rv-r.show{opacity:1;transform:translateX(0)}
+        .sk{transition:all .25s cubic-bezier(.16,1,.3,1)}.sk:hover{transform:translateY(-5px);box-shadow:6px 6px 0 0 rgba(0,0,0,1)!important}
+        .btn-d{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:8px 14px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;border:2px solid #18181b;border-radius:10px;background:#fbbf24;color:#18181b;cursor:pointer;box-shadow:3px 3px 0 0 rgba(0,0,0,1);transition:all .2s}
+        .btn-d:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 0 rgba(0,0,0,1)}
+        .dl-btn{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;padding:8px 12px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;border:2px solid #18181b;border-radius:10px;background:#fff;color:#18181b;cursor:pointer;box-shadow:3px 3px 0 0 rgba(0,0,0,1);transition:all .2s}
+        .dl-btn:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 0 rgba(0,0,0,1)}
+        .mo{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:14px;opacity:0;pointer-events:none;transition:opacity .25s}
+        .mo.on{opacity:1;pointer-events:auto}
+        .mo-b{background:#fff;border:3px solid #18181b;border-radius:18px;max-width:500px;width:100%;max-height:82vh;overflow-y:auto;box-shadow:10px 10px 0 0 rgba(0,0,0,1);transform:scale(.93) translateY(16px);transition:transform .3s cubic-bezier(.16,1,.3,1)}
+        .mo.on .mo-b{transform:scale(1) translateY(0)}
+        .crt{transition:all .3s cubic-bezier(.16,1,.3,1)}.crt:hover{transform:translateY(-3px);box-shadow:8px 8px 0 0 rgba(0,0,0,1)!important}
+        .mob-menu{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1),opacity .3s;opacity:0}
+        .mob-menu.open{max-height:500px;opacity:1}
+        .photo-card{position:relative;overflow:hidden}
+        .photo-card img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+        .photo-card:hover img{transform:scale(1.05)}
+        
+    </style>
+</head>
+
+<body class="bg-[#F9F8F3] text-zinc-900 antialiased selection:bg-amber-400 selection:text-zinc-950 relative">
+<div id="welcomeOverlay" class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 bg-zinc-950/85 opacity-0 backdrop-blur-0 pointer-events-none transition-all duration-700 ease-in-out">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+    <div id="welcomeTextGroup" class="relative z-10 text-center select-none flex flex-col items-center justify-center gap-3 opacity-0 transform scale-50 -translate-y-16 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+        
+        <div class="transform -rotate-1 px-4">
+            <h1 class="text-4xl sm:text-6xl md:text-8xl font-normal uppercase tracking-tight text-white leading-none select-none" 
+                style="font-family: 'Rubik Mono One', 'Arial Black', sans-serif;
+                       text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
+                                    -4px -4px 0 #f59e0b, 4px -4px 0 #f59e0b, -4px 4px 0 #f59e0b, 4px 4px 0 #f59e0b;">
+                Oh, Welcome.
+            </h1>
+        </div>
+        
+        <div class="transform rotate-1 mt-2">
+            <div class="bg-amber-400 border-2 md:border-4 border-zinc-950 px-5 py-2 rounded-xl shadow-[4px_4px_0_0_rgba(255,255,255,1)]">
+                <p class="text-[9px] sm:text-xs md:text-sm font-normal uppercase tracking-wider text-zinc-950 m-0" 
+                   style="font-family: 'Rubik Mono One', 'Arial Black', sans-serif;">
+                    To My Portfolio Site.
+                </p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="absolute inset-0 bg-grid pointer-events-none z-0"></div>
+<div class="absolute inset-0 bg-dots pointer-events-none z-0 opacity-50"></div>
+<div class="absolute top-16 -left-4 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full bg-amber-200/20 blur-[90px] pointer-events-none z-0" style="animation:drift 20s ease-in-out infinite"></div>
+<div class="absolute top-[30%] -right-4 w-[280px] h-[280px] sm:w-[450px] sm:h-[450px] md:w-[500px] md:h-[500px] rounded-full bg-emerald-200/15 blur-[90px] pointer-events-none z-0" style="animation:drift 26s ease-in-out infinite reverse"></div>
+<div class="absolute top-[58%] -left-4 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] md:w-[450px] md:h-[450px] rounded-full bg-sky-200/12 blur-[90px] pointer-events-none z-0" style="animation:drift 22s ease-in-out infinite"></div>
+<div class="absolute top-[82%] -right-4 w-[200px] h-[200px] sm:w-[350px] sm:h-[350px] md:w-[350px] md:h-[350px] rounded-full bg-pink-200/10 blur-[90px] pointer-events-none z-0" style="animation:drift 18s ease-in-out infinite reverse"></div>
+<div class="absolute top-36 right-[7%] text-5xl text-zinc-200/40 font-black select-none hidden lg:block" style="animation:drift 16s ease-in-out infinite">✦</div>
+<div class="absolute top-[950px] left-[4%] text-6xl text-zinc-200/35 font-black select-none hidden lg:block" style="animation:drift 19s ease-in-out infinite reverse">▲</div>
+<div class="absolute top-[1900px] right-[5%] w-16 h-16 border-4 border-dashed border-zinc-200/50 rounded-xl select-none hidden lg:block" style="animation:spin 16s linear infinite"></div>
+<div class="absolute top-[2800px] left-[5%] text-6xl text-zinc-200/25 font-serif select-none hidden lg:block" style="animation:drift 20s ease-in-out infinite">★</div>
+
+<!-- NAV -->
+<div class="fixed top-0 left-0 w-full z-50 p-2 sm:p-3 flex justify-center pointer-events-none">
+    <nav id="nav" class="w-full max-w-7xl bg-[#F9F8F3]/92 backdrop-blur-md border-b-[3px] border-zinc-900 h-12 sm:h-14 md:h-20 px-3 sm:px-5 md:px-8 flex items-center justify-between pointer-events-auto transition-all duration-500 ease-[cubic-bezier(.16,1,.3,1)]">
+        <a href="#about" class="flex items-center shrink-0">
+            <span class="text-lg sm:text-xl md:text-2xl font-black tracking-tighter">YA<span class="text-amber-500">.</span></span>
+        </a>
+        <div class="hidden md:flex items-center gap-5 lg:gap-6 text-[10px] lg:text-xs font-black uppercase tracking-wider">
+            <!-- <a href="#home" data-nav="home" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Home</a> -->
+            <a href="#about" data-nav="about" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Home</a>
+            <a href="#skills" data-nav="skills" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Skills</a>
+            <a href="#projects" data-nav="projects" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Projects</a>
+            <a href="#certificates" data-nav="certificates" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Certs</a>
+            <a href="#contact" data-nav="contact" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Contact</a>
+            <a href="mailto:7e.yazid.asyharie@gmail.com" class="px-3 lg:px-4 py-2 bg-amber-400 text-zinc-950 border-2 border-zinc-900 rounded-xl hover:bg-amber-300 hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all shadow-[3px_3px_0_0_rgba(0,0,0,1)] text-[10px] font-black whitespace-nowrap">HIRE ME →</a>
+        </div>
+        <div class="flex md:hidden items-center gap-2">
+            <a href="mailto:7e.yazid.asyharie@gmail.com" class="px-2.5 py-1.5 bg-amber-400 text-zinc-950 border-2 border-zinc-900 rounded-lg font-black text-[8px] uppercase tracking-wide shadow-[2px_2px_0_0_rgba(0,0,0,1)] whitespace-nowrap">HIRE ME</a>
+            <button id="menuBtn" onclick="toggleMenu()" class="w-9 h-9 flex items-center justify-center border-2 border-zinc-900 rounded-lg bg-white shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all shrink-0">
+                <svg id="menuIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="3" y1="6" x2="17" y2="6"/>
+                    <line x1="3" y1="12" x2="17" y2="12"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+    <div class="flex md:hidden items-center gap-2 relative">
+        <div id="mobileMenu" class="mob-menu absolute top-[calc(100%+0.75rem)] right-0 w-44 bg-[#F9F8F3]/97 backdrop-blur-md border-2 border-zinc-900 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] z-50">
+            <div class="flex flex-col p-2 gap-1.5 text-center">
+                <a href="#about" data-nav="about" onclick="closeMenu()" class="mob-link text-[11px] sm:text-xs font-black uppercase tracking-wider text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 py-2.5 px-2 rounded-xl transition-colors text-center block w-full">Home 🏠</a>
+                <a href="#skills" data-nav="skills" onclick="closeMenu()" class="mob-link text-[11px] sm:text-xs font-black uppercase tracking-wider text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 py-2.5 px-2 rounded-xl transition-colors text-center block w-full">Skills ⚡</a>
+                <a href="#projects" data-nav="projects" onclick="closeMenu()" class="mob-link text-[11px] sm:text-xs font-black uppercase tracking-wider text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 py-2.5 px-2 rounded-xl transition-colors text-center block w-full">Projects 🚀</a>
+                <a href="#certificates" data-nav="certificates" onclick="closeMenu()" class="mob-link text-[11px] sm:text-xs font-black uppercase tracking-wider text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 py-2.5 px-2 rounded-xl transition-colors text-center block w-full">Certs 📜</a>
+                <a href="#contact" data-nav="contact" onclick="closeMenu()" class="mob-link text-[11px] sm:text-xs font-black uppercase tracking-wider text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 py-2.5 px-2 rounded-xl transition-colors text-center block w-full">Contact 📞</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HERO -->
+<header id="about" class="max-w-6xl mx-auto px-4 md:px-6 pt-28 sm:pt-32 md:pt-44 pb-10 md:pb-16 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-10">
+    <div class="lg:col-span-7 space-y-4 md:space-y-6 text-left order-2 lg:order-1">
+        <div class="inline-block px-3 py-1.5 bg-white border-2 border-zinc-900 text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-widest rounded-xl shadow-[2px_2px_0_0_rgba(0,0,0,1)] rv">🚀 Available for Opportunities</div>
+        <h1 class="text-[1.85rem] sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[.95] rv">
+            Hi, I'm<br>Yazid Asyharie
+            <span class="bg-amber-400 px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 inline-block border-2 border-zinc-900 shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-xl mt-2 sm:mt-3 text-zinc-950 text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black -rotate-1">Fresh Graduate!</span>
+        </h1>
+        <p class="text-zinc-600 font-medium max-w-xl text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed rv">A disciplined, honest, and meticulous Software Engineering graduate from <span class="underline decoration-amber-400 decoration-4 font-bold text-zinc-900">SMKN 2 Jakarta</span>. Specialized in crafting responsive user interfaces, managing digital assets, and optimizing data administration.</p>
+        <div class="flex flex-wrap gap-2 sm:gap-3 rv">
+            <a href="#projects" class="inline-block px-4 sm:px-6 py-2.5 sm:py-3.5 bg-zinc-900 text-white font-black uppercase text-[9px] sm:text-[10px] md:text-xs tracking-wider rounded-xl border-2 border-zinc-900 shadow-[4px_4px_0_0_#f59e0b] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all">Explore Portfolio ↓</a>
+            <a href="#contact" class="inline-block px-4 sm:px-6 py-2.5 sm:py-3.5 bg-white text-zinc-900 font-black uppercase text-[9px] sm:text-[10px] md:text-xs tracking-wider rounded-xl border-2 border-zinc-900 shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all">Contact Me →</a>
+        </div>
+        <div class="flex gap-4 sm:gap-6 pt-2 rv">
+            <div><div class="text-xl sm:text-2xl md:text-3xl font-black">6<span class="text-amber-500">+</span></div><div class="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-zinc-500">Months Exp</div></div>
+            <div class="w-px bg-zinc-300"></div>
+            <div><div class="text-xl sm:text-2xl md:text-3xl font-black">87.39</div><div class="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-zinc-500">GPA Score</div></div>
+            <div class="w-px bg-zinc-300"></div>
+            <div><div class="text-xl sm:text-2xl md:text-3xl font-black">3<span class="text-amber-500">+</span></div><div class="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-zinc-500">Projects</div></div>
+        </div>
+    </div>
+    <div class="lg:col-span-5 flex justify-center relative order-1 lg:order-2 py-4 sm:py-6">
+        <div class="absolute w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 border-2 border-dashed border-zinc-200/50 rounded-full anim-spin z-0"></div>
+        <div class="absolute w-44 h-44 sm:w-60 sm:h-60 md:w-80 md:h-80 border border-dashed border-amber-300/30 rounded-full anim-spinR z-0"></div>
+        <div class="absolute w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 z-0"><div class="orb-d1 absolute top-1/2 left-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-amber-400 rounded-full border-2 border-zinc-900"></div></div>
+        <div class="absolute w-44 h-44 sm:w-60 sm:h-60 md:w-80 md:h-80 z-0"><div class="orb-d2 absolute top-1/2 left-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-emerald-400 rounded-full border-2 border-zinc-900"></div></div>
+        <div class="relative w-48 h-56 sm:w-60 sm:h-72 md:w-80 md:h-96 flex items-center justify-center z-10 anim-float">
+            <div class="absolute w-40 h-48 sm:w-52 sm:h-64 md:w-72 md:h-80 bg-amber-400 rounded-2xl sm:rounded-3xl border-3 border-zinc-900 shadow-[8px_8px_0_0_rgba(0,0,0,1)] z-0 rotate-[4deg] anim-float2"></div>
+            <div class="w-36 h-48 sm:w-48 sm:h-64 md:w-64 md:h-80 bg-white border-3 border-zinc-900 rounded-2xl sm:rounded-3xl z-10 overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] -rotate-2 anim-glow flex flex-col">
+                <img src="img/profile_home.png" alt="Yazid Asyharie" class="w-full flex-1 object-cover min-h-0">
+                <div class="bg-zinc-900 text-white px-3 py-2 flex justify-between items-center shrink-0">
+                    <span class="text-[8px] sm:text-[9px] font-mono font-bold text-amber-400">STATUS</span>
+                    <span class="text-[8px] sm:text-[9px] font-black flex items-center gap-1"><span class="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-400 rounded-full animate-pulse"></span>Available</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- TICKER -->
+<div class="w-full bg-zinc-900 text-white border-y-4 border-zinc-900 py-3 overflow-hidden relative z-20 select-none">
+    <div class="ticker gap-8 whitespace-nowrap text-[8px] sm:text-[10px] md:text-xs font-black uppercase tracking-widest">
+        <span>✦ Frontend Development ✦ Laravel ✦ Responsive UI ✦ Data Administration ✦ Team Leadership ✦ Scout Garuda ✦ VS Code ✦ Tailwind CSS ✦ Figma ✦</span>
+        <span>✦ Frontend Development ✦ Laravel ✦ Responsive UI ✦ Data Administration ✦ Team Leadership ✦ Scout Garuda ✦ VS Code ✦ Tailwind CSS ✦ Figma ✦</span>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<main class="max-w-6xl mx-auto px-4 md:px-6 py-12 sm:py-16 md:py-24 space-y-20 sm:space-y-24 md:space-y-36 relative z-10">
+
+<!-- ABOUT -->
+<section id="about" class="space-y-6 scroll-mt-24">
+    <div class="text-center max-w-2xl mx-auto space-y-2 rv"><span class="text-[9px] sm:text-[10px] md:text-xs font-black text-amber-600 uppercase tracking-widest block">Who I Am</span><h2 class="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tight">About Me</h2><div class="h-1.5 w-12 sm:w-16 bg-amber-400 mx-auto rounded-full border border-zinc-900"></div></div>
+    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-6 rv">
+        <div class="md:col-span-3 bg-white/80 backdrop-blur-sm border-3 border-zinc-900 p-5 sm:p-6 md:p-8 rounded-2xl shadow-[6px_6px_0_0_rgba(0,0,0,1)] relative overflow-hidden">
+            <div class="absolute -top-8 -right-8 text-[100px] font-black text-zinc-100/80 select-none pointer-events-none leading-none">YA</div>
+            <div class="absolute top-3 right-3 px-2 py-1 bg-emerald-100 border border-emerald-300 rounded-lg text-[7px] sm:text-[8px] font-black text-emerald-700 uppercase z-10">Open to Work</div>
+            <p class="text-xs sm:text-sm md:text-base text-zinc-700 font-medium leading-relaxed relative z-10">I am a recent graduate of <span class="font-black text-zinc-900">SMK Negeri 2 Jakarta</span>, majoring in Software Engineering. I am disciplined, honest, and meticulous in managing data and operating digital systems.</p>
+            <p class="text-xs sm:text-sm md:text-base text-zinc-700 font-medium leading-relaxed mt-2 sm:mt-3 relative z-10">With a strong interest in administration, operations, and client service, I work well independently or within a team. I possess excellent communication skills and a firm commitment to continuous learning.</p>
+            <p class="text-xs sm:text-sm md:text-base text-zinc-700 font-medium leading-relaxed mt-2 sm:mt-3 relative z-10">I adapt quickly to new professional environments, consistently maintaining precision and accountability under pressure.</p>
+        </div>
+        <div class="md:col-span-2 flex flex-col gap-3 sm:gap-4">
+            <div class="bg-amber-300 text-zinc-950 p-4 sm:p-5 rounded-2xl border-3 border-zinc-900 shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex-1"><span class="text-[8px] sm:text-[9px] font-mono font-black uppercase text-amber-900 block">Cumulative GPA</span><div class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter">87.39</div><span class="text-[9px] sm:text-[10px] font-bold text-amber-800">Out of 100.00</span></div>
+            <div class="bg-zinc-900 text-white p-4 sm:p-5 rounded-2xl border-3 border-zinc-900 shadow-[4px_4px_0_0_rgba(245,158,11,.4)] flex-1"><span class="text-[8px] sm:text-[9px] font-mono font-black uppercase text-amber-400 block">Location</span><div class="text-base sm:text-lg font-black tracking-tight">Jakarta Selatan</div><span class="text-[9px] sm:text-[10px] font-medium text-zinc-400">DKI Jakarta, Indonesia</span></div>
+            <div class="bg-white/80 backdrop-blur-sm p-4 sm:p-5 rounded-2xl border-3 border-zinc-900 shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex-1"><span class="text-[8px] sm:text-[9px] font-mono font-black uppercase text-zinc-500 block">Email</span><div class="text-[10px] sm:text-xs font-black tracking-tight break-all">7e.yazid.asyharie@gmail.com</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="" class="space-y-6 scroll-mt-24">
+    <div class="text-center max-w-2xl mx-auto space-y-2 rv"><span class="text-[9px] sm:text-[10px] md:text-xs font-black text-amber-600 uppercase tracking-widest block">Academic Background</span><h2 class="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tight">Education & Organizations</h2><div class="h-1.5 w-12 sm:w-16 bg-amber-400 mx-auto rounded-full border border-zinc-900"></div></div>
+    <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div class="bg-white/80 backdrop-blur-sm border-3 border-zinc-900 rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] rv-l">
+            <div class="bg-zinc-900 text-white p-4 sm:p-5 flex flex-col gap-2"><div class="flex items-center gap-3"><div class="w-9 h-9 sm:w-10 sm:h-10 bg-amber-400 rounded-xl border-2 border-zinc-900 flex items-center justify-center shadow-[2px_2px_0_0_rgba(0,0,0,1)] text-base sm:text-lg shrink-0">🎓</div><div class="min-w-0"><h3 class="text-sm sm:text-base font-black tracking-tight uppercase">SMK Negeri 2 Jakarta</h3><p class="text-[9px] sm:text-[10px] text-amber-400 font-mono font-bold">Software Engineering (RPL)</p></div></div><span class="self-start px-2 sm:px-3 py-1 bg-zinc-800 border border-zinc-700 text-zinc-300 font-mono text-[8px] sm:text-[9px] font-black rounded-md uppercase">July 2023 — May 2026</span></div>
+            <div class="p-4 sm:p-5 space-y-2.5 text-zinc-700 text-[11px] sm:text-xs md:text-sm font-medium leading-relaxed relative"><div class="absolute inset-0 bg-grid opacity-20 pointer-events-none"></div><div class="relative flex gap-2.5"><span class="mt-1 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-amber-400 rounded-full border border-zinc-900 shrink-0"></span><p>Built a patient and detail-oriented mindset through complex coding and systematic debugging.</p></div><div class="relative flex gap-2.5"><span class="mt-1 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-amber-400 rounded-full border border-zinc-900 shrink-0"></span><p>Developed professional communication by coordinating with team members and stakeholders.</p></div><div class="relative flex gap-2.5"><span class="mt-1 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-amber-400 rounded-full border border-zinc-900 shrink-0"></span><p>Prioritized neatness and structural integrity in completing every academic submission.</p></div></div>
+        </div>
+        <div class="bg-white/80 backdrop-blur-sm border-3 border-zinc-900 rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] rv-r">
+            <div class="bg-amber-400 text-zinc-950 p-4 sm:p-5 flex flex-col gap-2 border-b-3 border-zinc-900"><div class="flex items-center gap-3"><div class="w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-xl border-2 border-zinc-900 flex items-center justify-center shadow-[2px_2px_0_0_rgba(0,0,0,1)] text-base sm:text-lg shrink-0">🏆</div><div class="min-w-0"><h3 class="text-sm sm:text-base font-black tracking-tight uppercase">Leadership Roles</h3><p class="text-[9px] sm:text-[10px] text-amber-800 font-mono font-bold">Achievements & Organizations</p></div></div></div>
+            <div class="p-4 sm:p-5 space-y-4">
+                <div class="relative pl-6 sm:pl-7"><div class="absolute left-0 top-0.5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-emerald-400 rounded-full border-2 border-zinc-900 flex items-center justify-center"><span class="text-[5px] sm:text-[6px] font-black">★</span></div><span class="text-[8px] sm:text-[9px] font-mono font-black text-emerald-600 uppercase">Pramuka Garuda — 2024</span><h4 class="text-xs sm:text-sm font-black uppercase">Highest Scout Rank</h4><p class="text-[10px] sm:text-[11px] text-zinc-600 font-medium leading-relaxed mt-0.5">Proving honesty, discipline, responsibility, and reliability under challenging conditions.</p></div>
+                <div class="border-t-2 border-dashed border-zinc-200"></div>
+                <div class="relative pl-6 sm:pl-7"><div class="absolute left-0 top-0.5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-amber-400 rounded-full border-2 border-zinc-900 flex items-center justify-center"><span class="text-[5px] sm:text-[6px] font-black">1</span></div><span class="text-[8px] sm:text-[9px] font-mono font-black text-amber-600 uppercase">Pradana — 2024/2025</span><h4 class="text-xs sm:text-sm font-black uppercase">Pramuka SMKN 2 Jakarta</h4><p class="text-[10px] sm:text-[11px] text-zinc-600 font-medium leading-relaxed mt-0.5">Led members, managed responsibilities, and maintained team discipline under pressure.</p></div>
+                <div class="border-t-2 border-dashed border-zinc-200"></div>
+                <div class="relative pl-6 sm:pl-7"><div class="absolute left-0 top-0.5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-blue-400 rounded-full border-2 border-zinc-900 flex items-center justify-center"><span class="text-[5px] sm:text-[6px] font-black">2</span></div><span class="text-[8px] sm:text-[9px] font-mono font-black text-blue-600 uppercase">Vice Chairman — 2023/2024</span><h4 class="text-xs sm:text-sm font-black uppercase">OSIS SMKN 2 Jakarta</h4><p class="text-[10px] sm:text-[11px] text-zinc-600 font-medium leading-relaxed mt-0.5">Coordinated school events, communicating with students, teachers, and external parties.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="space-y-6 scroll-mt-24">
+    <div class="text-center max-w-2xl mx-auto space-y-2 rv"><span class="text-[9px] sm:text-[10px] md:text-xs font-black text-amber-600 uppercase tracking-widest block">Technical Arsenal</span><h2 class="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tight">Skills & Tools</h2><div class="h-1.5 w-12 sm:w-16 bg-amber-400 mx-auto rounded-full border border-zinc-900"></div></div>
+    <div class="max-w-5xl mx-auto space-y-5">
+        <div class="rv"><div class="flex items-center gap-2 mb-3"><div class="px-2 py-1 bg-amber-400 text-zinc-900 text-[8px] sm:text-[9px] font-black uppercase tracking-widest rounded-lg border-2 border-zinc-900">Tools</div><div class="flex-1 h-px bg-zinc-300"></div></div>
+        <div class="grid grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-blue-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24" fill="#007ACC"><path d="M17.6 2.3l-4.9 4.6L7.1 2.9 2 6.3v11.5l5.1 3.4 5.5-4.1 4.9 4.6L22 18.2V5.8l-4.4-3.5zM7.1 14.8V9.2l3.9 2.8-3.9 2.8zm9.5-2.8l-3.9-2.8v5.7l3.9-2.9z"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">VS Code</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-cyan-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24" fill="#06B6D4"><path d="M12 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.9.2 1.6.9 2.3 1.6C13.7 10.6 15 12 18 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.9-.2-1.6-.9-2.3-1.6C16.3 6.2 15 4.8 12 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.9.2 1.6.9 2.3 1.6 1.2 1.2 2.5 2.6 5.5 2.6 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.9-.2-1.6-.9-2.3-1.6C10.3 13.4 9 12 6 12z"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">Tailwind</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-orange-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24" fill="#F05032"><path d="M23.5 10.9L13.1.5c-.6-.6-1.6-.6-2.2 0L8.7 2.6l2.8 2.8c.6-.2 1.4-.1 1.9.4.5.5.7 1.3.4 1.9l2.7 2.7c.6-.2 1.4-.1 1.9.4.7.7.7 1.9 0 2.6-.7.7-1.9.7-2.6 0-.5-.5-.7-1.3-.4-2l-2.5-2.5v6.5c.2.1.3.2.5.4.7.7.7 1.9 0 2.6-.7.7-1.9.7-2.6 0-.7-.7-.7-1.9 0-2.6.2-.2.4-.3.6-.4V8.8c-.2-.1-.4-.2-.6-.4-.5-.5-.7-1.3-.4-2L7.6 3.7.4 10.8c-.6.6-.6 1.6 0 2.2l10.5 10.5c.6.6 1.6.6 2.2 0l10.4-10.4c.6-.6.6-1.6 0-2.2"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">Git</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-zinc-100 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24" fill="#181616"><path d="M12 .3C5.4.3 0 5.7 0 12.3c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.4 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.6 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.1 24 17.6 24 12.3 24 5.7 18.6.3 12 .3z"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">GitHub</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-pink-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24"><path d="M8 24c2.2 0 4-1.8 4-4v-4H8c-2.2 0-4 1.8-4 4s1.8 4 4 4z" fill="#0ACF83"/><path d="M4 12c0-2.2 1.8-4 4-4h4v8H8c-2.2 0-4-1.8-4-4z" fill="#A259FF"/><path d="M4 4c0-2.2 1.8-4 4-4h4v8H8C5.8 8 4 6.2 4 4z" fill="#F24E1E"/><path d="M12 0h4c2.2 0 4 1.8 4 4s-1.8 4-4 4h-4V0z" fill="#FF7262"/><path d="M20 12c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4 4 1.8 4 4z" fill="#1ABCFE"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">Figma</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-purple-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24" fill="#7952B3"><circle cx="12" cy="12" r="8"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">Bootstrap</span></div>
+        </div></div>
+        <div class="rv"><div class="flex items-center gap-2 mb-3"><div class="px-2 py-1 bg-emerald-400 text-zinc-900 text-[8px] sm:text-[9px] font-black uppercase tracking-widest rounded-lg border-2 border-zinc-900">Office</div><div class="flex-1 h-px bg-zinc-300"></div></div>
+        <div class="grid grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-blue-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center text-blue-600 text-sm sm:text-lg font-black"><svg class="w-full h-full" viewBox="0 0 48 48" fill="none">
+                <rect x="8" y="4" width="28" height="40" rx="3" fill="#2B579A"/>
+                <rect x="14" y="4" width="22" height="40" rx="2" fill="#3D6CB9"/>
+                <path d="M22 15h2.5l2.5 9 2.5-9H32l-4 18h-2.5L23 24l-2.5 9H18L14 15h3l2.5 9 2.5-9z" fill="#fff"/>
+                <rect x="6" y="10" width="16" height="6" rx="1" fill="#2B579A"/>
+                <rect x="6" y="21" width="16" height="6" rx="1" fill="#2B579A"/>
+                <rect x="6" y="32" width="16" height="6" rx="1" fill="#2B579A"/>
+            </svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">MS Word</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-emerald-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center text-emerald-600 text-sm sm:text-lg font-black"><svg class="w-full h-full" viewBox="0 0 48 48" fill="none">
+                <rect x="8" y="4" width="28" height="40" rx="3" fill="#1D7044"/>
+                <rect x="14" y="4" width="22" height="40" rx="2" fill="#218B53"/>
+                <path d="M27 14h-6l-3 7-3-7H9l5.5 10L9 34h6l3-7 3 7h6l-5.5-10L27 14z" fill="#fff"/>
+                <rect x="6" y="10" width="16" height="6" rx="1" fill="#1D7044"/>
+                <rect x="6" y="21" width="16" height="6" rx="1" fill="#1D7044"/>
+                <rect x="6" y="32" width="16" height="6" rx="1" fill="#1D7044"/>
+            </svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">MS Excel</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-green-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center text-green-600 text-sm sm:text-lg font-black"><svg class="w-full h-full" viewBox="0 0 48 48" fill="none">
+                <path d="M14 4h14l10 10v28a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="#0F9D58"/>
+                <path d="M28 4v10h10" fill="#87CEAC"/>
+                <rect x="16" y="20" width="16" height="16" rx="1" fill="#fff" fill-opacity=".9"/>
+                <line x1="16" y1="26" x2="32" y2="26" stroke="#0F9D58" stroke-width="1.5"/>
+                <line x1="16" y1="30" x2="32" y2="30" stroke="#0F9D58" stroke-width="1.5"/>
+                <line x1="16" y1="34" x2="32" y2="34" stroke="#0F9D58" stroke-width="1.5"/>
+                <line x1="22" y1="20" x2="22" y2="36" stroke="#0F9D58" stroke-width="1.5"/>
+                <line x1="28" y1="20" x2="28" y2="36" stroke="#0F9D58" stroke-width="1.5"/>
+            </svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">Google Sheets</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-amber-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center text-amber-600"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8m8 4H8"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">Data Input</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-violet-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center text-violet-600"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">Time Mgmt</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-rose-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center text-rose-600"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">Comms</span></div>
+        </div><br>
+        <div class="rv"><div class="flex items-center gap-2 mb-3"><div class="px-2 py-1 bg-zinc-900 text-white text-[8px] sm:text-[9px] font-black uppercase tracking-widest rounded-lg">Development</div><div class="flex-1 h-px bg-zinc-300"></div></div>
+        <div class="grid grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-orange-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24"><path d="M4.1 3h15.8l-1.4 16.2L12 21l-6.4-1.8L4.1 3z" fill="#E44D26"/><path d="M12 19.2l5.2-1.4 1.2-13.7H12v15.1z" fill="#F16529"/><path d="M12 10.1H9.3l-.2-2.1H12V5.9H7.99l.05.56.52 5.79H12v-2.2zm0 5.2l-.01.003-2.33-.629-.15-1.671H7.74l.29 3.291L12 17.5v-2.2z" fill="#fff"/><path d="M12 10.1v2.2h2.58l-.24 2.72-2.34.63v2.18l4.29-1.19.03-.36.5-5.52h-.56v-2.3H12zm0-4.2v2.1h5.05l.04-.47.1-1.07.05-.56H12z" fill="#EBEBEB"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">HTML5</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-blue-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24"><path d="M4.1 3h15.8l-1.4 16.2L12 21l-6.4-1.8L4.1 3z" fill="#1572B6"/><path d="M12 19.2l5.2-1.4 1.2-13.7H12v15.1z" fill="#33A9DC"/><path d="M12 10.1h2.58l.18-2H12V5.94h4.82l-.05.53-.49 5.45H12z" fill="#fff"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">CSS3</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-yellow-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24"><path d="M4.1 3h15.8l-1.4 16.2L12 21l-6.4-1.8L4.1 3z" fill="#F7DF1E"/><path d="M16.6 16c.3.5.7.9 1.5.9.6 0 1-.3 1-.7 0-.5-.4-.7-1.1-1l-.4-.2c-1.1-.5-1.8-1-1.8-2.3 0-1.1.9-2 2.2-2 .9 0 1.6.3 2.1 1.2l-1.2.8c-.3-.5-.5-.6-1-.6-.4 0-.7.3-.7.6 0 .4.3.6.9.9l.4.2c1.3.6 2 1.1 2 2.4 0 1.4-1.1 2.1-2.5 2.1-1.4 0-2.3-.7-2.7-1.5l1.2-.7zm-5.2.2c.2.4.4.7 1.1.7.5 0 .9-.2.9-1.1v-5.6h1.8v5.6c0 1.9-1.1 2.7-2.7 2.7-1.4 0-2.3-.7-2.7-1.6l1.2-.7z" fill="#000"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">JavaScript</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-indigo-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="#777BB4"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">PHP</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-red-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24"><path d="M23.6 13.3l-1.2-3.7-2.4-7.3c-.2-.5-.9-.5-1.1 0l-2.4 7.3H7.5L5.1 2.3c-.2-.5-.9-.5-1.1 0L1.6 9.6.4 13.3c-.2.5 0 1.1.5 1.4l10.8 7.8c.2.1.4.2.6.2s.4-.1.6-.2l10.8-7.8c.4-.3.6-.9.4-1.4z" fill="#FC6D26"/><path d="M12 22.5l3.6-11.2H8.4L12 22.5z" fill="#E24329"/><path d="M12 22.5L8.4 11.3H3.3L12 22.5z" fill="#FC6D26"/><path d="M3.3 11.3l-1.1 3.4c-.2.5 0 1.1.5 1.4l9.3 6.7-8.7-11.5z" fill="#FCA326"/><path d="M3.3 11.3h5.1L6.3 4.1c-.2-.6-.9-.6-1.1 0L3.3 11.3z" fill="#E24329"/><path d="M12 22.5l3.6-11.2h5.1L12 22.5z" fill="#FC6D26"/><path d="M20.7 11.3l1.1 3.4c.2.5 0 1.1-.5 1.4l-9.3 6.7 8.7-11.5z" fill="#FCA326"/><path d="M20.7 11.3h-5.1l2.1-7.2c.2-.6.9-.6 1.1 0l1.9 7.2z" fill="#E24329"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">Laravel</span></div>
+            <div class="sk bg-white/80 border-2 sm:border-3 border-zinc-900 p-2.5 sm:p-4 rounded-xl flex flex-col items-center text-center gap-1.5 sm:gap-2.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><div class="w-9 h-9 sm:w-12 sm:h-12 bg-sky-50 border-2 border-zinc-900 rounded-lg flex items-center justify-center p-1.5 sm:p-2"><svg class="w-full h-full" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3.5c1.93 0 3.68.78 4.95 2.05l-1.41 1.41C14.63 8.05 13.38 7.5 12 7.5c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5c2.01 0 3.7-1.31 4.28-3.12H12v-1.88h6.43c.06.39.07.79.07 1.2 0 3.86-2.55 6.55-6.5 6.55C8.36 19.25 4.75 15.64 4.75 12S8.36 4.75 12 4.75v.75z" fill="#4479A1"/></svg></div><span class="text-[8px] sm:text-[10px] font-black uppercase">MySQL</span></div>
+        </div></div>
+        </div>
+    </div>
+</section>
+
+<!-- WORK EXPERIENCE -->
+<section class="space-y-6 scroll-mt-24">
+    <div class="text-center max-w-2xl mx-auto space-y-2 rv"><span class="text-[9px] sm:text-[10px] md:text-xs font-black text-amber-600 uppercase tracking-widest block">Professional Journey</span><h2 class="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tight">Work Experience</h2><div class="h-1.5 w-12 sm:w-16 bg-amber-400 mx-auto rounded-full border border-zinc-900"></div></div>
+    <div class="max-w-3xl mx-auto rv">
+        <div class="bg-white/80 backdrop-blur-sm border-3 border-zinc-900 rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] relative">
+            <div class="absolute top-0 right-0 w-20 h-20 overflow-hidden"><div class="absolute top-5 right-[-30px] bg-amber-400 text-zinc-900 text-[7px] sm:text-[8px] font-black uppercase px-8 py-1 rotate-45 border border-zinc-900">Intern</div></div>
+            <div class="bg-zinc-900 text-white p-4 sm:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div class="flex items-center gap-3"><div class="w-10 h-10 sm:w-12 sm:h-12 bg-amber-400 rounded-xl border-2 border-zinc-900 flex items-center justify-center shadow-[2px_2px_0_0_rgba(0,0,0,1)] text-lg sm:text-xl shrink-0">💼</div><div class="min-w-0"><h3 class="text-sm sm:text-lg font-black tracking-tight uppercase">PT Jakarta Infrastruktur Propertindo</h3><p class="text-[9px] sm:text-xs text-amber-400 font-mono font-bold">Frontend Developer (Internship)</p></div></div>
+                <span class="px-2 sm:px-3 py-1 bg-zinc-800 border border-zinc-700 text-zinc-300 font-mono text-[8px] sm:text-[9px] font-black rounded-lg uppercase shrink-0">June 2025 — Dec 2025</span>
+            </div>
+            <div class="p-4 sm:p-6 space-y-3 text-zinc-700 text-[11px] sm:text-xs md:text-sm font-medium leading-relaxed relative"><div class="absolute inset-0 bg-grid opacity-10 pointer-events-none"></div><div class="relative flex gap-2.5"><span class="mt-1.5 w-1.5 h-1.5 bg-amber-400 rounded-full shrink-0"></span><p>Architecting frontend operational interfaces with high pixel-perfection and strict discipline for flawless outputs.</p></div><div class="relative flex gap-2.5"><span class="mt-1.5 w-1.5 h-1.5 bg-amber-400 rounded-full shrink-0"></span><p>Consistently hit enterprise delivery sprint targets throughout the 6-month engagement period.</p></div><div class="relative flex gap-2.5"><span class="mt-1.5 w-1.5 h-1.5 bg-amber-400 rounded-full shrink-0"></span><p>Collaborated within formal engineering environments, enhancing high-pressure communication protocols.</p></div></div>
+            <div class="px-4 sm:px-6 pb-4 flex flex-wrap gap-1.5 sm:gap-2"><span class="px-2 py-0.5 sm:py-1 bg-amber-50 border border-amber-300 text-amber-700 text-[7px] sm:text-[9px] font-black uppercase rounded-md">HTML/CSS</span><span class="px-2 py-0.5 sm:py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[7px] sm:text-[9px] font-black uppercase rounded-md">JavaScript</span><span class="px-2 py-0.5 sm:py-1 bg-cyan-50 border border-cyan-300 text-cyan-700 text-[7px] sm:text-[9px] font-black uppercase rounded-md">Tailwind</span><span class="px-2 py-0.5 sm:py-1 bg-red-50 border border-red-300 text-red-700 text-[7px] sm:text-[9px] font-black uppercase rounded-md">Laravel</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="space-y-6 overflow-hidden scroll-mt-24">
+    <div class="text-center max-w-2xl mx-auto space-y-2 rv"><span class="text-[9px] sm:text-[10px] md:text-xs font-black text-amber-600 uppercase tracking-widest block">Featured Work</span><h2 class="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tight">Project Showcase</h2><div class="h-1.5 w-12 sm:w-16 bg-amber-400 mx-auto rounded-full border border-zinc-900"></div></div>
+    <div class="relative w-full overflow-hidden py-4 sm:py-8">
+        <div id="ctrack" class="flex gap-4 sm:gap-6 md:gap-8 transition-transform duration-500 ease-[cubic-bezier(.25,1,.5,1)] w-max">
+
+            <!-- Project A — Otomotif Motor -->
+            <div class="ccard bg-white/90 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 md:p-5 flex flex-col gap-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] shrink-0" style="width:300px;max-width:82vw">
+                <div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50 relative group cursor-pointer" style="aspect-ratio:16/9" onclick="openM('pa')">
+                    <img src="img/project_a_thumb.png" alt="MotorZone" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <div class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center border-2 border-zinc-900"><svg class="w-4 h-4 text-zinc-900 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                    </div>
+                </div>
+                <div class="space-y-1 flex-1"><span class="text-[8px] sm:text-[9px] font-mono font-black text-amber-600 uppercase">Otomotif • Web App</span><h3 class="text-sm sm:text-lg font-black">FAYABI Workshops</h3><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed">Digital motorcycle buying and selling platform, service & workshop booking.</p></div>
+                <button class="btn-d" onclick="openM('pa')">View Details →</button>
+            </div>
+
+            <!-- Project B — Digital Scoring -->
+            <div class="ccard bg-white/90 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 md:p-5 flex flex-col gap-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] shrink-0" style="width:300px;max-width:82vw">
+                <div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 relative group cursor-pointer" style="aspect-ratio:16/9" onclick="openM('pb')">
+                    <img src="img/project_b_thumb.png" alt="FairScore" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <div class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center border-2 border-zinc-900"><svg class="w-4 h-4 text-zinc-900 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                    </div>
+                </div>
+                <div class="space-y-1 flex-1"><span class="text-[8px] sm:text-[9px] font-mono font-black text-emerald-600 uppercase">Scoring System • Web App</span><h3 class="text-sm sm:text-lg font-black">PointKu</h3><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed">Transparent & accountable digital competition assessment.</p></div>
+                <button class="btn-d" style="background:#6ee7b7" onclick="openM('pb')">View Details →</button>
+            </div>
+
+            <!-- Project C — Spreadsheet -->
+            <div class="ccard bg-white/90 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 md:p-5 flex flex-col gap-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] shrink-0" style="width:300px;max-width:82vw">
+                <div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50 relative group cursor-pointer" style="aspect-ratio:16/9" onclick="openM('pc')">
+                    <img src="img/project_c_thumb.png" alt="SheetPro" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <div class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center border-2 border-zinc-900"><svg class="w-4 h-4 text-zinc-900 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                    </div>
+                </div>
+                <div class="space-y-1 flex-1"><span class="text-[8px] sm:text-[9px] font-mono font-black text-blue-600 uppercase">Data Management • Spreadsheet</span><h3 class="text-sm sm:text-lg font-black">Google Sheets</h3><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed">Operational data management with professional spreadsheets.</p></div>
+                <button class="btn-d" style="background:#93c5fd" onclick="openM('pc')">View Details →</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="flex justify-center gap-3"><button class="sdot w-2.5 h-2.5 rounded-full border-2 border-zinc-900 bg-zinc-900 cursor-pointer" data-i="0"></button><button class="sdot w-2.5 h-2.5 rounded-full border-2 border-zinc-900 bg-white cursor-pointer" data-i="1"></button><button class="sdot w-2.5 h-2.5 rounded-full border-2 border-zinc-900 bg-white cursor-pointer" data-i="2"></button></div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates" class="space-y-6 scroll-mt-24">
+    <div class="text-center max-w-2xl mx-auto space-y-2 rv"><span class="text-[9px] sm:text-[10px] md:text-xs font-black text-amber-600 uppercase tracking-widest block">Verified Credentials</span><h2 class="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tight">Certificates</h2><div class="h-1.5 w-12 sm:w-16 bg-amber-400 mx-auto rounded-full border border-zinc-900"></div></div>
+    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+
+        <!-- Garuda Pramuka -->
+        <div class="crt bg-white/80 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 shadow-[5px_5px_0_0_rgba(0,0,0,1)] rv">
+            <div class="space-y-2 sm:space-y-3">
+                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('cs')"><img src="sertificate/garuda_pramuka.png" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div>
+                <div><span class="text-[8px] sm:text-[9px] font-mono font-black text-emerald-600 uppercase">Pramuka Garuda • 2024</span><h4 class="text-sm sm:text-base font-black uppercase">Highest Scout Rank</h4><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed mt-0.5">Verified absolute honesty, systematic discipline, and dependable task management under pressure.</p></div>
+            </div>
+            <div class="flex gap-2">
+                <button class="btn-d flex-1" style="background:#6ee7b7" onclick="openM('cs')">View Details →</button>
+                <!-- <button class="dl-btn flex-1" onclick="dlCert('sertificate/garuda_pramuka.png','Pramuka_Garuda_Certificate')">⬇ Download</button> -->
+            </div>
+        </div>
+
+        <!-- JIP Internship -->
+        <div class="crt bg-white/80 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 shadow-[5px_5px_0_0_rgba(0,0,0,1)] rv">
+            <div class="space-y-2 sm:space-y-3">
+                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('ci')"><img src="sertificate/magang_jip.jpeg" alt="Internship Certificate" class="w-full h-full object-cover"></div>
+                <div><span class="text-[8px] sm:text-[9px] font-mono font-black text-blue-600 uppercase">PT JIP • 2025</span><h4 class="text-sm sm:text-base font-black uppercase">Industrial Internship</h4><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed mt-0.5">Completed 6-month frontend development internship with precision and accountability.</p></div>
+            </div>
+            <div class="flex gap-2">
+                <button class="btn-d flex-1" style="background:#93c5fd" onclick="openM('ci')">View Details →</button>
+                <!-- <button class="dl-btn flex-1" onclick="dlCert('sertificate/magang_jip.jpeg','JIP_Internship_Certificate')">⬇ Download</button> -->
+            </div>
+        </div>
+
+        <!-- OSIS -->
+        <div class="crt bg-white/80 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 shadow-[5px_5px_0_0_rgba(0,0,0,1)] rv">
+            <div class="space-y-2 sm:space-y-3">
+                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('co')"><img src="sertificate/OSIS.jpg" alt="OSIS Certificate" class="w-full h-full object-cover"></div>
+                <div><span class="text-[8px] sm:text-[9px] font-mono font-black text-amber-600 uppercase">OSIS • 2025</span><h4 class="text-sm sm:text-base font-black uppercase">Division 3 Member — Character Development</h4><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed mt-0.5">Contributed to fostering noble character and moral values across the student body.</p></div>
+            </div>
+            <div class="flex gap-2">
+                <button class="btn-d flex-1" onclick="openM('co')">View Details →</button>
+                <!-- <button class="dl-btn flex-1" onclick="dlCert('sertificate/OSIS.jpg','OSIS_Division3_Certificate')">⬇ Download</button> -->
+            </div>
+        </div>
+
+        <!-- POTRAD — Lomba Terompah Panjang -->
+        <div class="crt bg-white/80 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 shadow-[5px_5px_0_0_rgba(0,0,0,1)] rv">
+            <div class="space-y-2 sm:space-y-3">
+                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('cp')"><img src="sertificate/POTRAD.jpg" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div>
+                <div><span class="text-[8px] sm:text-[9px] font-mono font-black text-violet-600 uppercase">Traditional Sports • 2025</span><h4 class="text-sm sm:text-base font-black uppercase">1st Place — Terompah Panjang Race</h4><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed mt-0.5">Champion in traditional stilts team race at Central Jakarta Traditional Sports Championship.</p></div>
+            </div>
+            <div class="flex gap-2">
+                <button class="btn-d flex-1" style="background:#c4b5fd" onclick="openM('cp')">View Details →</button>
+                <!-- <button class="dl-btn flex-1" onclick="dlCert('sertificate/POTRAD.jpg','Terompah_Panjang_1st_Place')">⬇ Download</button> -->
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="scroll-mt-24">
+    <div class="text-center max-w-2xl mx-auto space-y-2 mb-6 rv"><span class="text-[9px] sm:text-[10px] md:text-xs font-black text-amber-600 uppercase tracking-widest block">Get In Touch</span><h2 class="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tight">Contact Me</h2><div class="h-1.5 w-12 sm:w-16 bg-amber-400 mx-auto rounded-full border border-zinc-900"></div></div>
+    <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 rv">
+        <div class="lg:col-span-2 bg-white/80 border-3 border-zinc-900 rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)]">
+            <div class="bg-gradient-to-br from-amber-100 to-amber-200 p-4 sm:p-6 flex flex-col items-center relative">
+                <div class="absolute inset-0 bg-dots opacity-20"></div>
+                <img src="img/profile_contact.jpg" alt="Yazid Asyharie" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-zinc-900 z-10 shadow-[3px_3px_0_0_rgba(0,0,0,1)]">
+                <h3 class="text-base sm:text-xl font-black mt-3 z-10 uppercase">Yazid Asyharie</h3><p class="text-[9px] sm:text-xs font-bold text-zinc-600 z-10 uppercase">Frontend Developer</p>
+            </div>
+            <div class="p-3 sm:p-5 space-y-2"><div class="flex items-center gap-2.5 text-[10px] sm:text-xs"><div class="w-7 h-7 bg-zinc-100 rounded-lg border border-zinc-300 flex items-center justify-center shrink-0 text-xs">📍</div><span class="font-medium text-zinc-600">Jakarta Selatan, DKI Jakarta</span></div><div class="flex items-center gap-2.5 text-[10px] sm:text-xs"><div class="w-7 h-7 bg-zinc-100 rounded-lg border border-zinc-300 flex items-center justify-center shrink-0 text-xs">📧</div><span class="font-medium text-zinc-600 break-all">7e.yazid.asyharie@gmail.com</span></div><div class="flex items-center gap-2.5 text-[10px] sm:text-xs"><div class="w-7 h-7 bg-zinc-100 rounded-lg border border-zinc-300 flex items-center justify-center shrink-0 text-xs">📞</div><span class="font-medium text-zinc-600">0857-7645-4076</span></div></div>
+        </div>
+        <div class="lg:col-span-3 flex flex-col gap-3 sm:gap-4">
+            <a href="https://wa.me/6285776454076" target="_blank" class="group flex items-center gap-3 sm:gap-5 bg-white/80 border-3 border-zinc-900 rounded-2xl p-4 sm:p-5 shadow-[5px_5px_0_0_rgba(0,0,0,1)] hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] transition-all">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 bg-emerald-50 border-3 border-zinc-900 rounded-xl flex items-center justify-center shrink-0 shadow-[2px_2px_0_0_rgba(0,0,0,1)] group-hover:bg-emerald-100 transition-colors"><svg class="w-6 h-6 sm:w-8 sm:h-8 text-emerald-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.7.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm5.2 14.1c-.2.6-1.2 1.2-1.7 1.2-.4.1-.9.1-1.5-.1-.4-.1-.9-.3-1.5-.5-2.7-1.2-4.5-4-4.6-4.1-.1-.2-1-1.3-1-2.6s.6-1.8.9-2.1c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.7.8 1.8.1.1.1.3 0 .5-.1.2-.1.3-.2.5-.2.2-.3.4-.5.6-.2.2-.3.3-.1.6.2.3.7 1.2 1.5 1.9 1.1 1 1.9 1.3 2.2 1.4.3.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.7-.1.3.1 1.8.8 2.1 1 .3.2.5.3.6.4.1.2.1.7-.1 1.3z"/></svg></div>
+                <div class="flex-1 min-w-0"><span class="text-[8px] sm:text-[9px] font-mono font-black text-emerald-600 uppercase block">WhatsApp Direct</span><span class="text-sm sm:text-lg font-black group-hover:underline">0857-7645-4076</span><p class="text-[9px] sm:text-[11px] text-zinc-500 mt-0.5">Available for instant messaging and calls</p></div><span class="text-xl sm:text-2xl font-black text-zinc-300 group-hover:text-zinc-900 transition-colors shrink-0">→</span>
+            </a>
+            <a href="https://www.instagram.com/yazidasyhariee/" target="_blank" class="group flex items-center gap-3 sm:gap-5 bg-white/80 border-3 border-zinc-900 rounded-2xl p-4 sm:p-5 shadow-[5px_5px_0_0_rgba(0,0,0,1)] hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] transition-all">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 bg-pink-50 border-3 border-zinc-900 rounded-xl flex items-center justify-center shrink-0 shadow-[2px_2px_0_0_rgba(0,0,0,1)] group-hover:bg-pink-100 transition-colors"><svg class="w-6 h-6 sm:w-8 sm:h-8 text-pink-600" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m4.4 3a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m4.75-1a.75.75 0 0 1 .75.75.75.75 0 0 1-.75.75.75.75 0 0 1-.75-.75.75.75 0 0 1 .75-.75z"/></svg></div>
+                <div class="flex-1 min-w-0"><span class="text-[8px] sm:text-[9px] font-mono font-black text-pink-600 uppercase block">Instagram</span><span class="text-sm sm:text-lg font-black group-hover:underline">@yazidasyhariee</span><p class="text-[9px] sm:text-[11px] text-zinc-500 mt-0.5">Follow for updates and behind-the-scenes</p></div><span class="text-xl sm:text-2xl font-black text-zinc-300 group-hover:text-zinc-900 transition-colors shrink-0">→</span>
+            </a>
+            <a href="mailto:7e.yazid.asyharie@gmail.com" class="group flex items-center justify-center gap-2 bg-zinc-900 text-white border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 shadow-[5px_5px_0_0_rgba(245,158,11,.4)] hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] transition-all"><span class="text-base sm:text-lg">✉️</span><span class="text-[10px] sm:text-sm font-black uppercase tracking-wider">Send Me an Email</span><span class="text-base sm:text-lg font-black">→</span></a>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="relative z-10 mt-12">
+    <div class="w-full bg-zinc-900 text-white py-2.5 overflow-hidden select-none"><div class="ticker gap-8 whitespace-nowrap text-[7px] sm:text-[8px] font-black uppercase tracking-[.3em] opacity-40"><span>✦ Yazid Asyharie ✦ Frontend Developer ✦ Jakarta ✦ Available for Hire ✦ SMKN 2 Jakarta ✦ Laravel ✦ Tailwind CSS ✦</span><span>✦ Yazid Asyharie ✦ Frontend Developer ✦ Jakarta ✦ Available for Hire ✦ SMKN 2 Jakarta ✦ Laravel ✦ Tailwind CSS ✦</span></div></div>
+    <div class="bg-zinc-950 text-white"><div class="max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div class="space-y-3"><div class="flex items-center gap-2.5"><span class="text-xl sm:text-2xl font-black tracking-tighter">YA<span class="text-amber-400">.</span></span></div><p class="text-[10px] sm:text-xs text-zinc-400 leading-relaxed max-w-xs">Disciplined and meticulous Frontend Developer from Jakarta. Committed to delivering pixel-perfect interfaces.</p><div class="flex gap-2"><a href="https://wa.me/6285776454076" target="_blank" class="w-8 h-8 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center text-zinc-400 hover:text-emerald-400 transition-colors text-xs">💬</a><a href="https://www.instagram.com/yazidasyhariee/" target="_blank" class="w-8 h-8 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center text-zinc-400 hover:text-pink-400 transition-colors text-xs">📷</a><a href="mailto:7e.yazid.asyharie@gmail.com" class="w-8 h-8 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center text-zinc-400 hover:text-amber-400 transition-colors text-xs">✉️</a></div></div>
+            <div class="space-y-3"><h4 class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-amber-400">Quick Links</h4><div class="space-y-2"><a href="#about" class="block text-[10px] sm:text-xs text-zinc-400 hover:text-white transition-colors">→ About</a><a href="#education" class="block text-[10px] sm:text-xs text-zinc-400 hover:text-white transition-colors">→ Education</a><a href="#skills" class="block text-[10px] sm:text-xs text-zinc-400 hover:text-white transition-colors">→ Skills</a><a href="#projects" class="block text-[10px] sm:text-xs text-zinc-400 hover:text-white transition-colors">→ Projects</a><a href="#certificates" class="block text-[10px] sm:text-xs text-zinc-400 hover:text-white transition-colors">→ Certificates</a><a href="#contact" class="block text-[10px] sm:text-xs text-zinc-400 hover:text-white transition-colors">→ Contact</a></div></div>
+            <div class="space-y-3"><h4 class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-amber-400">Status</h4><div class="flex items-center gap-2"><span class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-400 rounded-full animate-pulse"></span><span class="text-[10px] sm:text-xs text-zinc-300">Available for Hire</span></div><div class="bg-zinc-900 border border-zinc-800 rounded-xl p-2.5 sm:p-3 space-y-1.5"><div class="flex justify-between text-[9px] sm:text-[10px]"><span class="text-zinc-500 font-mono uppercase">Location</span><span class="text-zinc-300 font-bold">Jakarta, ID</span></div><div class="flex justify-between text-[9px] sm:text-[10px]"><span class="text-zinc-500 font-mono uppercase">Experience</span><span class="text-zinc-300 font-bold">6 Months</span></div><div class="flex justify-between text-[9px] sm:text-[10px]"><span class="text-zinc-500 font-mono uppercase">Focus</span><span class="text-zinc-300 font-bold">Frontend</span></div></div></div>
+        </div>
+        <div class="mt-8 pt-5 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-2"><p class="text-[8px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-widest">© 2026 Yazid Asyharie. All Rights Reserved.</p><p class="text-[8px] sm:text-[10px] text-zinc-600">Crafted with precision & <span class="text-amber-400">♥</span> in Jakarta</p></div>
+    </div></div>
+</footer>
+
+<!-- MODAL -->
+<div id="mO" class="mo" onclick="if(event.target===this)closeM()">
+    <div class="mo-b">
+        <div class="bg-zinc-900 text-white p-4 flex justify-between items-center sticky top-0 z-10"><h3 id="mT" class="text-sm sm:text-base font-black uppercase tracking-tight pr-4">Title</h3><button onclick="closeM()" class="w-8 h-8 bg-zinc-800 hover:bg-zinc-700 rounded-lg flex items-center justify-center shrink-0 text-white text-lg leading-none transition-colors">×</button></div>
+        <div id="mB" class="p-4 sm:p-6 text-zinc-700 text-xs sm:text-sm font-medium leading-relaxed"></div>
+    </div>
+</div>
+
+<audio id="bgMusic" src="img/bg_music.mp3" loop></audio>
+
+<div class="fixed bottom-4 left-4 z-50 flex items-center gap-2 pointer-events-auto">
+    <button id="musicBtn" onclick="toggleMusic()" class="w-12 h-12 flex items-center justify-center bg-lime-400 text-zinc-950 border-2 border-zinc-900 rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all duration-200 focus:outline-none">
+        <svg id="musicIcon" class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+    </button>
+    <span id="musicStatus" class="bg-white border-2 border-zinc-900 px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-wider shadow-[2px_2px_0_0_rgba(0,0,0,1)] hidden sm:inline-block">
+        Music: OFF
+    </span>
+</div>
+
+<style>
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+        animation: spin 4s linear infinite;
+    }
+</style>
+
+<script>
+// ===== HIGH PERFORMANCE WELCOME OVERLAY SYSTEM (FIXED) =====
+document.addEventListener("DOMContentLoaded", function () {
+    const overlay = document.getElementById("welcomeOverlay");
+    const textGroup = document.getElementById("welcomeTextGroup");
+
+    // --- FASE 1: MUNCUL AGRESIF ---
+    setTimeout(() => {
+        overlay.classList.remove("opacity-0", "backdrop-blur-0", "pointer-events-none");
+        overlay.classList.add("opacity-100", "backdrop-blur-md");
+        
+        textGroup.classList.remove("opacity-0", "scale-50", "-translate-y-16");
+        textGroup.classList.add("opacity-100", "scale-100", "translate-y-0");
+    }, 200);
+
+    // --- FASE 2: HILANG SUPER SMOOTH ---
+    setTimeout(() => {
+        overlay.style.transitionDuration = "800ms";
+        textGroup.style.transitionDuration = "800ms";
+        
+        overlay.classList.remove("opacity-100", "backdrop-blur-md");
+        overlay.classList.add("opacity-0", "backdrop-blur-0", "pointer-events-none");
+        
+        textGroup.classList.remove("opacity-100", "scale-100", "translate-y-0");
+        textGroup.classList.add("opacity-0", "scale-95", "translate-y-8");
+    }, 3000); // Bertahan 3 detik lalu hilang otomatis
+});
+
+// ===== FLOATING BACKGROUND MUSIC SYSTEM =====
+var audio = document.getElementById('bgMusic');
+var btn = document.getElementById('musicBtn');
+var icon = document.getElementById('musicIcon');
+var statusTxt = document.getElementById('musicStatus');
+
+function toggleMusic() {
+    if (audio.paused) {
+        audio.play().then(function() {
+            // Saat musik jalan: tombol muter, status berubah, ikon jadi Pause
+            btn.classList.add('animate-spin-slow');
+            btn.classList.remove('bg-lime-400');
+            btn.classList.add('bg-rose-400'); // Berubah warna jadi merah muda pas main
+            statusTxt.innerText = "Music: ON";
+            
+            // Ubah SVG ke ikon Pause
+            icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+        }).catch(function(error) {
+            console.log("Autoplay diblokir browser, butuh klik user pertama kali:", error);
+        });
+    } else {
+        // Saat musik di-pause
+        audio.pause();
+        btn.classList.remove('animate-spin-slow');
+        btn.classList.remove('bg-rose-400');
+        btn.classList.add('bg-lime-400');
+        statusTxt.innerText = "Music: OFF";
+        
+        // Kembalikan SVG ke ikon Play
+        icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+    }
+}
+
+// ===== MINIMALIST DROPDOWN MOBILE MENU =====
+var menuOpen = false;
+function toggleMenu(){
+    menuOpen = !menuOpen;
+    document.getElementById('mobileMenu').classList.toggle('open', menuOpen);
+}
+function closeMenu(){
+    menuOpen = false;
+    document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ===== MODAL =====
+var mdata={
+pa:{t:'FAYABI Workshops',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><video src="img/project_a.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Digital Automotive Platform</h4><p>FAYABI Workshops is a comprehensive digital platform for your two-wheeled automotive needs. It offers features for buying and selling new and used motorcycles, workshop service bookings, technical consultations, and vehicle maintenance management—all within one ecosystem.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-amber-50 border border-amber-300 text-amber-700 text-[9px] font-black uppercase rounded-md">HTML/CSS</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">JavaScript</span><span class="px-2 py-1 bg-cyan-50 border border-cyan-300 text-cyan-700 text-[9px] font-black uppercase rounded-md">Tailwind</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
+pb:{t:'PointKu - Digital Scoring',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50" style="aspect-ratio:16/9"><video src="img/project_b.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Transparent Competition Scoring System</h4><p>PointKu is a digital-based competition scoring application designed to ensure transparency, fairness, and accountability in every judging process. Judges can score in real time, and participants and the public can monitor the results directly.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-indigo-50 border border-indigo-300 text-indigo-700 text-[9px] font-black uppercase rounded-md">PHP</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span><span class="px-2 py-1 bg-sky-50 border border-sky-300 text-sky-700 text-[9px] font-black uppercase rounded-md">MySQL</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
+pc:{t:'Google Sheet',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><video src="img/project_c.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Spreadsheet Operasional</h4><p>Sheet demonstrates my expertise in designing and managing spreadsheets for operational needs — from recording financial data, inventory, scheduling, to automating calculations with neat and efficient formulas & pivot tables.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-emerald-50 border border-emerald-300 text-emerald-700 text-[9px] font-black uppercase rounded-md">Google Sheets</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">MS Excel</span><span class="px-2 py-1 bg-violet-50 border border-violet-300 text-violet-700 text-[9px] font-black uppercase rounded-md">Data Analysis</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
+cs:{t:'Pramuka Garuda Certification',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 mx-auto" style="aspect-ratio:3/4;max-width:360px"><img src="sertificate/ser_garuda.png" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Highest Scout Rank Achievement</h4><p>The Pramuka Garuda is the highest rank in Indonesian Scouting, awarded only to those who demonstrate exceptional character:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Absolute Honesty</strong> — unwavering truthfulness in all actions</li><li><strong class="text-zinc-900">Systematic Discipline</strong> — consistent adherence to commitments</li><li><strong class="text-zinc-900">Dependable Task Management</strong> — reliable execution under pressure</li><li><strong class="text-zinc-900">Community Leadership</strong> — responsibility for the welfare of others</li></ul><p class="text-[11px] text-zinc-500">Issued by: Kwarcab Jakarta Selatan | Year: 2024</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_garuda.png\',\'Pramuka_Garuda_Certificate\')">⬇ Download Certificate</button></div>'},
+ci:{t:'Industrial Internship Certificate',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><img src="sertificate/ser_jip.jpg" alt="Internship Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">PT JIP Internship Verification</h4><p>Official verification of successful 6-month frontend development internship at PT Jakarta Infrastruktur Propertindo — Telco Business Engineering Development division:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Frontend Interface Development</strong> — pixel-perfect web interfaces</li><li><strong class="text-zinc-900">Sprint Target Achievement</strong> — consistent enterprise delivery</li><li><strong class="text-zinc-900">Team Collaboration</strong> — formal engineering environments</li><li><strong class="text-zinc-900">Technical Documentation</strong> — structured project reports</li></ul><p class="text-[11px] text-zinc-500">Period: July 2025 — December 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_jip.jpg\',\'JIP_Internship_Certificate\')">⬇ Download Certificate</button></div>'},
+co:{t:'OSIS Division 3 & Vice Chairman',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><img src="sertificate/ser_osis.png" alt="OSIS Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Division 3 Member — Character Development</h4><p>Appointed as a member of <strong>Division 3: Character and Noble Values Development</strong> within OSIS SMK Negeri 2 Jakarta:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Character Building Programs</strong> — designing activities that foster moral integrity</li><li><strong class="text-zinc-900">Student Mentorship</strong> — guiding peers in ethical decision-making</li><li><strong class="text-zinc-900">Event Coordination</strong> — organizing school events and programs</li></ul><div class="mt-3 p-3 bg-zinc-900 text-white rounded-xl border-2 border-zinc-900"><span class="text-[9px] font-mono font-black text-amber-400 uppercase block mb-1">Previous Role</span><p class="text-xs font-bold">Served as <span class="text-amber-400 font-black">Vice Chairman of OSIS (2023/2024)</span> — certificate was not issued for that term, but the leadership experience was real and impactful.</p></div><p class="text-[11px] text-zinc-500">Certificate issued: 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_osis.png\',\'OSIS_Division3_Certificate\')">⬇ Download Certificate</button></div>'},
+cp:{t:'1st Place — Terompah Panjang Race',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50" style="aspect-ratio:16/9"><img src="sertificate/ser_potrad.png" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Juara 1 — Lomba Terompah Panjang Beregu Putra</h4><p>Won <strong>1st Place</strong> in the Traditional Stilts Team Race (Terompah Panjang Beregu Putra) at the <strong>Kejuaraan Pekan Olahraga Tradisional Wilayah Jakarta Pusat</strong> (Central Jakarta Traditional Sports Championship).</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Team Coordination</strong> — synchronized movement with teammates on traditional stilts</li><li><strong class="text-zinc-900">Physical Endurance</strong> — sustained balance and speed under competitive pressure</li><li><strong class="text-zinc-900">Cultural Preservation</strong> — representing and promoting Indonesian traditional sports</li><li><strong class="text-zinc-900">Competitive Spirit</strong> — achieving the top position among schools across Central Jakarta</li></ul><p class="text-[11px] text-zinc-500">Organized by: Suku Dinas Pemuda dan Olahraga Kota Administrasi Jakarta Pusat | Date: May 8, 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_potrad.png\',\'Terompah_Panjang_1st_Place\')">⬇ Download Certificate</button></div>'},
+};
+function openM(id){var d=mdata[id];if(!d)return;document.getElementById('mT').textContent=d.t;document.getElementById('mB').innerHTML=d.b;document.getElementById('mO').classList.add('on');document.body.style.overflow='hidden'}
+function closeM(){document.getElementById('mO').classList.remove('on');document.body.style.overflow=''}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeM()});
+
+// ===== DOWNLOAD CERTIFICATE =====
+function dlCert(url,filename){
+    fetch(url,{mode:'cors'}).then(function(r){return r.blob()}).then(function(blob){
+        var blobUrl=URL.createObjectURL(blob);
+        var a=document.createElement('a');
+        a.href=blobUrl;a.download=filename+'.jpg';
+        document.body.appendChild(a);a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+    }).catch(function(){window.open(url,'_blank')});
+}
+
+// ===== NAVBAR SCROLL =====
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('nav-scroll',window.scrollY>20)});
+
+// ===== CAROUSEL =====
+var ctrack=document.getElementById('ctrack');
+var ccards=document.querySelectorAll('.ccard');
+var cdots=document.querySelectorAll('.sdot');
+var ci=0;
+var sdur=3500;
+function updS(){
+    if(!ctrack||ccards.length===0)return;
+    var cw=ccards[0].getBoundingClientRect().width;
+    var tw=ctrack.parentElement.getBoundingClientRect().width;
+    var gp=window.innerWidth>=768?32:24;
+    var co=(tw-cw)/2;
+    var mv=-ci*(cw+gp)+co;
+    ctrack.style.transform='translateX('+mv+'px)';
+    ccards.forEach(function(c,i){c.classList.toggle('active',i===ci)});
+    cdots.forEach(function(d,i){d.style.backgroundColor=i===ci?'#18181b':'#fff'});
+}
+var sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
+cdots.forEach(function(d){d.addEventListener('click',function(){ci=parseInt(this.getAttribute('data-i'));updS();clearInterval(sint);sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur)})});
+window.addEventListener('resize',updS);updS();
+
+// Touch swipe for carousel
+var touchStartX=0;
+if(ctrack){
+    ctrack.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].screenX},{passive:true});
+    ctrack.addEventListener('touchend',function(e){
+        var diff=touchStartX-e.changedTouches[0].screenX;
+        if(Math.abs(diff)>50){
+            if(diff>0){ci=Math.min(ci+1,ccards.length-1)}
+            else{ci=Math.max(ci-1,0)}
+            updS();clearInterval(sint);
+            sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
+        }
+    },{passive:true});
+}
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+        var h=this.getAttribute('href');
+        if(!h||h==='#')return;
+        e.preventDefault();closeMenu();
+        var t=document.querySelector(h);
+        if(!t)return;
+        var off=window.innerWidth>=768?110:72;
+        var tp=t.getBoundingClientRect().top+window.scrollY-off;
+        var sp=window.scrollY;var dist=tp-sp;var st=null;var dur=800;
+        function ease(t,b,c,d){t/=d/2;if(t<1)return c/2*t*t+b;t--;return-c/2*(t*(t-2)-1)+b}
+        function anim(c){if(st===null)st=c;var el=c-st;if(el<dur)requestAnimationFrame(anim);window.scrollTo(0,ease(el,sp,dist,dur))}
+        requestAnimationFrame(anim);
+    });
+});
+
+// ===== SCROLL REVEAL =====
+var rvs=document.querySelectorAll('.rv,.rv-l,.rv-r');
+var rob=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting)en.target.classList.add('show')})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+rvs.forEach(function(el){rob.observe(el)});
+
+// ===== ACTIVE NAV — SMOOTH & ACCURATE =====
+(function(){
+    // Menghapus 'home' karena di HTML kamu langsung menggunakan 'about' sebagai Home
+    var secs = ['about', 'skills', 'projects', 'certificates', 'contact'];
+    var cur = 'about';
+    var ticking = false;
+
+    function upd(){
+        var found = 'about';
+        
+        // Menggunakan batas deteksi 200px dari atas layar agar pergantian terasa pas saat di-scroll
+        var triggerOffset = 200; 
+
+        for (var i = 0; i < secs.length; i++) {
+            var el = document.getElementById(secs[i]);
+            if (el) {
+                var rect = el.getBoundingClientRect();
+                // Jika bagian atas section sudah melewati batas triggerOffset, tandai sebagai aktif
+                if (rect.top <= triggerOffset) {
+                    found = secs[i];
+                }
+            }
+        }
+
+        if (found !== cur) {
+            cur = found;
+            
+            // Update kelas active untuk Desktop (.nav-link)
+            document.querySelectorAll('.nav-link').forEach(function(a){
+                var match = a.getAttribute('data-nav') === cur;
+                a.classList.toggle('active', match);
+            });
+            
+            // Update kelas active untuk Mobile (.mob-link)
+            document.querySelectorAll('.mob-link').forEach(function(a){
+                var match = a.getAttribute('data-nav') === cur;
+                a.classList.toggle('active', match);
+            });
+        }
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function(){
+        if (!ticking) {
+            requestAnimationFrame(upd);
+            ticking = true;
+        }
+    });
+
+    // Jalankan saat halaman selesai dimuat agar posisi awal langsung terbaca
+    window.addEventListener('DOMContentLoaded', upd);
+    upd();
+})();
+</script>
+</body>
+</html>
