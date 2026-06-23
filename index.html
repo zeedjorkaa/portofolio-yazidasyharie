@@ -89,8 +89,176 @@
         .photo-card{position:relative;overflow:hidden}
         .photo-card img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
         .photo-card:hover img{transform:scale(1.05)}
-        
+
+/* ============================================================
+   EPIC HEADER PHOTO EFFECTS - STABLE LIGHT MODE (NO HOVER)
+   ============================================================ */
+
+.hero-photo-container {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+.hero-photo-wrapper {
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+/* Foto utama dengan drop-shadow tegas dan kecerahan yang ditingkatkan secara konstan */
+.hero-photo-img {
+    position: relative;
+    z-index: 10;
+    filter: drop-shadow(4px 4px 0px #f59e0b) 
+            drop-shadow(-4px -4px 0px #f59e0b) 
+            drop-shadow(2px -2px 0px #f59e0b) 
+            drop-shadow(-2px 2px 0px #f59e0b) 
+            drop-shadow(3px 2px 0px #000)
+            brightness(1.08) contrast(1.02); /* Membuat wajah foto konstan bersih & cerah */
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE10+ */
+            user-select: none;         /* Standard */
+            
+            -webkit-touch-callout: none;
+}
+
+/* --- Floating Sparkle Particles --- */
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #fbbf24;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 20;
+    box-shadow: 0 0 6px #fbbf24, 0 0 12px #f59e0b;
+}
+
+@keyframes sparkle-float {
+    0%, 100% {
+        opacity: 0;
+        transform: translateY(0) scale(0);
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(-40px) scale(0.6);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(0);
+    }
+}
+
+.sparkle-1 { top: 15%; left: 10%; animation: sparkle-float 3s ease-in-out infinite 0s; }
+.sparkle-2 { top: 25%; right: 8%; animation: sparkle-float 2.5s ease-in-out infinite 0.5s; width: 3px; height: 3px; }
+.sparkle-3 { top: 45%; left: 5%; animation: sparkle-float 3.5s ease-in-out infinite 1s; width: 5px; height: 5px; background: #fde68a; }
+.sparkle-4 { top: 10%; right: 20%; animation: sparkle-float 2.8s ease-in-out infinite 1.2s; width: 3px; height: 3px; }
+.sparkle-5 { top: 60%; right: 5%; animation: sparkle-float 3.2s ease-in-out infinite 0.8s; width: 4px; height: 4px; background: #fcd34d; }
+.sparkle-6 { top: 35%; left: 15%; animation: sparkle-float 2.6s ease-in-out infinite 1.5s; width: 3px; height: 3px; }
+.sparkle-7 { top: 5%; left: 40%; animation: sparkle-float 3.8s ease-in-out infinite 0.3s; width: 4px; height: 4px; background: #fbbf24; }
+.sparkle-8 { top: 70%; left: 20%; animation: sparkle-float 2.4s ease-in-out infinite 2s; width: 3px; height: 3px; }
+
+/* --- Enhanced Ring Effects --- */
+/* --- Mengunci Ring Mengikuti Posisi Atribut HTML --- */
+.orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+    /* Menghapus paksaan left: 50% agar membaca nilai left-[54%] dari HTML */
+}
+
+.orbit-ring-1 {
+    border: 4px dashed rgba(24, 24, 27, 0.15);
+    animation: spin 35s linear infinite;
+}
+
+.orbit-ring-2 {
+    border: 3px dashed rgba(245, 158, 11, 0.35);
+    animation: spinR 20s linear infinite;
+}
+
+.orbit-ring-3 {
+    border: 2px dotted rgba(24, 24, 27, 0.25);
+    animation: spin 45s linear infinite;
+}
+
+/* --- Pulsing Glow Behind Photo --- */
+.photo-glow {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(163, 230, 53, 0.4) 0%, rgba(245, 158, 11, 0.15) 50%, transparent 70%);
+    filter: blur(20px);
+    animation: photo-glow-pulse 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes photo-glow-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* --- Floating badge with steady animation --- */
+.floating-badge {
+    animation: badge-bob 4s ease-in-out infinite;
+}
+
+@keyframes badge-bob {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(1deg); }
+    50% { transform: translateX(-50%) translateY(-8px) rotate(-1deg); }
+}
+
+/* --- Decorative cross/plus particles --- */
+.cross-particle {
+    position: absolute;
+    color: rgba(251, 191, 36, 0.6);
+    font-weight: 900;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.cross-1 { top: 8%; left: 25%; font-size: 12px; animation: cross-spin 8s linear infinite; }
+.cross-2 { top: 70%; right: 20%; font-size: 10px; animation: cross-spin 12s linear infinite reverse; }
+.cross-3 { bottom: 20%; left: 8%; font-size: 14px; animation: cross-spin 10s linear infinite; }
+
+@keyframes cross-spin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* --- Photo entrance animation --- */
+@keyframes photo-entrance {
+    0% { 
+        opacity: 0; 
+        transform: translateY(40px) scale(0.9); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
+}
+
+.hero-photo-wrapper {
+    animation: photo-entrance 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+/* Responsive tweaks for photo */
+@media (max-width: 639px) {
+    .sparkle { display: none; }
+    .cross-2, .cross-3 { display: none; }
+}        
     </style>
+<base target="_blank">
 </head>
 
 <body class="bg-[#F9F8F3] text-zinc-900 antialiased selection:bg-amber-400 selection:text-zinc-950 relative">
@@ -107,18 +275,18 @@
                 style="font-family: 'Rubik Mono One', 'Arial Black', sans-serif;
                        text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
                                     -4px -4px 0 #f59e0b, 4px -4px 0 #f59e0b, -4px 4px 0 #f59e0b, 4px 4px 0 #f59e0b;">
-                Oh, Welcome.
+                Hii, Welcome.
             </h1>
         </div>
         
-        <div class="transform rotate-1 mt-2">
+        <!-- <div class="transform rotate-1 mt-2">
             <div class="bg-amber-400 border-2 md:border-4 border-zinc-950 px-5 py-2 rounded-xl shadow-[4px_4px_0_0_rgba(255,255,255,1)]">
                 <p class="text-[9px] sm:text-xs md:text-sm font-normal uppercase tracking-wider text-zinc-950 m-0" 
                    style="font-family: 'Rubik Mono One', 'Arial Black', sans-serif;">
                     To My Portfolio Site.
                 </p>
             </div>
-        </div>
+        </div> -->
         
     </div>
 </div>
@@ -173,42 +341,100 @@
 </div>
 
 <!-- HERO -->
-<header id="about" class="max-w-6xl mx-auto px-4 md:px-6 pt-28 sm:pt-32 md:pt-44 pb-10 md:pb-16 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-10">
-    <div class="lg:col-span-7 space-y-4 md:space-y-6 text-left order-2 lg:order-1">
-        <div class="inline-block px-3 py-1.5 bg-white border-2 border-zinc-900 text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-widest rounded-xl shadow-[2px_2px_0_0_rgba(0,0,0,1)] rv">🚀 Available for Opportunities</div>
+<header id="about" class="max-w-6xl mx-auto px-4 md:px-6 pt-16 sm:pt-20 md:pt-28 pb-10 md:pb-16 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-10 overflow-hidden">
+    
+    <div class="lg:col-span-7 space-y-4 md:space-y-6 text-left order-2 lg:order-1 relative z-10">
+        <div class="inline-block px-3 py-1.5 bg-white border-2 border-zinc-900 text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-widest rounded-xl shadow-[2px_2px_0_0_rgba(0,0,0,1)] rv">
+            🚀 Available for Opportunities
+        </div>
+        
         <h1 class="text-[1.85rem] sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[.95] rv">
             Hi, I'm<br>Yazid Asyharie
-            <span class="bg-amber-400 px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 inline-block border-2 border-zinc-900 shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-xl mt-2 sm:mt-3 text-zinc-950 text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black -rotate-1">Fresh Graduate!</span>
+            <span class="bg-amber-400 px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 inline-block border-2 border-zinc-900 shadow-[4px_4px_0_0_rgba(0,0,0,1)] rounded-xl mt-2 sm:mt-3 text-zinc-950 text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black -rotate-1">
+                Fresh Graduate!
+            </span>
         </h1>
-        <p class="text-zinc-600 font-medium max-w-xl text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed rv">A disciplined, honest, and meticulous Software Engineering graduate from <span class="underline decoration-amber-400 decoration-4 font-bold text-zinc-900">SMKN 2 Jakarta</span>. Specialized in crafting responsive user interfaces, managing digital assets, and optimizing data administration.</p>
+        
+        <p class="text-zinc-600 font-medium max-w-xl text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed rv">
+            A disciplined, honest, and meticulous Software Engineering graduate from 
+            <span class="underline decoration-amber-400 decoration-4 font-bold text-zinc-900">SMKN 2 Jakarta</span>. 
+            Specialized in crafting responsive user interfaces, managing digital assets, and optimizing data administration.
+        </p>
+        
         <div class="flex flex-wrap gap-2 sm:gap-3 rv">
-            <a href="#projects" class="inline-block px-4 sm:px-6 py-2.5 sm:py-3.5 bg-zinc-900 text-white font-black uppercase text-[9px] sm:text-[10px] md:text-xs tracking-wider rounded-xl border-2 border-zinc-900 shadow-[4px_4px_0_0_#f59e0b] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all">Explore Portfolio ↓</a>
-            <a href="#contact" class="inline-block px-4 sm:px-6 py-2.5 sm:py-3.5 bg-white text-zinc-900 font-black uppercase text-[9px] sm:text-[10px] md:text-xs tracking-wider rounded-xl border-2 border-zinc-900 shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all">Contact Me →</a>
+            <a href="#projects" class="inline-block px-4 sm:px-6 py-2.5 sm:py-3.5 bg-zinc-900 text-white font-black uppercase text-[9px] sm:text-[10px] md:text-xs tracking-wider rounded-xl border-2 border-zinc-900 shadow-[4px_4px_0_0_#f59e0b] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all">
+                Explore Portfolio ↓
+            </a>
+            <a href="#contact" class="inline-block px-4 sm:px-6 py-2.5 sm:py-3.5 bg-white text-zinc-900 font-black uppercase text-[9px] sm:text-[10px] md:text-xs tracking-wider rounded-xl border-2 border-zinc-900 shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all">
+                Contact Me →
+            </a>
         </div>
+        
         <div class="flex gap-4 sm:gap-6 pt-2 rv">
-            <div><div class="text-xl sm:text-2xl md:text-3xl font-black">6<span class="text-amber-500">+</span></div><div class="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-zinc-500">Months Exp</div></div>
+            <div>
+                <div class="text-xl sm:text-2xl md:text-3xl font-black">6<span class="text-amber-500">+</span></div>
+                <div class="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-zinc-500">Months Exp</div>
+            </div>
             <div class="w-px bg-zinc-300"></div>
-            <div><div class="text-xl sm:text-2xl md:text-3xl font-black">87.39</div><div class="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-zinc-500">GPA Score</div></div>
+            <div>
+                <div class="text-xl sm:text-2xl md:text-3xl font-black">87.39</div>
+                <div class="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-zinc-500">GPA Score</div>
+            </div>
             <div class="w-px bg-zinc-300"></div>
-            <div><div class="text-xl sm:text-2xl md:text-3xl font-black">3<span class="text-amber-500">+</span></div><div class="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-zinc-500">Projects</div></div>
-        </div>
-    </div>
-    <div class="lg:col-span-5 flex justify-center relative order-1 lg:order-2 py-4 sm:py-6">
-        <div class="absolute w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 border-2 border-dashed border-zinc-200/50 rounded-full anim-spin z-0"></div>
-        <div class="absolute w-44 h-44 sm:w-60 sm:h-60 md:w-80 md:h-80 border border-dashed border-amber-300/30 rounded-full anim-spinR z-0"></div>
-        <div class="absolute w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 z-0"><div class="orb-d1 absolute top-1/2 left-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-amber-400 rounded-full border-2 border-zinc-900"></div></div>
-        <div class="absolute w-44 h-44 sm:w-60 sm:h-60 md:w-80 md:h-80 z-0"><div class="orb-d2 absolute top-1/2 left-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-emerald-400 rounded-full border-2 border-zinc-900"></div></div>
-        <div class="relative w-48 h-56 sm:w-60 sm:h-72 md:w-80 md:h-96 flex items-center justify-center z-10 anim-float">
-            <div class="absolute w-40 h-48 sm:w-52 sm:h-64 md:w-72 md:h-80 bg-amber-400 rounded-2xl sm:rounded-3xl border-3 border-zinc-900 shadow-[8px_8px_0_0_rgba(0,0,0,1)] z-0 rotate-[4deg] anim-float2"></div>
-            <div class="w-36 h-48 sm:w-48 sm:h-64 md:w-64 md:h-80 bg-white border-3 border-zinc-900 rounded-2xl sm:rounded-3xl z-10 overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] -rotate-2 anim-glow flex flex-col">
-                <img src="img/profile_home.png" alt="Yazid Asyharie" class="w-full flex-1 object-cover min-h-0">
-                <div class="bg-zinc-900 text-white px-3 py-2 flex justify-between items-center shrink-0">
-                    <span class="text-[8px] sm:text-[9px] font-mono font-bold text-amber-400">STATUS</span>
-                    <span class="text-[8px] sm:text-[9px] font-black flex items-center gap-1"><span class="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-400 rounded-full animate-pulse"></span>Available</span>
-                </div>
+            <div>
+                <div class="text-xl sm:text-2xl md:text-3xl font-black">3<span class="text-amber-500">+</span></div>
+                <div class="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-zinc-500">Projects</div>
             </div>
         </div>
     </div>
+    
+    <!-- EPIC PHOTO HEADER SECTION -->
+<div class="lg:col-span-5 flex justify-center items-end relative order-1 lg:order-2 pt-10 lg:pt-0 min-h-[460px] sm:min-h-[540px] lg:min-h-[620px]">      
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] z-0 opacity-70 pointer-events-none"></div>
+    
+    <div class="absolute w-4 h-4 bg-amber-400 border-2 border-zinc-900 top-16 left-10 z-0 shadow-[2px_2px_0_0_rgba(0,0,0,1)] animate-[spin_6s_linear_infinite]"></div>
+    <div class="absolute w-3 h-3 bg-zinc-900 border border-white bottom-28 right-12 z-0 shadow-[2px_2px_0_0_rgba(255,255,255,1)] animate-[ping_3s_ease-in-out_infinite]"></div>
+    <div class="absolute w-3 h-3 bg-emerald-400 border-2 border-zinc-900 top-32 right-16 z-0 shadow-[1px_1px_0_0_rgba(0,0,0,1)] animate-[float_4s_ease-in-out_infinite]"></div>
+
+    <div class="hero-photo-container relative z-10 flex items-end justify-center select-none mb-10 w-full" id="heroPhotoContainer">
+        
+        <div class="photo-glow"></div>
+        
+        <!-- <div class="absolute w-[22rem] h-[22rem] sm:w-[28.5rem] sm:h-[28.5rem] bg-[#a3e635] border-3 border-zinc-900 rounded-full bottom-[20px] left-1/2 -translate-x-1/2 z-0 shadow-[8px_8px_0_0_rgba(0,0,0,1)]"></div> -->
+        
+        <div class="absolute w-[28rem] h-[28rem] sm:w-[35rem] sm:h-[35rem] rounded-full bottom-[-20px] left-[54%] -translate-x-1/2 z-0 orbit-ring orbit-ring-1"></div>
+        <div class="absolute w-[24rem] h-[24rem] sm:w-[31rem] sm:h-[31rem] rounded-full bottom-[5px] left-[54%] -translate-x-1/2 z-0 orbit-ring orbit-ring-2"></div>
+        <div class="absolute w-[21rem] h-[21rem] sm:w-[27rem] sm:h-[27rem] rounded-full bottom-[25px] left-[54%] -translate-x-1/2 z-0 orbit-ring orbit-ring-3"></div>
+
+        <div class="sparkle sparkle-1"></div>
+        <div class="sparkle sparkle-2"></div>
+        <div class="sparkle sparkle-3"></div>
+        <div class="sparkle sparkle-4"></div>
+        <div class="sparkle sparkle-5"></div>
+        <div class="sparkle sparkle-6"></div>
+        <div class="sparkle sparkle-7"></div>
+        <div class="sparkle sparkle-8"></div>
+        
+        <div class="cross-particle cross-1">+</div>
+        <div class="cross-particle cross-2">×</div>
+        <div class="cross-particle cross-3">+</div>
+
+        <div class="hero-photo-wrapper relative flex items-end justify-center origin-bottom transform scale-[1.22] sm:scale-[1.32] lg:scale-[1.42]" id="heroPhotoWrapper">
+            <img src="img/profile-home.png" 
+                 alt="Yazid Asyharie" 
+                 draggable="false"
+                 class="hero-photo-img h-[340px] sm:h-[400px] lg:h-[430px] w-auto object-contain max-w-none"
+                 id="heroPhotoImg">
+        </div>
+    </div>
+
+    <div class="floating-badge absolute bottom-4 left-1/2 z-20 w-[92%] sm:w-[82%] bg-amber-400 border-3 border-zinc-900 px-4 py-3.5 text-center rounded-xl shadow-[6px_6px_0_0_rgba(0,0,0,1)] cursor-default">
+        <span class="text-zinc-950 text-xs sm:text-sm font-black uppercase tracking-wider block">
+            SOFTWARE ENGINEER PORTFOLIO
+        </span>
+    </div>
+</div>
+    
 </header>
 
 <!-- TICKER -->
@@ -391,7 +617,7 @@
         <!-- Garuda Pramuka -->
         <div class="crt bg-white/80 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 shadow-[5px_5px_0_0_rgba(0,0,0,1)] rv">
             <div class="space-y-2 sm:space-y-3">
-                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('cs')"><img src="sertificate/garuda_pramuka.png" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div>
+                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('cs')"><img src="sertificate/garuda_pramuka.png" draggable="false"alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div>
                 <div><span class="text-[8px] sm:text-[9px] font-mono font-black text-emerald-600 uppercase">Pramuka Garuda • 2024</span><h4 class="text-sm sm:text-base font-black uppercase">Highest Scout Rank</h4><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed mt-0.5">Verified absolute honesty, systematic discipline, and dependable task management under pressure.</p></div>
             </div>
             <div class="flex gap-2">
@@ -403,7 +629,7 @@
         <!-- JIP Internship -->
         <div class="crt bg-white/80 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 shadow-[5px_5px_0_0_rgba(0,0,0,1)] rv">
             <div class="space-y-2 sm:space-y-3">
-                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('ci')"><img src="sertificate/magang_jip.jpeg" alt="Internship Certificate" class="w-full h-full object-cover"></div>
+                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('ci')"><img src="sertificate/magang_jip.jpeg" draggable="false"alt="Internship Certificate" class="w-full h-full object-cover"></div>
                 <div><span class="text-[8px] sm:text-[9px] font-mono font-black text-blue-600 uppercase">PT JIP • 2025</span><h4 class="text-sm sm:text-base font-black uppercase">Industrial Internship</h4><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed mt-0.5">Completed 6-month frontend development internship with precision and accountability.</p></div>
             </div>
             <div class="flex gap-2">
@@ -415,7 +641,7 @@
         <!-- OSIS -->
         <div class="crt bg-white/80 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 shadow-[5px_5px_0_0_rgba(0,0,0,1)] rv">
             <div class="space-y-2 sm:space-y-3">
-                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('co')"><img src="sertificate/OSIS.jpg" alt="OSIS Certificate" class="w-full h-full object-cover"></div>
+                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('co')"><img src="sertificate/OSIS.jpg" draggable="false"alt="OSIS Certificate" class="w-full h-full object-cover"></div>
                 <div><span class="text-[8px] sm:text-[9px] font-mono font-black text-amber-600 uppercase">OSIS • 2025</span><h4 class="text-sm sm:text-base font-black uppercase">Division 3 Member — Character Development</h4><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed mt-0.5">Contributed to fostering noble character and moral values across the student body.</p></div>
             </div>
             <div class="flex gap-2">
@@ -427,7 +653,7 @@
         <!-- POTRAD — Lomba Terompah Panjang -->
         <div class="crt bg-white/80 border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 shadow-[5px_5px_0_0_rgba(0,0,0,1)] rv">
             <div class="space-y-2 sm:space-y-3">
-                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('cp')"><img src="sertificate/POTRAD.jpg" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div>
+                <div class="photo-card w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50 cursor-pointer" style="aspect-ratio:16/9" onclick="openM('cp')"><img src="sertificate/POTRAD.jpg" draggable="false" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div>
                 <div><span class="text-[8px] sm:text-[9px] font-mono font-black text-violet-600 uppercase">Traditional Sports • 2025</span><h4 class="text-sm sm:text-base font-black uppercase">1st Place — Terompah Panjang Race</h4><p class="text-[10px] sm:text-xs text-zinc-600 font-medium leading-relaxed mt-0.5">Champion in traditional stilts team race at Central Jakarta Traditional Sports Championship.</p></div>
             </div>
             <div class="flex gap-2">
@@ -446,7 +672,7 @@
         <div class="lg:col-span-2 bg-white/80 border-3 border-zinc-900 rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)]">
             <div class="bg-gradient-to-br from-amber-100 to-amber-200 p-4 sm:p-6 flex flex-col items-center relative">
                 <div class="absolute inset-0 bg-dots opacity-20"></div>
-                <img src="img/profile_contact.jpg" alt="Yazid Asyharie" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-zinc-900 z-10 shadow-[3px_3px_0_0_rgba(0,0,0,1)]">
+                <img src="img/profile_contact.jpg" draggable="false"alt="Yazid Asyharie" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-zinc-900 z-10 shadow-[3px_3px_0_0_rgba(0,0,0,1)]">
                 <h3 class="text-base sm:text-xl font-black mt-3 z-10 uppercase">Yazid Asyharie</h3><p class="text-[9px] sm:text-xs font-bold text-zinc-600 z-10 uppercase">Frontend Developer</p>
             </div>
             <div class="p-3 sm:p-5 space-y-2"><div class="flex items-center gap-2.5 text-[10px] sm:text-xs"><div class="w-7 h-7 bg-zinc-100 rounded-lg border border-zinc-300 flex items-center justify-center shrink-0 text-xs">📍</div><span class="font-medium text-zinc-600">Jakarta Selatan, DKI Jakarta</span></div><div class="flex items-center gap-2.5 text-[10px] sm:text-xs"><div class="w-7 h-7 bg-zinc-100 rounded-lg border border-zinc-300 flex items-center justify-center shrink-0 text-xs">📧</div><span class="font-medium text-zinc-600 break-all">7e.yazid.asyharie@gmail.com</span></div><div class="flex items-center gap-2.5 text-[10px] sm:text-xs"><div class="w-7 h-7 bg-zinc-100 rounded-lg border border-zinc-300 flex items-center justify-center shrink-0 text-xs">📞</div><span class="font-medium text-zinc-600">0857-7645-4076</span></div></div>
@@ -457,7 +683,7 @@
                 <div class="flex-1 min-w-0"><span class="text-[8px] sm:text-[9px] font-mono font-black text-emerald-600 uppercase block">WhatsApp Direct</span><span class="text-sm sm:text-lg font-black group-hover:underline">0857-7645-4076</span><p class="text-[9px] sm:text-[11px] text-zinc-500 mt-0.5">Available for instant messaging and calls</p></div><span class="text-xl sm:text-2xl font-black text-zinc-300 group-hover:text-zinc-900 transition-colors shrink-0">→</span>
             </a>
             <a href="https://www.instagram.com/yazidasyhariee/" target="_blank" class="group flex items-center gap-3 sm:gap-5 bg-white/80 border-3 border-zinc-900 rounded-2xl p-4 sm:p-5 shadow-[5px_5px_0_0_rgba(0,0,0,1)] hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] transition-all">
-                <div class="w-12 h-12 sm:w-16 sm:h-16 bg-pink-50 border-3 border-zinc-900 rounded-xl flex items-center justify-center shrink-0 shadow-[2px_2px_0_0_rgba(0,0,0,1)] group-hover:bg-pink-100 transition-colors"><svg class="w-6 h-6 sm:w-8 sm:h-8 text-pink-600" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m4.4 3a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m4.75-1a.75.75 0 0 1 .75.75.75.75 0 0 1-.75.75.75.75 0 0 1-.75-.75.75.75 0 0 1 .75-.75z"/></svg></div>
+                <div class="w-12 h-12 sm:w-16 sm:h-16 bg-pink-50 border-3 border-zinc-900 rounded-xl flex items-center justify-center shrink-0 shadow-[2px_2px_0_0_rgba(0,0,0,1)] group-hover:bg-pink-100 transition-colors"><svg class="w-6 h-6 sm:w-8 sm:h-8 text-pink-600" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m4.4 3.5c1.93 0 3.68.78 4.95 2.05l-1.41 1.41C14.63 8.05 13.38 7.5 12 7.5c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5c2.01 0 3.7-1.31 4.28-3.12H12v-1.88h6.43c.06.39.07.79.07 1.2 0 3.86-2.55 6.55-6.5 6.55C8.36 19.25 4.75 15.64 4.75 12S8.36 4.75 12 4.75v.75z"/></svg></div>
                 <div class="flex-1 min-w-0"><span class="text-[8px] sm:text-[9px] font-mono font-black text-pink-600 uppercase block">Instagram</span><span class="text-sm sm:text-lg font-black group-hover:underline">@yazidasyhariee</span><p class="text-[9px] sm:text-[11px] text-zinc-500 mt-0.5">Follow for updates and behind-the-scenes</p></div><span class="text-xl sm:text-2xl font-black text-zinc-300 group-hover:text-zinc-900 transition-colors shrink-0">→</span>
             </a>
             <a href="mailto:7e.yazid.asyharie@gmail.com" class="group flex items-center justify-center gap-2 bg-zinc-900 text-white border-3 border-zinc-900 rounded-2xl p-3 sm:p-4 shadow-[5px_5px_0_0_rgba(245,158,11,.4)] hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] transition-all"><span class="text-base sm:text-lg">✉️</span><span class="text-[10px] sm:text-sm font-black uppercase tracking-wider">Send Me an Email</span><span class="text-base sm:text-lg font-black">→</span></a>
@@ -535,7 +761,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         textGroup.classList.remove("opacity-100", "scale-100", "translate-y-0");
         textGroup.classList.add("opacity-0", "scale-95", "translate-y-8");
-    }, 3000); // Bertahan 3 detik lalu hilang otomatis
+    }, 1000); // Bertahan 1 detik lalu hilang otomatis
 });
 
 // ===== FLOATING BACKGROUND MUSIC SYSTEM =====
@@ -587,10 +813,10 @@ var mdata={
 pa:{t:'FAYABI Workshops',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><video src="img/project_a.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Digital Automotive Platform</h4><p>FAYABI Workshops is a comprehensive digital platform for your two-wheeled automotive needs. It offers features for buying and selling new and used motorcycles, workshop service bookings, technical consultations, and vehicle maintenance management—all within one ecosystem.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-amber-50 border border-amber-300 text-amber-700 text-[9px] font-black uppercase rounded-md">HTML/CSS</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">JavaScript</span><span class="px-2 py-1 bg-cyan-50 border border-cyan-300 text-cyan-700 text-[9px] font-black uppercase rounded-md">Tailwind</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
 pb:{t:'PointKu - Digital Scoring',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50" style="aspect-ratio:16/9"><video src="img/project_b.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Transparent Competition Scoring System</h4><p>PointKu is a digital-based competition scoring application designed to ensure transparency, fairness, and accountability in every judging process. Judges can score in real time, and participants and the public can monitor the results directly.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-indigo-50 border border-indigo-300 text-indigo-700 text-[9px] font-black uppercase rounded-md">PHP</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span><span class="px-2 py-1 bg-sky-50 border border-sky-300 text-sky-700 text-[9px] font-black uppercase rounded-md">MySQL</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
 pc:{t:'Google Sheet',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><video src="img/project_c.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Spreadsheet Operasional</h4><p>Sheet demonstrates my expertise in designing and managing spreadsheets for operational needs — from recording financial data, inventory, scheduling, to automating calculations with neat and efficient formulas & pivot tables.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-emerald-50 border border-emerald-300 text-emerald-700 text-[9px] font-black uppercase rounded-md">Google Sheets</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">MS Excel</span><span class="px-2 py-1 bg-violet-50 border border-violet-300 text-violet-700 text-[9px] font-black uppercase rounded-md">Data Analysis</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
-cs:{t:'Pramuka Garuda Certification',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 mx-auto" style="aspect-ratio:3/4;max-width:360px"><img src="sertificate/ser_garuda.png" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Highest Scout Rank Achievement</h4><p>The Pramuka Garuda is the highest rank in Indonesian Scouting, awarded only to those who demonstrate exceptional character:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Absolute Honesty</strong> — unwavering truthfulness in all actions</li><li><strong class="text-zinc-900">Systematic Discipline</strong> — consistent adherence to commitments</li><li><strong class="text-zinc-900">Dependable Task Management</strong> — reliable execution under pressure</li><li><strong class="text-zinc-900">Community Leadership</strong> — responsibility for the welfare of others</li></ul><p class="text-[11px] text-zinc-500">Issued by: Kwarcab Jakarta Selatan | Year: 2024</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_garuda.png\',\'Pramuka_Garuda_Certificate\')">⬇ Download Certificate</button></div>'},
-ci:{t:'Industrial Internship Certificate',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><img src="sertificate/ser_jip.jpg" alt="Internship Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">PT JIP Internship Verification</h4><p>Official verification of successful 6-month frontend development internship at PT Jakarta Infrastruktur Propertindo — Telco Business Engineering Development division:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Frontend Interface Development</strong> — pixel-perfect web interfaces</li><li><strong class="text-zinc-900">Sprint Target Achievement</strong> — consistent enterprise delivery</li><li><strong class="text-zinc-900">Team Collaboration</strong> — formal engineering environments</li><li><strong class="text-zinc-900">Technical Documentation</strong> — structured project reports</li></ul><p class="text-[11px] text-zinc-500">Period: July 2025 — December 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_jip.jpg\',\'JIP_Internship_Certificate\')">⬇ Download Certificate</button></div>'},
-co:{t:'OSIS Division 3 & Vice Chairman',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><img src="sertificate/ser_osis.png" alt="OSIS Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Division 3 Member — Character Development</h4><p>Appointed as a member of <strong>Division 3: Character and Noble Values Development</strong> within OSIS SMK Negeri 2 Jakarta:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Character Building Programs</strong> — designing activities that foster moral integrity</li><li><strong class="text-zinc-900">Student Mentorship</strong> — guiding peers in ethical decision-making</li><li><strong class="text-zinc-900">Event Coordination</strong> — organizing school events and programs</li></ul><div class="mt-3 p-3 bg-zinc-900 text-white rounded-xl border-2 border-zinc-900"><span class="text-[9px] font-mono font-black text-amber-400 uppercase block mb-1">Previous Role</span><p class="text-xs font-bold">Served as <span class="text-amber-400 font-black">Vice Chairman of OSIS (2023/2024)</span> — certificate was not issued for that term, but the leadership experience was real and impactful.</p></div><p class="text-[11px] text-zinc-500">Certificate issued: 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_osis.png\',\'OSIS_Division3_Certificate\')">⬇ Download Certificate</button></div>'},
-cp:{t:'1st Place — Terompah Panjang Race',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50" style="aspect-ratio:16/9"><img src="sertificate/ser_potrad.png" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Juara 1 — Lomba Terompah Panjang Beregu Putra</h4><p>Won <strong>1st Place</strong> in the Traditional Stilts Team Race (Terompah Panjang Beregu Putra) at the <strong>Kejuaraan Pekan Olahraga Tradisional Wilayah Jakarta Pusat</strong> (Central Jakarta Traditional Sports Championship).</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Team Coordination</strong> — synchronized movement with teammates on traditional stilts</li><li><strong class="text-zinc-900">Physical Endurance</strong> — sustained balance and speed under competitive pressure</li><li><strong class="text-zinc-900">Cultural Preservation</strong> — representing and promoting Indonesian traditional sports</li><li><strong class="text-zinc-900">Competitive Spirit</strong> — achieving the top position among schools across Central Jakarta</li></ul><p class="text-[11px] text-zinc-500">Organized by: Suku Dinas Pemuda dan Olahraga Kota Administrasi Jakarta Pusat | Date: May 8, 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_potrad.png\',\'Terompah_Panjang_1st_Place\')">⬇ Download Certificate</button></div>'},
+cs:{t:'Pramuka Garuda Certification',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 mx-auto" style="aspect-ratio:3/4;max-width:360px"><img src="sertificate/ser_garuda.png" draggable="false" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Highest Scout Rank Achievement</h4><p>The Pramuka Garuda is the highest rank in Indonesian Scouting, awarded only to those who demonstrate exceptional character:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Absolute Honesty</strong> — unwavering truthfulness in all actions</li><li><strong class="text-zinc-900">Systematic Discipline</strong> — consistent adherence to commitments</li><li><strong class="text-zinc-900">Dependable Task Management</strong> — reliable execution under pressure</li><li><strong class="text-zinc-900">Community Leadership</strong> — responsibility for the welfare of others</li></ul><p class="text-[11px] text-zinc-500">Issued by: Kwarcab Jakarta Selatan | Year: 2024</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_garuda.png\',\'Pramuka_Garuda_Certificate\')">⬇ Download Certificate</button></div>'},
+ci:{t:'Industrial Internship Certificate',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><img src="sertificate/ser_jip.jpg" draggable="false" alt="Internship Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">PT JIP Internship Verification</h4><p>Official verification of successful 6-month frontend development internship at PT Jakarta Infrastruktur Propertindo — Telco Business Engineering Development division:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Frontend Interface Development</strong> — pixel-perfect web interfaces</li><li><strong class="text-zinc-900">Sprint Target Achievement</strong> — consistent enterprise delivery</li><li><strong class="text-zinc-900">Team Collaboration</strong> — formal engineering environments</li><li><strong class="text-zinc-900">Technical Documentation</strong> — structured project reports</li></ul><p class="text-[11px] text-zinc-500">Period: July 2025 — December 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_jip.jpg\',\'JIP_Internship_Certificate\')">⬇ Download Certificate</button></div>'},
+co:{t:'OSIS Division 3 & Vice Chairman',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><img src="sertificate/ser_osis.png" draggable="false" alt="OSIS Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Division 3 Member — Character Development</h4><p>Appointed as a member of <strong>Division 3: Character and Noble Values Development</strong> within OSIS SMK Negeri 2 Jakarta:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Character Building Programs</strong> — designing activities that foster moral integrity</li><li><strong class="text-zinc-900">Student Mentorship</strong> — guiding peers in ethical decision-making</li><li><strong class="text-zinc-900">Event Coordination</strong> — organizing school events and programs</li></ul><div class="mt-3 p-3 bg-zinc-900 text-white rounded-xl border-2 border-zinc-900"><span class="text-[9px] font-mono font-black text-amber-400 uppercase block mb-1">Previous Role</span><p class="text-xs font-bold">Served as <span class="text-amber-400 font-black">Vice Chairman of OSIS (2023/2024)</span> — certificate was not issued for that term, but the leadership experience was real and impactful.</p></div><p class="text-[11px] text-zinc-500">Certificate issued: 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_osis.png\',\'OSIS_Division3_Certificate\')">⬇ Download Certificate</button></div>'},
+cp:{t:'1st Place — Terompah Panjang Race',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50" style="aspect-ratio:16/9"><img src="sertificate/ser_potrad.png" draggable="false" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Juara 1 — Lomba Terompah Panjang Beregu Putra</h4><p>Won <strong>1st Place</strong> in the Traditional Stilts Team Race (Terompah Panjang Beregu Putra) at the <strong>Kejuaraan Pekan Olahraga Tradisional Wilayah Jakarta Pusat</strong> (Central Jakarta Traditional Sports Championship).</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Team Coordination</strong> — synchronized movement with teammates on traditional stilts</li><li><strong class="text-zinc-900">Physical Endurance</strong> — sustained balance and speed under competitive pressure</li><li><strong class="text-zinc-900">Cultural Preservation</strong> — representing and promoting Indonesian traditional sports</li><li><strong class="text-zinc-900">Competitive Spirit</strong> — achieving the top position among schools across Central Jakarta</li></ul><p class="text-[11px] text-zinc-500">Organized by: Suku Dinas Pemuda dan Olahraga Kota Administrasi Jakarta Pusat | Date: May 8, 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_potrad.png\',\'Terompah_Panjang_1st_Place\')">⬇ Download Certificate</button></div>'},
 };
 function openM(id){var d=mdata[id];if(!d)return;document.getElementById('mT').textContent=d.t;document.getElementById('mB').innerHTML=d.b;document.getElementById('mO').classList.add('on');document.body.style.overflow='hidden'}
 function closeM(){document.getElementById('mO').classList.remove('on');document.body.style.overflow=''}
@@ -722,6 +948,39 @@ rvs.forEach(function(el){rob.observe(el)});
     // Jalankan saat halaman selesai dimuat agar posisi awal langsung terbaca
     window.addEventListener('DOMContentLoaded', upd);
     upd();
+})();
+
+// ===== EPIC HEADER PHOTO - 3D TILT PARALLAX EFFECT =====
+(function() {
+    var container = document.getElementById('heroPhotoContainer');
+    var wrapper = document.getElementById('heroPhotoWrapper');
+    
+    if (!container || !wrapper) return;
+    
+    // Only enable on non-touch devices (lg screens)
+    var isTouchDevice = window.matchMedia('(max-width: 1023px)').matches;
+    if (isTouchDevice) return;
+    
+    container.addEventListener('mousemove', function(e) {
+        var rect = container.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
+        
+        // Calculate rotation (max 15 degrees)
+        var rotateX = ((y - centerY) / centerY) * -12;
+        var rotateY = ((x - centerX) / centerX) * 12;
+        
+        // Apply 3D transform with scale preserved
+        wrapper.style.transform = 'scale(1.28) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+    });
+    
+    container.addEventListener('mouseleave', function() {
+        // Reset to original position with smooth transition
+        wrapper.style.transform = 'scale(1.28) rotateX(0deg) rotateY(0deg)';
+    });
 })();
 </script>
 </body>
