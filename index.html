@@ -8,6 +8,62 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+    animation: spin-slow 10s linear infinite !important;
+}
+/* Container Utama: Menggunakan basis kaca gelap translusen ala iOS */
+.ios-premium-glass {
+    background: rgba(30, 30, 30, 0.35) !important;
+    backdrop-filter: blur(30px) saturate(210%) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(210%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Kapsul Indikator yang Mengikuti Menu Aktif */
+.ios-active-indicator {
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Kurva Animasi Geser */
+#navIndicator {
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.2, 1.05), width 0.45s cubic-bezier(0.25, 1, 0.2, 1.05) !important;
+    will-change: transform, width;
+}
+
+/* State Awal Item Menu (Pasif/Tidak Terpilih) */
+/* Menggunakan warna putih transparan agar kontras otomatis di background terang maupun gelap */
+.mob-link .nav-icon,
+.mob-link .nav-text {
+    color: rgba(255, 255, 255, 0.6) !important;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* State Ketika Menu Aktif (Berada di atas Kapsul Putih) */
+.mob-link.is-active .nav-icon {
+    color: #f59e0b !important; /* Sentuhan ikon Amber premium */
+    transform: scale(1.15) translateY(-1px);
+}
+
+.mob-link.is-active .nav-text {
+    color: #18181b !important; /* Teks Hitam Pekat agar super kontras di atas kapsul putih */
+}
+
+/* Pembersihan Efek Tap Mobile */
+.mob-link {
+    -webkit-tap-highlight-color: transparent;
+}
         *,*::before,*::after{font-family:'Inter',sans-serif;box-sizing:border-box}
         html{overflow-x:hidden!important;scroll-behavior:auto!important}
         body{overflow-x:hidden!important;max-width:100vw}
@@ -37,6 +93,7 @@
     transition: all .25s ease;
     border-bottom: 2px solid transparent;
 }
+
 .mob-link.active {
     background: #fef9c3!important;
     color: #18181b!important;
@@ -308,8 +365,8 @@
         <a href="#about" class="flex items-center shrink-0">
             <span class="text-lg sm:text-xl md:text-2xl font-black tracking-tighter">YA<span class="text-amber-500">.</span></span>
         </a>
+        
         <div class="hidden md:flex items-center gap-5 lg:gap-6 text-[10px] lg:text-xs font-black uppercase tracking-wider">
-            <!-- <a href="#home" data-nav="home" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Home</a> -->
             <a href="#about" data-nav="about" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Home</a>
             <a href="#skills" data-nav="skills" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Skills</a>
             <a href="#projects" data-nav="projects" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Projects</a>
@@ -317,28 +374,61 @@
             <a href="#contact" data-nav="contact" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Contact</a>
             <a href="mailto:7e.yazid.asyharie@gmail.com" class="px-3 lg:px-4 py-2 bg-amber-400 text-zinc-950 border-2 border-zinc-900 rounded-xl hover:bg-amber-300 hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all shadow-[3px_3px_0_0_rgba(0,0,0,1)] text-[10px] font-black whitespace-nowrap">HIRE ME →</a>
         </div>
+
         <div class="flex md:hidden items-center gap-2">
             <a href="mailto:7e.yazid.asyharie@gmail.com" class="px-2.5 py-1.5 bg-amber-400 text-zinc-950 border-2 border-zinc-900 rounded-lg font-black text-[8px] uppercase tracking-wide shadow-[2px_2px_0_0_rgba(0,0,0,1)] whitespace-nowrap">HIRE ME</a>
-            <button id="menuBtn" onclick="toggleMenu()" class="w-9 h-9 flex items-center justify-center border-2 border-zinc-900 rounded-lg bg-white shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all shrink-0">
-                <svg id="menuIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                    <line x1="3" y1="6" x2="17" y2="6"/>
-                    <line x1="3" y1="12" x2="17" y2="12"/>
-                </svg>
-            </button>
         </div>
     </nav>
-    <div class="flex md:hidden items-center gap-2 relative">
-        <div id="mobileMenu" class="mob-menu absolute top-[calc(100%+0.75rem)] right-0 w-44 bg-[#F9F8F3]/97 backdrop-blur-md border-2 border-zinc-900 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] z-50">
-            <div class="flex flex-col p-2 gap-1.5 text-center">
-                <a href="#about" data-nav="about" onclick="closeMenu()" class="mob-link text-[11px] sm:text-xs font-black uppercase tracking-wider text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 py-2.5 px-2 rounded-xl transition-colors text-center block w-full">Home 🏠</a>
-                <a href="#skills" data-nav="skills" onclick="closeMenu()" class="mob-link text-[11px] sm:text-xs font-black uppercase tracking-wider text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 py-2.5 px-2 rounded-xl transition-colors text-center block w-full">Skills ⚡</a>
-                <a href="#projects" data-nav="projects" onclick="closeMenu()" class="mob-link text-[11px] sm:text-xs font-black uppercase tracking-wider text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 py-2.5 px-2 rounded-xl transition-colors text-center block w-full">Projects 🚀</a>
-                <a href="#certificates" data-nav="certificates" onclick="closeMenu()" class="mob-link text-[11px] sm:text-xs font-black uppercase tracking-wider text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 py-2.5 px-2 rounded-xl transition-colors text-center block w-full">Certs 📜</a>
-                <a href="#contact" data-nav="contact" onclick="closeMenu()" class="mob-link text-[11px] sm:text-xs font-black uppercase tracking-wider text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 py-2.5 px-2 rounded-xl transition-colors text-center block w-full">Contact 📞</a>
-            </div>
+</div>
+
+<div id="bottomNav" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[420px] z-[999999] ios-premium-glass rounded-[24px] p-1.5 flex items-center justify-between md:hidden select-none">
+    
+    <div id="navIndicator" class="absolute top-1.5 bottom-1.5 left-0 ios-active-indicator rounded-[18px]" style="width: 0px; transform: translateX(0px);"></div>
+    
+    <a href="#about" data-nav="about" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-2">
+        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span class="nav-text text-[8px] font-black uppercase tracking-wider mt-1">Home</span>
+    </a>
+    <a href="#skills" data-nav="skills" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-2">
+        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <span class="nav-text text-[8px] font-black uppercase tracking-wider mt-1">Skills</span>
+    </a>
+    <a href="#projects" data-nav="projects" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-2">
+        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+        <span class="nav-text text-[8px] font-black uppercase tracking-wider mt-1">Projects</span>
+    </a>
+    <a href="#certificates" data-nav="certificates" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-2">
+        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <span class="nav-text text-[8px] font-black uppercase tracking-wider mt-1">Certs</span>
+    </a>
+    <a href="#contact" data-nav="contact" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-2">
+        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        <span class="nav-text text-[8px] font-black uppercase tracking-wider mt-1">Contact</span>
+    </a>
+
+    <button onclick="toggleMusic()" class="relative z-10 flex-1 flex flex-col items-center justify-center py-2 focus:outline-none -webkit-tap-highlight-color: transparent;">
+        <div id="navMusicWrapper" class="p-1.5 rounded-full bg-transparent transition-all duration-300">
+            <svg id="musicIcon" class="w-4 h-4 text-white/60 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+            </svg>
         </div>
+        <span id="musicTextStatus" class="text-[7px] text-white/40 font-black uppercase tracking-widest mt-0.5">OFF</span>
+    </button>
+</div>
+
+
+<div class="hidden md:flex fixed bottom-6 left-6 z-[999999] items-center gap-3 select-none">
+    <button onclick="toggleMusic()" id="pcMusicBtn" class="w-12 h-12 flex items-center justify-center bg-white text-zinc-950 border-2 border-zinc-900 rounded-full shadow-[3px_3px_0_0_rgba(0,0,0,1)] hover:bg-zinc-50 active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all duration-150 focus:outline-none">
+        <svg id="pcMusicIcon" class="w-5 h-5 fill-current transition-transform duration-300" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h6V3h-6z"/>
+        </svg>
+    </button>
+    <div id="pcMusicStatusBox" class="bg-zinc-950 text-white border-2 border-zinc-900 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_rgba(0,0,0,1)] transition-colors duration-300">
+        SOUNDTRACK: <span id="pcMusicTextStatus" class="text-zinc-400">OFF</span>
     </div>
 </div>
+
+<audio id="bgMusic" src="img/bg_music.mp3" loop></audio>
 
 <!-- HERO -->
 <header id="about" class="max-w-6xl mx-auto px-4 md:px-6 pt-16 sm:pt-20 md:pt-28 pb-10 md:pb-16 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-10 overflow-hidden">
@@ -713,18 +803,19 @@
     </div>
 </div>
 
-<audio id="bgMusic" src="img/bg_music.mp3" loop></audio>
+<!-- <audio id="bgMusic" src="img/bg_music.mp3" loop></audio>
 
-<div class="fixed bottom-4 left-4 z-50 flex items-center gap-2 pointer-events-auto">
-    <button id="musicBtn" onclick="toggleMusic()" class="w-12 h-12 flex items-center justify-center bg-lime-400 text-zinc-950 border-2 border-zinc-900 rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all duration-200 focus:outline-none">
+<div class="fixed bottom-24 sm:bottom-4 left-4 z-[999999] flex items-center gap-2 pointer-events-auto select-none">
+    <button id="musicBtn" onclick="toggleMusic()" class="w-12 h-12 flex items-center justify-center bg-lime-400 text-zinc-950 border-2 border-zinc-900 rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all duration-200 focus:outline-none -webkit-tap-highlight-color: transparent;">
         <svg id="musicIcon" class="w-5 h-5 fill-current" viewBox="0 0 24 24">
             <path d="M8 5v14l11-7z"/>
         </svg>
     </button>
+    
     <span id="musicStatus" class="bg-white border-2 border-zinc-900 px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-wider shadow-[2px_2px_0_0_rgba(0,0,0,1)] hidden sm:inline-block">
         Music: OFF
     </span>
-</div>
+</div> -->
 
 <style>
     @keyframes spin {
@@ -737,78 +828,77 @@
 </style>
 
 <script>
-// ===== HIGH PERFORMANCE WELCOME OVERLAY SYSTEM (FIXED) =====
+// ===== HIGH PERFORMANCE WELCOME OVERLAY SYSTEM =====
 document.addEventListener("DOMContentLoaded", function () {
     const overlay = document.getElementById("welcomeOverlay");
     const textGroup = document.getElementById("welcomeTextGroup");
 
-    // --- FASE 1: MUNCUL AGRESIF ---
-    setTimeout(() => {
-        overlay.classList.remove("opacity-0", "backdrop-blur-0", "pointer-events-none");
-        overlay.classList.add("opacity-100", "backdrop-blur-md");
-        
-        textGroup.classList.remove("opacity-0", "scale-50", "-translate-y-16");
-        textGroup.classList.add("opacity-100", "scale-100", "translate-y-0");
-    }, 200);
+    if(overlay && textGroup) {
+        setTimeout(() => {
+            overlay.classList.remove("opacity-0", "backdrop-blur-0", "pointer-events-none");
+            overlay.classList.add("opacity-100", "backdrop-blur-md");
+            
+            textGroup.classList.remove("opacity-0", "scale-50", "-translate-y-16");
+            textGroup.classList.add("opacity-100", "scale-100", "translate-y-0");
+        }, 200);
 
-    // --- FASE 2: HILANG SUPER SMOOTH ---
-    setTimeout(() => {
-        overlay.style.transitionDuration = "800ms";
-        textGroup.style.transitionDuration = "800ms";
-        
-        overlay.classList.remove("opacity-100", "backdrop-blur-md");
-        overlay.classList.add("opacity-0", "backdrop-blur-0", "pointer-events-none");
-        
-        textGroup.classList.remove("opacity-100", "scale-100", "translate-y-0");
-        textGroup.classList.add("opacity-0", "scale-95", "translate-y-8");
-    }, 1000); // Bertahan 1 detik lalu hilang otomatis
+        setTimeout(() => {
+            overlay.style.transitionDuration = "800ms";
+            textGroup.style.transitionDuration = "800ms";
+            
+            overlay.classList.remove("opacity-100", "backdrop-blur-md");
+            overlay.classList.add("opacity-0", "backdrop-blur-0", "pointer-events-none");
+            
+            textGroup.classList.remove("opacity-100", "scale-100", "translate-y-0");
+            textGroup.classList.add("opacity-0", "scale-95", "translate-y-8");
+        }, 2000);
+    }
 });
 
-// ===== FLOATING BACKGROUND MUSIC SYSTEM =====
-var audio = document.getElementById('bgMusic');
-var btn = document.getElementById('musicBtn');
-var icon = document.getElementById('musicIcon');
-var statusTxt = document.getElementById('musicStatus');
-
 function toggleMusic() {
+    var audio = document.getElementById('bgMusic');
+    if (!audio) return;
+
+    // Element Mobile
+    var iconMob = document.getElementById('musicIcon');
+    var txtMob = document.getElementById('musicTextStatus');
+    var wrapMob = document.getElementById('navMusicWrapper');
+
+    // Element PC
+    var btnPc = document.getElementById('pcMusicBtn');
+    var iconPc = document.getElementById('pcMusicIcon');
+    var txtPc = document.getElementById('pcMusicTextStatus');
+    var boxPc = document.getElementById('pcMusicStatusBox');
+    
     if (audio.paused) {
         audio.play().then(function() {
-            // Saat musik jalan: tombol muter, status berubah, ikon jadi Pause
-            btn.classList.add('animate-spin-slow');
-            btn.classList.remove('bg-lime-400');
-            btn.classList.add('bg-rose-400'); // Berubah warna jadi merah muda pas main
-            statusTxt.innerText = "Music: ON";
-            
-            // Ubah SVG ke ikon Pause
-            icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-        }).catch(function(error) {
-            console.log("Autoplay diblokir browser, butuh klik user pertama kali:", error);
-        });
+            // Efek Animasi & Warna di Mobile (iOS Style)
+            if(iconMob) iconMob.classList.add('music-playing-active');
+            if(wrapMob) wrapMob.style.background = 'rgba(34, 197, 94, 0.15)';
+            if(txtMob) { txtMob.innerText = "ON"; txtMob.style.color = "#22c55e"; }
+
+            // Efek Animasi & Warna di PC (Neo-Brutalisme Style)
+            if(btnPc) { btnPc.classList.remove('bg-white'); btnPc.classList.add('bg-amber-400'); btnPc.classList.add('animate-spin-slow'); }
+            if(boxPc) { boxPc.classList.remove('bg-zinc-950'); boxPc.classList.add('bg-zinc-900'); }
+            if(txtPc) { txtPc.innerText = "ON"; txtPc.style.color = "#fbbf24"; }
+            if(iconPc) iconPc.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; // Berubah jadi ikon pause pejal
+        }).catch(function(err) { console.log("Autoplay diblokir browser:", err); });
     } else {
-        // Saat musik di-pause
         audio.pause();
-        btn.classList.remove('animate-spin-slow');
-        btn.classList.remove('bg-rose-400');
-        btn.classList.add('bg-lime-400');
-        statusTxt.innerText = "Music: OFF";
-        
-        // Kembalikan SVG ke ikon Play
-        icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+        // Matikan Efek di Mobile
+        if(iconMob) iconMob.classList.remove('music-playing-active');
+        if(wrapMob) wrapMob.style.background = 'transparent';
+        if(txtMob) { txtMob.innerText = "OFF"; txtMob.style.color = "rgba(255,255,255,0.4)"; }
+
+        // Matikan Efek di PC
+        if(btnPc) { btnPc.classList.remove('bg-amber-400'); btnPc.classList.add('bg-white'); btnPc.classList.remove('animate-spin-slow'); }
+        if(boxPc) { boxPc.classList.remove('bg-zinc-900'); boxPc.classList.add('bg-zinc-950'); }
+        if(txtPc) { txtPc.innerText = "OFF"; txtPc.style.color = "#a1a1aa"; }
+        if(iconPc) iconPc.innerHTML = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h6V3h-6z"/>'; // Balik jadi not balok
     }
 }
 
-// ===== MINIMALIST DROPDOWN MOBILE MENU =====
-var menuOpen = false;
-function toggleMenu(){
-    menuOpen = !menuOpen;
-    document.getElementById('mobileMenu').classList.toggle('open', menuOpen);
-}
-function closeMenu(){
-    menuOpen = false;
-    document.getElementById('mobileMenu').classList.remove('open');
-}
-
-// ===== MODAL =====
+// ===== MODAL DATA SYSTEM =====
 var mdata={
 pa:{t:'FAYABI Workshops',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><video src="img/project_a.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Digital Automotive Platform</h4><p>FAYABI Workshops is a comprehensive digital platform for your two-wheeled automotive needs. It offers features for buying and selling new and used motorcycles, workshop service bookings, technical consultations, and vehicle maintenance management—all within one ecosystem.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-amber-50 border border-amber-300 text-amber-700 text-[9px] font-black uppercase rounded-md">HTML/CSS</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">JavaScript</span><span class="px-2 py-1 bg-cyan-50 border border-cyan-300 text-cyan-700 text-[9px] font-black uppercase rounded-md">Tailwind</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
 pb:{t:'PointKu - Digital Scoring',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50" style="aspect-ratio:16/9"><video src="img/project_b.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Transparent Competition Scoring System</h4><p>PointKu is a digital-based competition scoring application designed to ensure transparency, fairness, and accountability in every judging process. Judges can score in real time, and participants and the public can monitor the results directly.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-indigo-50 border border-indigo-300 text-indigo-700 text-[9px] font-black uppercase rounded-md">PHP</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span><span class="px-2 py-1 bg-sky-50 border border-sky-300 text-sky-700 text-[9px] font-black uppercase rounded-md">MySQL</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
@@ -834,9 +924,9 @@ function dlCert(url,filename){
     }).catch(function(){window.open(url,'_blank')});
 }
 
-// ===== NAVBAR SCROLL =====
+// ===== NAVBAR SCROLL EFFEK =====
 var nav=document.getElementById('nav');
-window.addEventListener('scroll',function(){nav.classList.toggle('nav-scroll',window.scrollY>20)});
+window.addEventListener('scroll',function(){if(nav) nav.classList.toggle('nav-scroll',window.scrollY>20)});
 
 // ===== CAROUSEL =====
 var ctrack=document.getElementById('ctrack');
@@ -859,7 +949,7 @@ var sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
 cdots.forEach(function(d){d.addEventListener('click',function(){ci=parseInt(this.getAttribute('data-i'));updS();clearInterval(sint);sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur)})});
 window.addEventListener('resize',updS);updS();
 
-// Touch swipe for carousel
+// Touch swipe untuk carousel
 var touchStartX=0;
 if(ctrack){
     ctrack.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].screenX},{passive:true});
@@ -874,15 +964,15 @@ if(ctrack){
     },{passive:true});
 }
 
-// ===== SMOOTH SCROLL =====
+// ===== SMOOTH SCROLL (LINK KLIK NAVBAR) =====
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click',function(e){
         var h=this.getAttribute('href');
         if(!h||h==='#')return;
-        e.preventDefault();closeMenu();
+        e.preventDefault();
         var t=document.querySelector(h);
         if(!t)return;
-        var off=window.innerWidth>=768?110:72;
+        var off = window.innerWidth >= 768 ? 110 : 20;
         var tp=t.getBoundingClientRect().top+window.scrollY-off;
         var sp=window.scrollY;var dist=tp-sp;var st=null;var dur=800;
         function ease(t,b,c,d){t/=d/2;if(t<1)return c/2*t*t+b;t--;return-c/2*(t*(t-2)-1)+b}
@@ -896,44 +986,90 @@ var rvs=document.querySelectorAll('.rv,.rv-l,.rv-r');
 var rob=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting)en.target.classList.add('show')})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 rvs.forEach(function(el){rob.observe(el)});
 
-// ===== ACTIVE NAV — SMOOTH & ACCURATE =====
+// ===== iOS 27 REAL-TIME PRECISION NAV SYSTEM =====
 (function(){
-    // Menghapus 'home' karena di HTML kamu langsung menggunakan 'about' sebagai Home
     var secs = ['about', 'skills', 'projects', 'certificates', 'contact'];
     var cur = 'about';
     var ticking = false;
+    
+    var elNav = document.getElementById('bottomNav');
+    var indicator = document.getElementById('navIndicator');
+
+    // Suntik langsung ke <body> agar terlepas dari belenggu layout container induk
+    if (elNav && elNav.parentElement !== document.body) {
+        document.body.appendChild(elNav);
+    }
+
+    // Fungsi utama pencari posisi koordinat absolut elemen menu aktif
+    function moveIndicatorAbsolute(activeLink) {
+        if (!indicator || !elNav || !activeLink) return;
+
+        requestAnimationFrame(function() {
+            var navRect = elNav.getBoundingClientRect();
+            var linkRect = activeLink.getBoundingClientRect();
+
+            // Hitung selisih jarak koordinat X antara kontainer bar dengan item menu
+            var leftPos = linkRect.left - navRect.left;
+            var widthPos = linkRect.width;
+
+            // Berikan kecocokan ukuran presisi 100% tepat di tengah kotak item menu
+            indicator.style.width = widthPos + 'px';
+            indicator.style.transform = 'translateX(' + leftPos + 'px)';
+        });
+    }
 
     function upd(){
         var found = 'about';
-        
-        // Menggunakan batas deteksi 200px dari atas layar agar pergantian terasa pas saat di-scroll
-        var triggerOffset = 200; 
+        var triggerOffset = window.innerHeight * 0.35;
 
         for (var i = 0; i < secs.length; i++) {
             var el = document.getElementById(secs[i]);
             if (el) {
                 var rect = el.getBoundingClientRect();
-                // Jika bagian atas section sudah melewati batas triggerOffset, tandai sebagai aktif
                 if (rect.top <= triggerOffset) {
                     found = secs[i];
                 }
             }
         }
 
-        if (found !== cur) {
+// Gunakan script presisi pengukur getBoundingClientRect() yang kemarin kita buat.
+// Pastikan blok update kelasnya murni mengatur 'is-active' saja:
+document.querySelectorAll('.mob-link').forEach(function(a){
+    var match = a.getAttribute('data-nav') === cur;
+    if(match) {
+        a.classList.add('is-active');
+        activeTarget = a;
+    } else {
+        a.classList.remove('is-active');
+    }
+});
+
+        if (found !== cur || !indicator.style.width || indicator.style.width === '0px') {
             cur = found;
+            var activeTarget = null;
             
-            // Update kelas active untuk Desktop (.nav-link)
+            // Sinkronisasi Navigasi PC Desktop
             document.querySelectorAll('.nav-link').forEach(function(a){
                 var match = a.getAttribute('data-nav') === cur;
                 a.classList.toggle('active', match);
             });
             
-            // Update kelas active untuk Mobile (.mob-link)
+            // Sinkronisasi Navigasi Mobile
             document.querySelectorAll('.mob-link').forEach(function(a){
                 var match = a.getAttribute('data-nav') === cur;
-                a.classList.toggle('active', match);
+                if(match) {
+                    a.classList.remove('text-zinc-500');
+                    a.classList.add('is-active');
+                    activeTarget = a; // Tandai elemen HTML ini sebagai target kalkulasi
+                } else {
+                    a.classList.remove('is-active');
+                    a.classList.add('text-zinc-500');
+                }
             });
+
+            if (activeTarget) {
+                moveIndicatorAbsolute(activeTarget);
+            }
         }
         ticking = false;
     }
@@ -945,9 +1081,19 @@ rvs.forEach(function(el){rob.observe(el)});
         }
     });
 
-    // Jalankan saat halaman selesai dimuat agar posisi awal langsung terbaca
-    window.addEventListener('DOMContentLoaded', upd);
-    upd();
+    // Jalankan kalkulasi ulang saat layar di-resize agar posisi indikator tidak tertinggal
+    window.addEventListener('resize', function() {
+        var activeLink = elNav.querySelector('.mob-link.is-active');
+        if (activeLink) moveIndicatorAbsolute(activeLink);
+    });
+
+    // Inisialisasi awal saat halaman selesai dimuat
+    window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(upd, 150);
+    });
+    
+    // Pemicu darurat untuk memastikan rendering posisi langsung tepat sasaran
+    setTimeout(upd, 350);
 })();
 
 // ===== EPIC HEADER PHOTO - 3D TILT PARALLAX EFFECT =====
@@ -957,7 +1103,6 @@ rvs.forEach(function(el){rob.observe(el)});
     
     if (!container || !wrapper) return;
     
-    // Only enable on non-touch devices (lg screens)
     var isTouchDevice = window.matchMedia('(max-width: 1023px)').matches;
     if (isTouchDevice) return;
     
@@ -969,16 +1114,13 @@ rvs.forEach(function(el){rob.observe(el)});
         var centerX = rect.width / 2;
         var centerY = rect.height / 2;
         
-        // Calculate rotation (max 15 degrees)
         var rotateX = ((y - centerY) / centerY) * -12;
         var rotateY = ((x - centerX) / centerX) * 12;
         
-        // Apply 3D transform with scale preserved
         wrapper.style.transform = 'scale(1.28) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
     });
     
     container.addEventListener('mouseleave', function() {
-        // Reset to original position with smooth transition
         wrapper.style.transform = 'scale(1.28) rotateX(0deg) rotateY(0deg)';
     });
 })();
