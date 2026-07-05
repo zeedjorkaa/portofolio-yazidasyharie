@@ -17,23 +17,26 @@
 }
 /* Container Utama: Menggunakan basis kaca gelap translusen ala iOS */
 .ios-premium-glass {
-    background: rgba(30, 30, 30, 0.35) !important;
-    backdrop-filter: blur(30px) saturate(210%) !important;
-    -webkit-backdrop-filter: blur(30px) saturate(210%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: rgba(20, 20, 20, 0.219) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
     box-shadow: 
-        0 12px 40px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 8px 32px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 0 1px rgba(0,0,0,0.1);
 }
 
 /* Kapsul Indikator yang Mengikuti Menu Aktif */
 .ios-active-indicator {
-    background: rgba(255, 255, 255, 0.92) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.15),
-        0 2px 4px rgba(0, 0, 0, 0.05);
+        0 4px 16px rgba(0, 0, 0, 0.2),
+        0 1px 2px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.3);
 }
 
 /* Kurva Animasi Geser */
@@ -43,11 +46,16 @@
 }
 
 /* State Awal Item Menu (Pasif/Tidak Terpilih) */
-/* Menggunakan warna putih transparan agar kontras otomatis di background terang maupun gelap */
 .mob-link .nav-icon,
 .mob-link .nav-text {
-    color: rgba(255, 255, 255, 0.6) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
     transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect untuk item yang tidak aktif */
+.mob-link:not(.is-active):hover .nav-icon,
+.mob-link:not(.is-active):hover .nav-text {
+    color: rgba(255, 255, 255, 0.85) !important;
 }
 
 /* State Ketika Menu Aktif (Berada di atas Kapsul Putih) */
@@ -63,6 +71,8 @@
 /* Pembersihan Efek Tap Mobile */
 .mob-link {
     -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 10;
 }
         *,*::before,*::after{font-family:'Inter',sans-serif;box-sizing:border-box}
         html{overflow-x:hidden!important;scroll-behavior:auto!important}
@@ -430,38 +440,38 @@
     </nav>
 </div>
 
-<div id="bottomNav" class="fixed bottom-6 w-[calc(100%-2rem)] max-w-[440px] z-[999999] ios-premium-glass rounded-[24px] p-2.5 flex items-center justify-between select-none">
+<div id="bottomNav" class="fixed bottom-6 w-[calc(100%-2rem)] max-w-[440px] z-[999999] ios-premium-glass rounded-[24px] p-2 flex items-center justify-between select-none">
     
-    <div id="navIndicator" class="absolute top-2 bottom-2 left-0 ios-active-indicator rounded-[16px]" style="width: 0px; transform: translateX(0px);"></div>
+    <div id="navIndicator" class="absolute top-2 bottom-2 left-0 ios-active-indicator rounded-[18px]" style="width: 0px; transform: translateX(0px);"></div>
     
-    <a href="#about" data-nav="about" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1 px-2">
-        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1"></path></svg>
-        <span class="text-[8.5px] font-black uppercase tracking-wider mt-0.5 nav-text transition-colors duration-300">About</span>
+    <a href="#about" data-nav="about" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1.5 px-1">
+        <svg class="w-5 h-5 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1"></path></svg>
+        <span class="text-[9px] font-black uppercase tracking-wider mt-1 nav-text transition-colors duration-300">About</span>
     </a>
     
-    <a href="#skills" data-nav="skills" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1 px-2">
-        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-        <span class="text-[8.5px] font-black uppercase tracking-wider mt-0.5 nav-text transition-colors duration-300">Skills</span>
+    <a href="#skills" data-nav="skills" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1.5 px-1">
+        <svg class="w-5 h-5 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        <span class="text-[9px] font-black uppercase tracking-wider mt-1 nav-text transition-colors duration-300">Skills</span>
     </a>
     
-    <a href="#projects" data-nav="projects" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1 px-2">
-        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-        <span class="text-[8.5px] font-black uppercase tracking-wider mt-0.5 nav-text transition-colors duration-300">Projects</span>
+    <a href="#projects" data-nav="projects" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1.5 px-1">
+        <svg class="w-5 h-5 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+        <span class="text-[9px] font-black uppercase tracking-wider mt-1 nav-text transition-colors duration-300">Projects</span>
     </a>
     
-    <a href="#certificates" data-nav="certificates" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1 px-2">
-        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"></path></svg>
-        <span class="text-[8.5px] font-black uppercase tracking-wider mt-0.5 nav-text transition-colors duration-300">Certs</span>
+    <a href="#certificates" data-nav="certificates" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1.5 px-1">
+        <svg class="w-5 h-5 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"></path></svg>
+        <span class="text-[9px] font-black uppercase tracking-wider mt-1 nav-text transition-colors duration-300">Certs</span>
     </a>
     
-    <a href="#contact" data-nav="contact" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1 px-2">
-        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-        <span class="text-[8.5px] font-black uppercase tracking-wider mt-0.5 nav-text transition-colors duration-300">Contact</span>
+    <a href="#contact" data-nav="contact" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1.5 px-1">
+        <svg class="w-5 h-5 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        <span class="text-[9px] font-black uppercase tracking-wider mt-1 nav-text transition-colors duration-300">Contact</span>
     </a>
 
     <button onclick="toggleMusic()" class="relative z-10 flex-1 flex flex-col items-center justify-center py-1 focus:outline-none">
         <div id="navMusicWrapper" class="p-1 rounded-full bg-transparent transition-all duration-300">
-            <svg id="musicIcon" class="w-4 h-4 text-white/60 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg id="musicIcon" class="w-5 h-5 text-white/50 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
             </svg>
         </div>
@@ -1038,7 +1048,7 @@ rvs.forEach(function(el){rob.observe(el)});
         requestAnimationFrame(function() {
             var navRect = elNav.getBoundingClientRect();
             var linkRect = activeLink.getBoundingClientRect();
-            var extraPadding = 12;
+            var extraPadding = 10;
             var widthPos = linkRect.width + extraPadding;
             var leftPos = (linkRect.left - navRect.left) - (extraPadding / 2);
             indicator.style.width = widthPos + 'px';
@@ -1054,12 +1064,10 @@ rvs.forEach(function(el){rob.observe(el)});
         document.querySelectorAll('.mob-link').forEach(function(a){
             var match = a.getAttribute('data-nav') === targetNav;
             if(match) {
-                a.classList.remove('text-zinc-500');
                 a.classList.add('is-active');
                 activeTarget = a; 
             } else {
                 a.classList.remove('is-active');
-                a.classList.add('text-zinc-500');
             }
         });
         if (activeTarget) {
@@ -1068,7 +1076,7 @@ rvs.forEach(function(el){rob.observe(el)});
     }
 
     function upd(){
-        if (window.innerWidth >= 768 || isNavClicking) return;
+        if (window.innerWidth >= 768) return;
         var found = 'about';
         var triggerOffset = window.innerHeight * 0.35;
         for (var i = 0; i < secs.length; i++) {
@@ -1080,8 +1088,21 @@ rvs.forEach(function(el){rob.observe(el)});
                 }
             }
         }
-        if (found !== cur || !indicator.style.width || indicator.style.width === '0px') {
+        
+        if (isNavClicking) {
+            // Saat isNavClicking, tetap update posisi indicator (untuk resize) 
+            // tapi jangan ganti cur. Namun jika found sudah SAMA dengan cur, 
+            // berarti scroll sudah sampai tujuan, bisa unlock.
+            if (found === cur) {
+                isNavClicking = false;
+                clearTimeout(clickUnlockTimer);
+            }
+        }
+        
+        if (found !== cur && !isNavClicking) {
             cur = found;
+            activateMenu(cur);
+        } else if (!indicator.style.width || indicator.style.width === '0px') {
             activateMenu(cur);
         }
         ticking = false;
@@ -1097,7 +1118,10 @@ rvs.forEach(function(el){rob.observe(el)});
                 clearTimeout(clickUnlockTimer);
                 clickUnlockTimer = setTimeout(function() {
                     isNavClicking = false;
-                }, 900);
+                    // Force sync setelah unlock
+                    ticking = false;
+                    upd();
+                }, 1200);
             }
         });
     });
@@ -1115,6 +1139,7 @@ rvs.forEach(function(el){rob.observe(el)});
         if (activeLink) moveIndicatorAbsolute(activeLink);
     });
 
+    // Initial setup
     setTimeout(function() {
         upd();
         var defaultActive = document.querySelector('.mob-link[data-nav="about"]');
@@ -1204,7 +1229,7 @@ function updateMusicUI(isPlaying) {
             musicTextStatus.className = "text-[7px] text-amber-400 font-black uppercase tracking-widest mt-0.5";
         }
         if (musicIcon) {
-            musicIcon.className = "w-4 h-4 text-amber-400 animate-spin-slow";
+            musicIcon.className = "w-5 h-5 text-amber-400 animate-spin-slow";
         }
         if (navMusicWrapper) {
             navMusicWrapper.className = "p-1.5 rounded-full bg-white/10 transition-all duration-300";
@@ -1215,7 +1240,7 @@ function updateMusicUI(isPlaying) {
             musicTextStatus.className = "text-[7px] text-white/40 font-black uppercase tracking-widest mt-0.5";
         }
         if (musicIcon) {
-            musicIcon.className = "w-4 h-4 text-white/60 transition-transform duration-300";
+            musicIcon.className = "w-5 h-5 text-white/50 transition-transform duration-300";
         }
         if (navMusicWrapper) {
             navMusicWrapper.className = "p-1.5 rounded-full bg-transparent transition-all duration-300";
