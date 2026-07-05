@@ -108,6 +108,59 @@
     transform-origin: top right;
     transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+/* ============================================================
+   NAVBAR BOTTOM: ULTRA SMOOTH iOS FLUID SPRING (MOBILE ONLY)
+   ============================================================ */
+@media (max-width: 767px) {
+    #bottomNav {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        right: auto;
+        margin-left: 0;
+        margin-right: 0;
+        
+        /* STATE KELUAR */
+        transform: translate(-50%, 140px) scale(0.94);
+        opacity: 0;
+        visibility: hidden;
+        
+        transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+                    opacity 0.6s ease-in-out,
+                    visibility 0.6s;
+        will-change: transform, opacity;
+        z-index: 999999;
+    }
+
+    #bottomNav.nav-visible {
+        /* STATE MASUK MUNCUL */
+        transform: translate(-50%, 0px) scale(1);
+        opacity: 1;
+        visibility: visible;
+        
+        transition: transform 0.62s cubic-bezier(0.34, 1.28, 0.64, 1),
+                    opacity 0.4s ease-out,
+                    visibility 0.4s;
+    }
+}
+
+@media (min-width: 768px) {
+    #bottomNav {
+        display: none;
+    }
+}
+
+/* Kapsul Indikator Putih: Kembali ke Poros Koordinat Presisi */
+#navIndicator {
+    top: 6px !important;
+    bottom: 6px !important;
+    left: 0;
+    
+    /* Menggunakan kurva transisi meluncur lembut */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.28, 1), 
+                width 0.5s cubic-bezier(0.25, 1, 0.28, 1);
+    will-change: transform, width;
+}
 
 /* Saat terbuka, langsung ubah opacity dan kembalikan ukurannya */
 .mob-menu.open {
@@ -146,10 +199,6 @@
         .photo-card{position:relative;overflow:hidden}
         .photo-card img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
         .photo-card:hover img{transform:scale(1.05)}
-
-/* ============================================================
-   EPIC HEADER PHOTO EFFECTS - STABLE LIGHT MODE (NO HOVER)
-   ============================================================ */
 
 .hero-photo-container {
     perspective: 1200px;
@@ -381,33 +430,37 @@
     </nav>
 </div>
 
-<div id="bottomNav" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[420px] z-[999999] ios-premium-glass rounded-[24px] p-1.5 flex items-center justify-between md:hidden select-none">
+<div id="bottomNav" class="fixed bottom-6 w-[calc(100%-2rem)] max-w-[440px] z-[999999] ios-premium-glass rounded-[24px] p-2.5 flex items-center justify-between select-none">
     
-    <div id="navIndicator" class="absolute top-1.5 bottom-1.5 left-0 ios-active-indicator rounded-[18px]" style="width: 0px; transform: translateX(0px);"></div>
+    <div id="navIndicator" class="absolute top-2 bottom-2 left-0 ios-active-indicator rounded-[16px]" style="width: 0px; transform: translateX(0px);"></div>
     
-    <a href="#about" data-nav="about" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-2">
-        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        <span class="nav-text text-[8px] font-black uppercase tracking-wider mt-1">Home</span>
+    <a href="#about" data-nav="about" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1 px-2">
+        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1"></path></svg>
+        <span class="text-[8.5px] font-black uppercase tracking-wider mt-0.5 nav-text transition-colors duration-300">About</span>
     </a>
-    <a href="#skills" data-nav="skills" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-2">
-        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        <span class="nav-text text-[8px] font-black uppercase tracking-wider mt-1">Skills</span>
+    
+    <a href="#skills" data-nav="skills" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1 px-2">
+        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        <span class="text-[8.5px] font-black uppercase tracking-wider mt-0.5 nav-text transition-colors duration-300">Skills</span>
     </a>
-    <a href="#projects" data-nav="projects" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-2">
-        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-        <span class="nav-text text-[8px] font-black uppercase tracking-wider mt-1">Projects</span>
+    
+    <a href="#projects" data-nav="projects" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1 px-2">
+        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+        <span class="text-[8.5px] font-black uppercase tracking-wider mt-0.5 nav-text transition-colors duration-300">Projects</span>
     </a>
-    <a href="#certificates" data-nav="certificates" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-2">
-        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        <span class="nav-text text-[8px] font-black uppercase tracking-wider mt-1">Certs</span>
+    
+    <a href="#certificates" data-nav="certificates" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1 px-2">
+        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z"></path></svg>
+        <span class="text-[8.5px] font-black uppercase tracking-wider mt-0.5 nav-text transition-colors duration-300">Certs</span>
     </a>
-    <a href="#contact" data-nav="contact" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-2">
-        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-        <span class="nav-text text-[8px] font-black uppercase tracking-wider mt-1">Contact</span>
+    
+    <a href="#contact" data-nav="contact" class="mob-link relative z-10 flex-1 flex flex-col items-center justify-center py-1 px-2">
+        <svg class="w-4 h-4 nav-icon transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        <span class="text-[8.5px] font-black uppercase tracking-wider mt-0.5 nav-text transition-colors duration-300">Contact</span>
     </a>
 
-    <button onclick="toggleMusic()" class="relative z-10 flex-1 flex flex-col items-center justify-center py-2 focus:outline-none -webkit-tap-highlight-color: transparent;">
-        <div id="navMusicWrapper" class="p-1.5 rounded-full bg-transparent transition-all duration-300">
+    <button onclick="toggleMusic()" class="relative z-10 flex-1 flex flex-col items-center justify-center py-1 focus:outline-none">
+        <div id="navMusicWrapper" class="p-1 rounded-full bg-transparent transition-all duration-300">
             <svg id="musicIcon" class="w-4 h-4 text-white/60 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
             </svg>
@@ -415,19 +468,6 @@
         <span id="musicTextStatus" class="text-[7px] text-white/40 font-black uppercase tracking-widest mt-0.5">OFF</span>
     </button>
 </div>
-
-
-<div class="hidden md:flex fixed bottom-6 left-6 z-[999999] items-center gap-3 select-none">
-    <button onclick="toggleMusic()" id="pcMusicBtn" class="w-12 h-12 flex items-center justify-center bg-white text-zinc-950 border-2 border-zinc-900 rounded-full shadow-[3px_3px_0_0_rgba(0,0,0,1)] hover:bg-zinc-50 active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all duration-150 focus:outline-none">
-        <svg id="pcMusicIcon" class="w-5 h-5 fill-current transition-transform duration-300" viewBox="0 0 24 24">
-            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h6V3h-6z"/>
-        </svg>
-    </button>
-    <div id="pcMusicStatusBox" class="bg-zinc-950 text-white border-2 border-zinc-900 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_rgba(0,0,0,1)] transition-colors duration-300">
-        SOUNDTRACK: <span id="pcMusicTextStatus" class="text-zinc-400">OFF</span>
-    </div>
-</div>
-
 <audio id="bgMusic" src="img/bg_music.mp3" loop></audio>
 
 <!-- HERO -->
@@ -828,76 +868,947 @@
 </style>
 
 <script>
-// ===== HIGH PERFORMANCE WELCOME OVERLAY SYSTEM =====
-document.addEventListener("DOMContentLoaded", function () {
-    const overlay = document.getElementById("welcomeOverlay");
-    const textGroup = document.getElementById("welcomeTextGroup");
+// ============================================================
+// HIGH PERFORMANCE WELCOME OVERLAY & PREMIUM BOTTOM NAVBAR SYSTEM
+// ============================================================
+var isWelcomeScreenActive = true;
+var mobileNav = document.getElementById('bottomNav');
+var lastScrollY = window.scrollY;
+var scrollThreshold = 5; 
+var navHideTimeout = null; 
 
-    if(overlay && textGroup) {
-        setTimeout(() => {
-            overlay.classList.remove("opacity-0", "backdrop-blur-0", "pointer-events-none");
-            overlay.classList.add("opacity-100", "backdrop-blur-md");
-            
+// Fungsi mendeteksi secara langsung apakah modal sertifikat sedang aktif terbuka
+function isPopupOpen() {
+    var modalOverlay = document.getElementById('mO');
+    return modalOverlay && modalOverlay.classList.contains('on');
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    var overlay = document.getElementById("welcomeOverlay");
+    var textGroup = document.getElementById("welcomeTextGroup");
+
+    setTimeout(function() {
+        if (overlay) {
+            overlay.classList.remove("pointer-events-none");
+            overlay.classList.add("opacity-100", "backdrop-blur-[12px]");
+        }
+        if (textGroup) {
             textGroup.classList.remove("opacity-0", "scale-50", "-translate-y-16");
             textGroup.classList.add("opacity-100", "scale-100", "translate-y-0");
-        }, 200);
+        }
+    }, 100);
 
-        setTimeout(() => {
-            overlay.style.transitionDuration = "800ms";
-            textGroup.style.transitionDuration = "800ms";
-            
-            overlay.classList.remove("opacity-100", "backdrop-blur-md");
+    setTimeout(function() {
+        if (textGroup) {
+            textGroup.classList.remove("scale-100", "translate-y-0");
+            textGroup.classList.add("scale-75", "translate-y-8", "opacity-0");
+        }
+        if (overlay) {
+            overlay.classList.remove("opacity-100", "backdrop-blur-[12px]");
             overlay.classList.add("opacity-0", "backdrop-blur-0", "pointer-events-none");
-            
-            textGroup.classList.remove("opacity-100", "scale-100", "translate-y-0");
-            textGroup.classList.add("opacity-0", "scale-95", "translate-y-8");
-        }, 2000);
-    }
+        }
+        
+        setTimeout(function() {
+            isWelcomeScreenActive = false;
+        }, 700);
+    }, 2200);
 });
 
-function toggleMusic() {
-    var audio = document.getElementById('bgMusic');
-    if (!audio) return;
+// LOGIKA OTOMATIS: MUNCUL SAAT SCROLL & HILANG JIKA DIAM TIDAK SCROLL (SYNCHRONIZED)
+function handleScrollNavbar() {
+    // Jika welcome screen aktif atau popup sertifikat sedang terbuka, BLOKIR navbar agar tidak muncul
+    if (isWelcomeScreenActive || !mobileNav || isPopupOpen()) return;
 
-    // Element Mobile
-    var iconMob = document.getElementById('musicIcon');
-    var txtMob = document.getElementById('musicTextStatus');
-    var wrapMob = document.getElementById('navMusicWrapper');
-
-    // Element PC
-    var btnPc = document.getElementById('pcMusicBtn');
-    var iconPc = document.getElementById('pcMusicIcon');
-    var txtPc = document.getElementById('pcMusicTextStatus');
-    var boxPc = document.getElementById('pcMusicStatusBox');
+    var currentScrollY = window.scrollY;
     
-    if (audio.paused) {
-        audio.play().then(function() {
-            // Efek Animasi & Warna di Mobile (iOS Style)
-            if(iconMob) iconMob.classList.add('music-playing-active');
-            if(wrapMob) wrapMob.style.background = 'rgba(34, 197, 94, 0.15)';
-            if(txtMob) { txtMob.innerText = "ON"; txtMob.style.color = "#22c55e"; }
+    if (Math.abs(currentScrollY - lastScrollY) > scrollThreshold) {
+        // Tampilkan dengan menambahkan class animasi masuk
+        mobileNav.classList.add('nav-visible');
+        
+        clearTimeout(navHideTimeout);
+        
+        // Sembunyikan otomatis jika user diam (tidak melakukan scroll) selama 2.5 detik
+        navHideTimeout = setTimeout(function() {
+            // Evaluasi ulang kondisi popup sebelum menurunkan navbar
+            if (!isPopupOpen() && mobileNav) {
+                // Hapus class agar CSS menjalankan animasi meluncur turun (0.65s) sampai tuntas
+                mobileNav.classList.remove('nav-visible');
+            }
+        }, 2500); 
+    }
+    
+    lastScrollY = currentScrollY;
+}
 
-            // Efek Animasi & Warna di PC (Neo-Brutalisme Style)
-            if(btnPc) { btnPc.classList.remove('bg-white'); btnPc.classList.add('bg-amber-400'); btnPc.classList.add('animate-spin-slow'); }
-            if(boxPc) { boxPc.classList.remove('bg-zinc-950'); boxPc.classList.add('bg-zinc-900'); }
-            if(txtPc) { txtPc.innerText = "ON"; txtPc.style.color = "#fbbf24"; }
-            if(iconPc) iconPc.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; // Berubah jadi ikon pause pejal
-        }).catch(function(err) { console.log("Autoplay diblokir browser:", err); });
-    } else {
-        audio.pause();
-        // Matikan Efek di Mobile
-        if(iconMob) iconMob.classList.remove('music-playing-active');
-        if(wrapMob) wrapMob.style.background = 'transparent';
-        if(txtMob) { txtMob.innerText = "OFF"; txtMob.style.color = "rgba(255,255,255,0.4)"; }
+window.addEventListener('scroll', handleScrollNavbar, { passive: true });
 
-        // Matikan Efek di PC
-        if(btnPc) { btnPc.classList.remove('bg-amber-400'); btnPc.classList.add('bg-white'); btnPc.classList.remove('animate-spin-slow'); }
-        if(boxPc) { boxPc.classList.remove('bg-zinc-900'); boxPc.classList.add('bg-zinc-950'); }
-        if(txtPc) { txtPc.innerText = "OFF"; txtPc.style.color = "#a1a1aa"; }
-        if(iconPc) iconPc.innerHTML = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h6V3h-6z"/>'; // Balik jadi not balok
+// SINKRONISASI KAPSUL INDIKATOR MOBILE NAVBAR (iOS Style)
+var mobileLinks = document.querySelectorAll('.mob-link');
+var navIndicator = document.getElementById('navIndicator');
+
+function updateNavIndicator(activeLink) {
+    if (!activeLink || !navIndicator || !mobileNav) return;
+    
+    var parentRect = mobileNav.getBoundingClientRect();
+    var linkRect = activeLink.getBoundingClientRect();
+    var relativeLeft = linkRect.left - parentRect.left;
+    
+    navIndicator.style.width = linkRect.width + 'px';
+    navIndicator.style.transform = 'translateX(' + relativeLeft + 'px)';
+}
+
+mobileLinks.forEach(function(link) {
+    link.addEventListener('click', function() {
+        mobileLinks.forEach(function(item) { item.classList.remove('is-active'); });
+        this.classList.add('is-active');
+        updateNavIndicator(this);
+        
+        clearTimeout(navHideTimeout);
+        navHideTimeout = setTimeout(function() {
+            if (!isPopupOpen() && mobileNav) mobileNav.classList.remove('nav-visible');
+        }, 2000);
+    });
+});
+
+window.addEventListener('resize', function() {
+    var currentActive = document.querySelector('.mob-link.is-active');
+    if (currentActive) updateNavIndicator(currentActive);
+});
+
+setTimeout(function() {
+    var defaultActive = document.querySelector('.mob-link.is-active') || mobileLinks[0];
+    if (defaultActive) {
+        defaultActive.classList.add('is-active');
+        updateNavIndicator(defaultActive);
+    }
+}, 2500);
+
+// ============================================================
+// MODAL DATA SYSTEM & SINKRONISASI FORCE-HIDE NAVBAR (ANTI-LOOP)
+// ============================================================
+var mdata={
+pa:{t:'FAYABI Workshops',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><video src="img/project_a.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Digital Automotive Platform</h4><p>FAYABI Workshops is a comprehensive digital platform for your two-wheeled automotive needs. It offers features for buying and selling new and used motorcycles, workshop service bookings, technical consultations, and vehicle maintenance management—all within one ecosystem.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-amber-50 border border-amber-300 text-amber-700 text-[9px] font-black uppercase rounded-md">HTML/CSS</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">JavaScript</span><span class="px-2 py-1 bg-cyan-50 border border-cyan-300 text-cyan-700 text-[9px] font-black uppercase rounded-md">Tailwind</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
+pb:{t:'PointKu - Digital Scoring',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50" style="aspect-ratio:16/9"><video src="img/project_b.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Transparent Competition Scoring System</h4><p>PointKu is a digital-based competition scoring application designed to ensure transparency, fairness, and accountability in every judging process. Judges can score in real time, and participants and the public can monitor the results directly.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-indigo-50 border border-indigo-300 text-indigo-700 text-[9px] font-black uppercase rounded-md">PHP</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span><span class="px-2 py-1 bg-sky-50 border border-sky-300 text-sky-700 text-[9px] font-black uppercase rounded-md">MySQL</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
+pc:{t:'Google Sheet',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><video src="img/project_c.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Spreadsheet Operasional</h4><p>Sheet demonstrates my expertise in designing and managing spreadsheets for operational needs — from recording financial data, inventory, scheduling, to automating calculations with neat and efficient formulas & pivot tables.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-emerald-50 border border-emerald-300 text-emerald-700 text-[9px] font-black uppercase rounded-md">Google Sheets</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">MS Excel</span><span class="px-2 py-1 bg-violet-50 border border-violet-300 text-violet-700 text-[9px] font-black uppercase rounded-md">Data Analysis</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
+cs:{t:'Pramuka Garuda Certification',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 mx-auto" style="aspect-ratio:3/4;max-width:360px"><img src="sertificate/ser_garuda.png" draggable="false" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Highest Scout Rank Achievement</h4><p>The Pramuka Garuda is the highest rank in Indonesian Scouting, awarded only to those who demonstrate exceptional character:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Absolute Honesty</strong> — unwavering truthfulness in all actions</li><li><strong class="text-zinc-900">Systematic Discipline</strong> — consistent adherence to commitments</li><li><strong class="text-zinc-900">Dependable Task Management</strong> — reliable execution under pressure</li><li><strong class="text-zinc-900">Community Leadership</strong> — responsibility for the welfare of others</li></ul><p class="text-[11px] text-zinc-500">Issued by: Kwarcab Jakarta Selatan | Year: 2024</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_garuda.png\',\'Pramuka_Garuda_Certificate\')">⬇ Download Certificate</button></div>'},
+ci:{t:'Industrial Internship Certificate',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><img src="sertificate/ser_jip.jpg" draggable="false" alt="Internship Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">PT JIP Internship Verification</h4><p>Official verification of successful 6-month frontend development internship at PT Jakarta Infrastruktur Propertindo — Telco Business Engineering Development division:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Frontend Interface Development</strong> — pixel-perfect web interfaces</li><li><strong class="text-zinc-900">Sprint Target Achievement</strong> — consistent enterprise delivery</li><li><strong class="text-zinc-900">Team Collaboration</strong> — formal engineering environments</li><li><strong class="text-zinc-900">Technical Documentation</strong> — structured project reports</li></ul><p class="text-[11px] text-zinc-500">Period: July 2025 — December 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_jip.jpg\',\'JIP_Internship_Certificate\')">⬇ Download Certificate</button></div>'},
+co:{t:'OSIS Division 3 & Vice Chairman',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><img src="sertificate/ser_osis.png" draggable="false" alt="OSIS Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Division 3 Member — Character Development</h4><p>Appointed as a member of <strong>Division 3: Character and Noble Values Development</strong> within OSIS SMK Negeri 2 Jakarta:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Character Building Programs</strong> — designing activities that foster moral integrity</li><li><strong class="text-zinc-900">Student Mentorship</strong> — guiding peers in ethical decision-making</li><li><strong class="text-zinc-900">Event Coordination</strong> — organizing school events and programs</li></ul><div class="mt-3 p-3 bg-zinc-900 text-white rounded-xl border-2 border-zinc-900"><span class="text-[9px] font-mono font-black text-amber-400 uppercase block mb-1">Previous Role</span><p class="text-xs font-bold">Served as <span class="text-amber-400 font-black">Vice Chairman of OSIS (2023/2024)</span> — certificate was not issued for that term, but the leadership experience was real and impactful.</p></div><p class="text-[11px] text-zinc-500">Certificate issued: 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_osis.png\',\'OSIS_Division3_Certificate\')">⬇ Download Certificate</button></div>'},
+cp:{t:'1st Place — Terompah Panjang Race',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50" style="aspect-ratio:16/9"><img src="sertificate/ser_potrad.png" draggable="false" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Juara 1 — Lomba Terompah Panjang Beregu Putra</h4><p>Won <strong>1st Place</strong> in the Traditional Stilts Team Race (Terompah Panjang Beregu Putra) at the <strong>Kejuaraan Pekan Olahraga Tradisional Wilayah Jakarta Pusat</strong> (Central Jakarta Traditional Sports Championship).</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Team Coordination</strong> — synchronized movement with teammates on traditional stilts</li><li><strong class="text-zinc-900">Physical Endurance</strong> — sustained balance and speed under competitive pressure</li><li><strong class="text-zinc-900">Cultural Preservation</strong> — representing and promoting Indonesian traditional sports</li><li><strong class="text-zinc-900">Competitive Spirit</strong> — achieving the top position among schools across Central Jakarta</li></ul><p class="text-[11px] text-zinc-500">Organized by: Suku Dinas Pemuda dan Olahraga Kota Administrasi Jakarta Pusat | Date: May 8, 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_potrad.png\',\'Terompah_Panjang_1st_Place\')">⬇ Download Certificate</button></div>'},
+};
+
+function openM(id){
+    var d=mdata[id];
+    if(!d)return;
+    document.getElementById('mT').textContent=d.t;
+    document.getElementById('mB').innerHTML=d.b;
+    document.getElementById('mO').classList.add('on');
+    document.body.style.overflow='hidden';
+    
+    if(mobileNav) {
+        mobileNav.classList.remove('nav-visible');
     }
 }
 
+function closeM(){
+    document.getElementById('mO').classList.remove('on');
+    document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeM()});
+
+// ===== DOWNLOAD CERTIFICATE =====
+function dlCert(url,filename){
+    fetch(url,{mode:'cors'}).then(function(r){return r.blob()}).then(function(blob){
+        var blobUrl=URL.createObjectURL(blob);
+        var a=document.createElement('a');
+        a.href=blobUrl;a.download=filename+'.jpg';
+        document.body.appendChild(a);a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+    }).catch(function(){window.open(url,'_blank')});
+}
+
+// ===== NAVBAR TOP SCROLL EFFEK =====
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){if(nav) nav.classList.toggle('nav-scroll',window.scrollY>20)});
+
+// ===== CAROUSEL =====
+var ctrack=document.getElementById('ctrack');
+var ccards=document.querySelectorAll('.ccard');
+var cdots=document.querySelectorAll('.sdot');
+var ci=0;
+var sdur=3500;
+function updS(){
+    if(!ctrack||ccards.length===0)return;
+    var cw=ccards[0].getBoundingClientRect().width;
+    var tw=ctrack.parentElement.getBoundingClientRect().width;
+    var gp=window.innerWidth>=768?32:24;
+    var co=(tw-cw)/2;
+    var mv=-ci*(cw+gp)+co;
+    ctrack.style.transform='translateX('+mv+'px)';
+    ccards.forEach(function(c,i){c.classList.toggle('active',i===ci)});
+    cdots.forEach(function(d,i){d.style.backgroundColor=i===ci?'#18181b':'#fff'});
+}
+var sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
+cdots.forEach(function(d){d.addEventListener('click',function(){ci=parseInt(this.getAttribute('data-i'));updS();clearInterval(sint);sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur)})});
+window.addEventListener('resize',updS);updS();
+
+// Touch swipe untuk carousel
+var touchStartX=0;
+if(ctrack){
+    ctrack.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].screenX},{passive:true});
+    ctrack.addEventListener('touchend',function(e){
+        var diff=touchStartX-e.changedTouches[0].screenX;
+        if(Math.abs(diff)>50){
+            if(diff>0){ci=Math.min(ci+1,ccards.length-1)}
+            else{ci=Math.max(ci-1,0)}
+            updS();clearInterval(sint);
+            sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
+        }
+    },{passive:true});
+}
+
+// ===== SMOOTH SCROLL (LINK KLIK NAVBAR) =====
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+        var h=this.getAttribute('href');
+        if(!h||h==='#')return;
+        e.preventDefault();
+        var t=document.querySelector(h);
+        if(!t)return;
+        var off = window.innerWidth >= 768 ? 110 : 20;
+        var tp=t.getBoundingClientRect().top+window.scrollY-off;
+        var sp=window.scrollY;var dist=tp-sp;var st=null;var dur=800;
+        function ease(t,b,c,d){t/=d/2;if(t<1)return c/2*t*t+b;t--;return-c/2*(t*(t-2)-1)+b}
+        function anim(c){if(st===null)st=c;var el=c-st;if(el<dur)requestAnimationFrame(anim);window.scrollTo(0,ease(el,sp,dist,dur))}
+        requestAnimationFrame(anim);
+    });
+});
+
+// ===== SCROLL REVEAL =====
+var rvs=document.querySelectorAll('.rv,.rv-l,.rv-r');
+var rob=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting)en.target.classList.add('show')})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+rvs.forEach(function(el){rob.observe(el)});
+
+// ===== REAL-TIME PRECISION NAV ACTIVE TRACKER (ANTI-JUMP & SMOOTH INDEPENDENT) =====
+(function(){
+    var secs = ['about', 'skills', 'projects', 'certificates', 'contact'];
+    var cur = 'about';
+    var ticking = false;
+    var isNavClicking = false; // Flag khusus penahan lompatan indikator
+    
+    var elNav = document.getElementById('bottomNav');
+    var indicator = document.getElementById('navIndicator');
+
+function moveIndicatorAbsolute(activeLink) {
+        if (!indicator || !elNav || !activeLink) return;
+
+        requestAnimationFrame(function() {
+            var navRect = elNav.getBoundingClientRect();
+            var linkRect = activeLink.getBoundingClientRect();
+            
+            // KALKULASI MATEMATIKA UNTUK GEOMETRI CAPSULE SIMETRIS
+            var extraPadding = 12; // Menambah total lebar kapsul agar teks tidak mepet
+            var widthPos = linkRect.width + extraPadding;
+            
+            // Menggeser titik koordinat X ke kiri setengah dari extraPadding agar tetap center
+            var leftPos = (linkRect.left - navRect.left) - (extraPadding / 2);
+
+            indicator.style.width = widthPos + 'px';
+            indicator.style.transform = 'translateX(' + leftPos + 'px)';
+        });
+    }
+    
+    function upd(){
+        if (isNavClicking) return; // Blokir update scroll jika user sedang klik menu jarak jauh
+        
+        var found = 'about';
+        var triggerOffset = window.innerHeight * 0.35;
+
+        for (var i = 0; i < secs.length; i++) {
+            var el = document.getElementById(secs[i]);
+            if (el) {
+                var rect = el.getBoundingClientRect();
+                if (rect.top <= triggerOffset) {
+                    found = secs[i];
+                }
+            }
+        }
+
+        if (found !== cur || !indicator.style.width || indicator.style.width === '0px') {
+            cur = found;
+            activateMenu(cur);
+        }
+        ticking = false;
+    }
+
+    function activateMenu(targetNav) {
+        var activeTarget = null;
+        
+        document.querySelectorAll('.mob-link').forEach(function(a){
+            var match = a.getAttribute('data-nav') === targetNav;
+            if(match) {
+                a.classList.remove('text-zinc-500');
+                a.classList.add('is-active');
+                activeTarget = a; 
+            } else {
+                a.classList.remove('is-active');
+                a.classList.add('text-zinc-500');
+            }
+        });
+
+        if (activeTarget) {
+            moveIndicatorAbsolute(activeTarget);
+        }
+    }
+
+    // Tangkap semua event klik pada menu agar indikator langsung meluncur ke tujuan tanpa mampir
+    document.querySelectorAll('.mob-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            var targetNav = this.getAttribute('data-nav');
+            if (targetNav) {
+                isNavClicking = true;
+                cur = targetNav;
+                activateMenu(targetNav);
+                
+                // Lepas kunci blokir setelah efek scroll bawaan browser selesai (700ms)
+                setTimeout(function() {
+                    isNavClicking = false;
+                }, 700);
+            }
+        });
+    });
+
+    window.addEventListener('scroll', function(){
+        if (!ticking) {
+            requestAnimationFrame(upd);
+            ticking = true;
+        }
+    });
+
+    window.addEventListener('resize', function() {
+        if (!elNav) return;
+        var activeLink = elNav.querySelector('.mob-link.is-active');
+        if (activeLink) moveIndicatorAbsolute(activeLink);
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(upd, 150);
+    });
+    
+    setTimeout(upd, 350);
+})();
+
+// ============================================================
+// AUDIO PLAYER SOUNDTRACK LOGIC
+// ============================================================
+var bgMusic = document.getElementById("bgMusic");
+var musicIcon = document.getElementById("musicIcon");
+var musicTextStatus = document.getElementById("musicTextStatus");
+var navMusicWrapper = document.getElementById("navMusicWrapper");
+
+var pcMusicBtn = document.getElementById("pcMusicBtn");
+var pcMusicIcon = document.getElementById("pcMusicIcon");
+var pcMusicTextStatus = document.getElementById("pcMusicTextStatus");
+var pcMusicStatusBox = document.getElementById("pcMusicStatusBox");
+
+function toggleMusic() {
+    if (!bgMusic) return;
+    if (bgMusic.paused) {
+        bgMusic.play().then(function() {
+            updateMusicUI(true);
+        }).catch(function(error) {
+            console.log("Playback prevented:", error);
+        });
+    } else {
+        bgMusic.pause();
+        updateMusicUI(false);
+    }
+}
+
+function updateMusicUI(isPlaying) {
+    if (isPlaying) {
+        if (musicTextStatus) {
+            musicTextStatus.innerText = "ON";
+            musicTextStatus.className = "text-[7px] text-amber-400 font-black uppercase tracking-widest mt-0.5";
+        }
+        if (musicIcon) {
+            musicIcon.className = "w-4 h-4 text-amber-400 animate-spin-slow";
+        }
+        if (navMusicWrapper) {
+            navMusicWrapper.className = "p-1.5 rounded-full bg-white/10 transition-all duration-300";
+        }
+
+        if (pcMusicTextStatus) {
+            pcMusicTextStatus.innerText = "ON";
+            pcMusicTextStatus.className = "text-amber-400";
+        }
+        if (pcMusicIcon) {
+            pcMusicIcon.classList.add("text-amber-500", "animate-spin-slow");
+        }
+        if (pcMusicStatusBox) {
+            pcMusicStatusBox.classList.add("border-amber-400");
+        }
+    } else {
+        if (musicTextStatus) {
+            musicTextStatus.innerText = "OFF";
+            musicTextStatus.className = "text-[7px] text-white/40 font-black uppercase tracking-widest mt-0.5";
+        }
+        if (musicIcon) {
+            musicIcon.className = "w-4 h-4 text-white/60 transition-transform duration-300";
+        }
+        if (navMusicWrapper) {
+            navMusicWrapper.className = "p-1.5 rounded-full bg-transparent transition-all duration-300";
+        }
+
+        if (pcMusicTextStatus) {
+            pcMusicTextStatus.innerText = "OFF";
+            pcMusicTextStatus.className = "text-zinc-400";
+        }
+        if (pcMusicIcon) {
+            pcMusicIcon.classList.remove("text-amber-500", "animate-spin-slow");
+        }
+        if (pcMusicStatusBox) {
+            pcMusicStatusBox.classList.remove("border-amber-400");
+        }
+    }
+}
+
+// ============================================================
+// MODAL DATA SYSTEM & SINKRONISASI FORCE-HIDE NAVBAR (ANTI-LOOP)
+// ============================================================
+var mdata={
+pa:{t:'FAYABI Workshops',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><video src="img/project_a.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Digital Automotive Platform</h4><p>FAYABI Workshops is a comprehensive digital platform for your two-wheeled automotive needs. It offers features for buying and selling new and used motorcycles, workshop service bookings, technical consultations, and vehicle maintenance management—all within one ecosystem.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-amber-50 border border-amber-300 text-amber-700 text-[9px] font-black uppercase rounded-md">HTML/CSS</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">JavaScript</span><span class="px-2 py-1 bg-cyan-50 border border-cyan-300 text-cyan-700 text-[9px] font-black uppercase rounded-md">Tailwind</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
+pb:{t:'PointKu - Digital Scoring',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50" style="aspect-ratio:16/9"><video src="img/project_b.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Transparent Competition Scoring System</h4><p>PointKu is a digital-based competition scoring application designed to ensure transparency, fairness, and accountability in every judging process. Judges can score in real time, and participants and the public can monitor the results directly.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-indigo-50 border border-indigo-300 text-indigo-700 text-[9px] font-black uppercase rounded-md">PHP</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span><span class="px-2 py-1 bg-sky-50 border border-sky-300 text-sky-700 text-[9px] font-black uppercase rounded-md">MySQL</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
+pc:{t:'Google Sheet',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><video src="img/project_c.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Spreadsheet Operasional</h4><p>Sheet demonstrates my expertise in designing and managing spreadsheets for operational needs — from recording financial data, inventory, scheduling, to automating calculations with neat and efficient formulas & pivot tables.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-emerald-50 border border-emerald-300 text-emerald-700 text-[9px] font-black uppercase rounded-md">Google Sheets</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">MS Excel</span><span class="px-2 py-1 bg-violet-50 border border-violet-300 text-violet-700 text-[9px] font-black uppercase rounded-md">Data Analysis</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
+cs:{t:'Pramuka Garuda Certification',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 mx-auto" style="aspect-ratio:3/4;max-width:360px"><img src="sertificate/ser_garuda.png" draggable="false" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Highest Scout Rank Achievement</h4><p>The Pramuka Garuda is the highest rank in Indonesian Scouting, awarded only to those who demonstrate exceptional character:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Absolute Honesty</strong> — unwavering truthfulness in all actions</li><li><strong class="text-zinc-900">Systematic Discipline</strong> — consistent adherence to commitments</li><li><strong class="text-zinc-900">Dependable Task Management</strong> — reliable execution under pressure</li><li><strong class="text-zinc-900">Community Leadership</strong> — responsibility for the welfare of others</li></ul><p class="text-[11px] text-zinc-500">Issued by: Kwarcab Jakarta Selatan | Year: 2024</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_garuda.png\',\'Pramuka_Garuda_Certificate\')">⬇ Download Certificate</button></div>'},
+ci:{t:'Industrial Internship Certificate',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><img src="sertificate/ser_jip.jpg" draggable="false" alt="Internship Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">PT JIP Internship Verification</h4><p>Official verification of successful 6-month frontend development internship at PT Jakarta Infrastruktur Propertindo — Telco Business Engineering Development division:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Frontend Interface Development</strong> — pixel-perfect web interfaces</li><li><strong class="text-zinc-900">Sprint Target Achievement</strong> — consistent enterprise delivery</li><li><strong class="text-zinc-900">Team Collaboration</strong> — formal engineering environments</li><li><strong class="text-zinc-900">Technical Documentation</strong> — structured project reports</li></ul><p class="text-[11px] text-zinc-500">Period: July 2025 — December 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_jip.jpg\',\'JIP_Internship_Certificate\')">⬇ Download Certificate</button></div>'},
+co:{t:'OSIS Division 3 & Vice Chairman',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><img src="sertificate/ser_osis.png" draggable="false" alt="OSIS Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Division 3 Member — Character Development</h4><p>Appointed as a member of <strong>Division 3: Character and Noble Values Development</strong> within OSIS SMK Negeri 2 Jakarta:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Character Building Programs</strong> — designing activities that foster moral integrity</li><li><strong class="text-zinc-900">Student Mentorship</strong> — guiding peers in ethical decision-making</li><li><strong class="text-zinc-900">Event Coordination</strong> — organizing school events and programs</li></ul><div class="mt-3 p-3 bg-zinc-900 text-white rounded-xl border-2 border-zinc-900"><span class="text-[9px] font-mono font-black text-amber-400 uppercase block mb-1">Previous Role</span><p class="text-xs font-bold">Served as <span class="text-amber-400 font-black">Vice Chairman of OSIS (2023/2024)</span> — certificate was not issued for that term, but the leadership experience was real and impactful.</p></div><p class="text-[11px] text-zinc-500">Certificate issued: 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_osis.png\',\'OSIS_Division3_Certificate\')">⬇ Download Certificate</button></div>'},
+cp:{t:'1st Place — Terompah Panjang Race',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50" style="aspect-ratio:16/9"><img src="sertificate/ser_potrad.png" draggable="false" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Juara 1 — Lomba Terompah Panjang Beregu Putra</h4><p>Won <strong>1st Place</strong> in the Traditional Stilts Team Race (Terompah Panjang Beregu Putra) at the <strong>Kejuaraan Pekan Olahraga Tradisional Wilayah Jakarta Pusat</strong> (Central Jakarta Traditional Sports Championship).</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Team Coordination</strong> — synchronized movement with teammates on traditional stilts</li><li><strong class="text-zinc-900">Physical Endurance</strong> — sustained balance and speed under competitive pressure</li><li><strong class="text-zinc-900">Cultural Preservation</strong> — representing and promoting Indonesian traditional sports</li><li><strong class="text-zinc-900">Competitive Spirit</strong> — achieving the top position among schools across Central Jakarta</li></ul><p class="text-[11px] text-zinc-500">Organized by: Suku Dinas Pemuda dan Olahraga Kota Administrasi Jakarta Pusat | Date: May 8, 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_potrad.png\',\'Terompah_Panjang_1st_Place\')">⬇ Download Certificate</button></div>'},
+};
+
+function openM(id){
+    var d=mdata[id];
+    if(!d)return;
+    document.getElementById('mT').textContent=d.t;
+    document.getElementById('mB').innerHTML=d.b;
+    document.getElementById('mO').classList.add('on');
+    document.body.style.overflow='hidden';
+    
+    // AMAN & BERSIH: Sembunyikan navbar seketika saat popup dibuka (tanpa trigger loop observer)
+    if(mobileNav) {
+        mobileNav.classList.remove('nav-visible');
+    }
+}
+
+function closeM(){
+    document.getElementById('mO').classList.remove('on');
+    document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeM()});
+
+// ===== DOWNLOAD CERTIFICATE =====
+function dlCert(url,filename){
+    fetch(url,{mode:'cors'}).then(function(r){return r.blob()}).then(function(blob){
+        var blobUrl=URL.createObjectURL(blob);
+        var a=document.createElement('a');
+        a.href=blobUrl;a.download=filename+'.jpg';
+        document.body.appendChild(a);a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+    }).catch(function(){window.open(url,'_blank')});
+}
+
+// ===== NAVBAR TOP SCROLL EFFEK =====
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){if(nav) nav.classList.toggle('nav-scroll',window.scrollY>20)});
+
+// ===== CAROUSEL =====
+var ctrack=document.getElementById('ctrack');
+var ccards=document.querySelectorAll('.ccard');
+var cdots=document.querySelectorAll('.sdot');
+var ci=0;
+var sdur=3500;
+function updS(){
+    if(!ctrack||ccards.length===0)return;
+    var cw=ccards[0].getBoundingClientRect().width;
+    var tw=ctrack.parentElement.getBoundingClientRect().width;
+    var gp=window.innerWidth>=768?32:24;
+    var co=(tw-cw)/2;
+    var mv=-ci*(cw+gp)+co;
+    ctrack.style.transform='translateX('+mv+'px)';
+    ccards.forEach(function(c,i){c.classList.toggle('active',i===ci)});
+    cdots.forEach(function(d,i){d.style.backgroundColor=i===ci?'#18181b':'#fff'});
+}
+var sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
+cdots.forEach(function(d){d.addEventListener('click',function(){ci=parseInt(this.getAttribute('data-i'));updS();clearInterval(sint);sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur)})});
+window.addEventListener('resize',updS);updS();
+
+// Touch swipe untuk carousel
+var touchStartX=0;
+if(ctrack){
+    ctrack.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].screenX},{passive:true});
+    ctrack.addEventListener('touchend',function(e){
+        var diff=touchStartX-e.changedTouches[0].screenX;
+        if(Math.abs(diff)>50){
+            if(diff>0){ci=Math.min(ci+1,ccards.length-1)}
+            else{ci=Math.max(ci-1,0)}
+            updS();clearInterval(sint);
+            sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
+        }
+    },{passive:true});
+}
+
+// ===== SMOOTH SCROLL (LINK KLIK NAVBAR) =====
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+        var h=this.getAttribute('href');
+        if(!h||h==='#')return;
+        e.preventDefault();
+        var t=document.querySelector(h);
+        if(!t)return;
+        var off = window.innerWidth >= 768 ? 110 : 20;
+        var tp=t.getBoundingClientRect().top+window.scrollY-off;
+        var sp=window.scrollY;var dist=tp-sp;var st=null;var dur=800;
+        function ease(t,b,c,d){t/=d/2;if(t<1)return c/2*t*t+b;t--;return-c/2*(t*(t-2)-1)+b}
+        function anim(c){if(st===null)st=c;var el=c-st;if(el<dur)requestAnimationFrame(anim);window.scrollTo(0,ease(el,sp,dist,dur))}
+        requestAnimationFrame(anim);
+    });
+});
+
+// ===== SCROLL REVEAL =====
+var rvs=document.querySelectorAll('.rv,.rv-l,.rv-r');
+var rob=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting)en.target.classList.add('show')})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+rvs.forEach(function(el){rob.observe(el)});
+
+// ===== REAL-TIME PRECISION NAV ACTIVE TRACKER =====
+(function(){
+    var secs = ['about', 'skills', 'projects', 'certificates', 'contact'];
+    var cur = 'about';
+    var ticking = false;
+    
+    var elNav = document.getElementById('bottomNav');
+    var indicator = document.getElementById('navIndicator');
+
+    if (elNav && elNav.parentElement !== document.body) {
+        document.body.appendChild(elNav);
+    }
+
+function moveIndicatorAbsolute(activeLink) {
+        if (!indicator || !elNav || !activeLink) return;
+
+        requestAnimationFrame(function() {
+            var navRect = elNav.getBoundingClientRect();
+            var linkRect = activeLink.getBoundingClientRect();
+            
+            // KALKULASI MATEMATIKA UNTUK GEOMETRI CAPSULE SIMETRIS
+            var extraPadding = 12; // Menambah total lebar kapsul agar teks tidak mepet
+            var widthPos = linkRect.width + extraPadding;
+            
+            // Menggeser titik koordinat X ke kiri setengah dari extraPadding agar tetap center
+            var leftPos = (linkRect.left - navRect.left) - (extraPadding / 2);
+
+            indicator.style.width = widthPos + 'px';
+            indicator.style.transform = 'translateX(' + leftPos + 'px)';
+        });
+    }
+
+    function upd(){
+        var found = 'about';
+        var triggerOffset = window.innerHeight * 0.35;
+
+        for (var i = 0; i < secs.length; i++) {
+            var el = document.getElementById(secs[i]);
+            if (el) {
+                var rect = el.getBoundingClientRect();
+                if (rect.top <= triggerOffset) {
+                    found = secs[i];
+                }
+            }
+        }
+
+        if (found !== cur || !indicator.style.width || indicator.style.width === '0px') {
+            cur = found;
+            var activeTarget = null;
+            
+            document.querySelectorAll('.nav-link').forEach(function(a){
+                var match = a.getAttribute('data-nav') === cur;
+                a.classList.toggle('active', match);
+            });
+
+            document.querySelectorAll('.mob-link').forEach(function(a){
+                var match = a.getAttribute('data-nav') === cur;
+                if(match) {
+                    a.classList.remove('text-zinc-500');
+                    a.classList.add('is-active');
+                    activeTarget = a; 
+                } else {
+                    a.classList.remove('is-active');
+                    a.classList.add('text-zinc-500');
+                }
+            });
+
+            if (activeTarget) {
+                moveIndicatorAbsolute(activeTarget);
+            }
+        }
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function(){
+        if (!ticking) {
+            requestAnimationFrame(upd);
+            ticking = true;
+        }
+    });
+
+    window.addEventListener('resize', function() {
+        if (!elNav) return;
+        var activeLink = elNav.querySelector('.mob-link.is-active');
+        if (activeLink) moveIndicatorAbsolute(activeLink);
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(upd, 150);
+    });
+    
+    setTimeout(upd, 350);
+})();
+
+// ============================================================
+// AUDIO PLAYER SOUNDTRACK LOGIC
+// ============================================================
+var bgMusic = document.getElementById("bgMusic");
+var musicIcon = document.getElementById("musicIcon");
+var musicTextStatus = document.getElementById("musicTextStatus");
+var navMusicWrapper = document.getElementById("navMusicWrapper");
+
+var pcMusicBtn = document.getElementById("pcMusicBtn");
+var pcMusicIcon = document.getElementById("pcMusicIcon");
+var pcMusicTextStatus = document.getElementById("pcMusicTextStatus");
+var pcMusicStatusBox = document.getElementById("pcMusicStatusBox");
+
+function toggleMusic() {
+    if (!bgMusic) return;
+    if (bgMusic.paused) {
+        bgMusic.play().then(function() {
+            updateMusicUI(true);
+        }).catch(function(error) {
+            console.log("Playback prevented:", error);
+        });
+    } else {
+        bgMusic.pause();
+        updateMusicUI(false);
+    }
+}
+
+function updateMusicUI(isPlaying) {
+    if (isPlaying) {
+        if (musicTextStatus) {
+            musicTextStatus.innerText = "ON";
+            musicTextStatus.className = "text-[7px] text-amber-400 font-black uppercase tracking-widest mt-0.5";
+        }
+        if (musicIcon) {
+            musicIcon.className = "w-4 h-4 text-amber-400 animate-spin-slow";
+        }
+        if (navMusicWrapper) {
+            navMusicWrapper.className = "p-1.5 rounded-full bg-white/10 transition-all duration-300";
+        }
+
+        if (pcMusicTextStatus) {
+            pcMusicTextStatus.innerText = "ON";
+            pcMusicTextStatus.className = "text-amber-400";
+        }
+        if (pcMusicIcon) {
+            pcMusicIcon.classList.add("text-amber-500", "animate-spin-slow");
+        }
+        if (pcMusicStatusBox) {
+            pcMusicStatusBox.classList.add("border-amber-400");
+        }
+    } else {
+        if (musicTextStatus) {
+            musicTextStatus.innerText = "OFF";
+            musicTextStatus.className = "text-[7px] text-white/40 font-black uppercase tracking-widest mt-0.5";
+        }
+        if (musicIcon) {
+            musicIcon.className = "w-4 h-4 text-white/60 transition-transform duration-300";
+        }
+        if (navMusicWrapper) {
+            navMusicWrapper.className = "p-1.5 rounded-full bg-transparent transition-all duration-300";
+        }
+
+        if (pcMusicTextStatus) {
+            pcMusicTextStatus.innerText = "OFF";
+            pcMusicTextStatus.className = "text-zinc-400";
+        }
+        if (pcMusicIcon) {
+            pcMusicIcon.classList.remove("text-amber-500", "animate-spin-slow");
+        }
+        if (pcMusicStatusBox) {
+            pcMusicStatusBox.classList.remove("border-amber-400");
+        }
+    }
+}
+
+// ===== DOWNLOAD CERTIFICATE =====
+function dlCert(url,filename){
+    fetch(url,{mode:'cors'}).then(function(r){return r.blob()}).then(function(blob){
+        var blobUrl=URL.createObjectURL(blob);
+        var a=document.createElement('a');
+        a.href=blobUrl;a.download=filename+'.jpg';
+        document.body.appendChild(a);a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+    }).catch(function(){window.open(url,'_blank')});
+}
+
+// ===== NAVBAR TOP SCROLL EFFEK =====
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){if(nav) nav.classList.toggle('nav-scroll',window.scrollY>20)});
+
+// ===== CAROUSEL =====
+var ctrack=document.getElementById('ctrack');
+var ccards=document.querySelectorAll('.ccard');
+var cdots=document.querySelectorAll('.sdot');
+var ci=0;
+var sdur=3500;
+function updS(){
+    if(!ctrack||ccards.length===0)return;
+    var cw=ccards[0].getBoundingClientRect().width;
+    var tw=ctrack.parentElement.getBoundingClientRect().width;
+    var gp=window.innerWidth>=768?32:24;
+    var co=(tw-cw)/2;
+    var mv=-ci*(cw+gp)+co;
+    ctrack.style.transform='translateX('+mv+'px)';
+    ccards.forEach(function(c,i){c.classList.toggle('active',i===ci)});
+    cdots.forEach(function(d,i){d.style.backgroundColor=i===ci?'#18181b':'#fff'});
+}
+var sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
+cdots.forEach(function(d){d.addEventListener('click',function(){ci=parseInt(this.getAttribute('data-i'));updS();clearInterval(sint);sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur)})});
+window.addEventListener('resize',updS);updS();
+
+// Touch swipe untuk carousel
+var touchStartX=0;
+if(ctrack){
+    ctrack.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].screenX},{passive:true});
+    ctrack.addEventListener('touchend',function(e){
+        var diff=touchStartX-e.changedTouches[0].screenX;
+        if(Math.abs(diff)>50){
+            if(diff>0){ci=Math.min(ci+1,ccards.length-1)}
+            else{ci=Math.max(ci-1,0)}
+            updS();clearInterval(sint);
+            sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
+        }
+    },{passive:true});
+}
+
+// ===== SMOOTH SCROLL (LINK KLIK NAVBAR) =====
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+        var h=this.getAttribute('href');
+        if(!h||h==='#')return;
+        e.preventDefault();
+        var t=document.querySelector(h);
+        if(!t)return;
+        var off = window.innerWidth >= 768 ? 110 : 20;
+        var tp=t.getBoundingClientRect().top+window.scrollY-off;
+        var sp=window.scrollY;var dist=tp-sp;var st=null;var dur=800;
+        function ease(t,b,c,d){t/=d/2;if(t<1)return c/2*t*t+b;t--;return-c/2*(t*(t-2)-1)+b}
+        function anim(c){if(st===null)st=c;var el=c-st;if(el<dur)requestAnimationFrame(anim);window.scrollTo(0,ease(el,sp,dist,dur))}
+        requestAnimationFrame(anim);
+    });
+});
+
+// ===== SCROLL REVEAL =====
+var rvs=document.querySelectorAll('.rv,.rv-l,.rv-r');
+var rob=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting)en.target.classList.add('show')})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+rvs.forEach(function(el){rob.observe(el)});
+
+// ===== REAL-TIME PRECISION NAV ACTIVE TRACKER =====
+(function(){
+    var secs = ['about', 'skills', 'projects', 'certificates', 'contact'];
+    var cur = 'about';
+    var ticking = false;
+    
+    var elNav = document.getElementById('bottomNav');
+    var indicator = document.getElementById('navIndicator');
+
+    if (elNav && elNav.parentElement !== document.body) {
+        document.body.appendChild(elNav);
+    }
+
+function moveIndicatorAbsolute(activeLink) {
+        if (!indicator || !elNav || !activeLink) return;
+
+        requestAnimationFrame(function() {
+            var navRect = elNav.getBoundingClientRect();
+            var linkRect = activeLink.getBoundingClientRect();
+            
+            // KALKULASI MATEMATIKA UNTUK GEOMETRI CAPSULE SIMETRIS
+            var extraPadding = 12; // Menambah total lebar kapsul agar teks tidak mepet
+            var widthPos = linkRect.width + extraPadding;
+            
+            // Menggeser titik koordinat X ke kiri setengah dari extraPadding agar tetap center
+            var leftPos = (linkRect.left - navRect.left) - (extraPadding / 2);
+
+            indicator.style.width = widthPos + 'px';
+            indicator.style.transform = 'translateX(' + leftPos + 'px)';
+        });
+    }
+
+    function upd(){
+        var found = 'about';
+        var triggerOffset = window.innerHeight * 0.35;
+
+        for (var i = 0; i < secs.length; i++) {
+            var el = document.getElementById(secs[i]);
+            if (el) {
+                var rect = el.getBoundingClientRect();
+                if (rect.top <= triggerOffset) {
+                    found = secs[i];
+                }
+            }
+        }
+
+        if (found !== cur || !indicator.style.width || indicator.style.width === '0px') {
+            cur = found;
+            var activeTarget = null;
+            
+            document.querySelectorAll('.nav-link').forEach(function(a){
+                var match = a.getAttribute('data-nav') === cur;
+                a.classList.toggle('active', match);
+            });
+
+            document.querySelectorAll('.mob-link').forEach(function(a){
+                var match = a.getAttribute('data-nav') === cur;
+                if(match) {
+                    a.classList.remove('text-zinc-500');
+                    a.classList.add('is-active');
+                    activeTarget = a; 
+                } else {
+                    a.classList.remove('is-active');
+                    a.classList.add('text-zinc-500');
+                }
+            });
+
+            if (activeTarget) {
+                moveIndicatorAbsolute(activeTarget);
+            }
+        }
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function(){
+        if (!ticking) {
+            requestAnimationFrame(upd);
+            ticking = true;
+        }
+    });
+
+    window.addEventListener('resize', function() {
+        if (!elNav) return;
+        var activeLink = elNav.querySelector('.mob-link.is-active');
+        if (activeLink) moveIndicatorAbsolute(activeLink);
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(upd, 150);
+    });
+    
+    setTimeout(upd, 350);
+})();
+
+// ===== AUTOMATIC POPUP OBSERVER SYSTEM (MUTATION WATCHER) =====
+document.addEventListener('DOMContentLoaded', function() {
+    if (!mobileNav) return;
+
+    // Pantau perubahan class pada body / modal secara realtime menggunakan MutationObserver
+    var observer = new MutationObserver(function() {
+        if (isPopupOpen()) {
+            mobileNav.classList.remove('nav-visible');
+        }
+    });
+
+    observer.observe(document.body, {
+        attributes: true,
+        subtree: true,
+        attributeFilter: ['class', 'style']
+    });
+});
+
+// ============================================================
+// AUDIO PLAYER SOUNDTRACK LOGIC
+// ============================================================
+var bgMusic = document.getElementById("bgMusic");
+var musicIcon = document.getElementById("musicIcon");
+var musicTextStatus = document.getElementById("musicTextStatus");
+var navMusicWrapper = document.getElementById("navMusicWrapper");
+
+var pcMusicBtn = document.getElementById("pcMusicBtn");
+var pcMusicIcon = document.getElementById("pcMusicIcon");
+var pcMusicTextStatus = document.getElementById("pcMusicTextStatus");
+var pcMusicStatusBox = document.getElementById("pcMusicStatusBox");
+
+function toggleMusic() {
+    if (!bgMusic) return;
+    if (bgMusic.paused) {
+        bgMusic.play().then(function() {
+            updateMusicUI(true);
+        }).catch(function(error) {
+            console.log("Playback prevented:", error);
+        });
+    } else {
+        bgMusic.pause();
+        updateMusicUI(false);
+    }
+}
+
+function updateMusicUI(isPlaying) {
+    if (isPlaying) {
+        if (musicTextStatus) {
+            musicTextStatus.innerText = "ON";
+            musicTextStatus.className = "text-[7px] text-amber-400 font-black uppercase tracking-widest mt-0.5";
+        }
+        if (musicIcon) {
+            musicIcon.className = "w-4 h-4 text-amber-400 animate-spin-slow";
+        }
+        if (navMusicWrapper) {
+            navMusicWrapper.className = "p-1.5 rounded-full bg-white/10 transition-all duration-300";
+        }
+
+        if (pcMusicTextStatus) {
+            pcMusicTextStatus.innerText = "ON";
+            pcMusicTextStatus.className = "text-amber-400";
+        }
+        if (pcMusicIcon) {
+            pcMusicIcon.classList.add("text-amber-500", "animate-spin-slow");
+        }
+        if (pcMusicStatusBox) {
+            pcMusicStatusBox.classList.add("border-amber-400");
+        }
+    } else {
+        if (musicTextStatus) {
+            musicTextStatus.innerText = "OFF";
+            musicTextStatus.className = "text-[7px] text-white/40 font-black uppercase tracking-widest mt-0.5";
+        }
+        if (musicIcon) {
+            musicIcon.className = "w-4 h-4 text-white/60 transition-transform duration-300";
+        }
+        if (navMusicWrapper) {
+            navMusicWrapper.className = "p-1.5 rounded-full bg-transparent transition-all duration-300";
+        }
+
+        if (pcMusicTextStatus) {
+            pcMusicTextStatus.innerText = "OFF";
+            pcMusicTextStatus.className = "text-zinc-400";
+        }
+        if (pcMusicIcon) {
+            pcMusicIcon.classList.remove("text-amber-500", "animate-spin-slow");
+        }
+        if (pcMusicStatusBox) {
+            pcMusicStatusBox.classList.remove("border-amber-400");
+        }
+    }
+}
 // ===== MODAL DATA SYSTEM =====
 var mdata={
 pa:{t:'FAYABI Workshops',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><video src="img/project_a.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Digital Automotive Platform</h4><p>FAYABI Workshops is a comprehensive digital platform for your two-wheeled automotive needs. It offers features for buying and selling new and used motorcycles, workshop service bookings, technical consultations, and vehicle maintenance management—all within one ecosystem.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-amber-50 border border-amber-300 text-amber-700 text-[9px] font-black uppercase rounded-md">HTML/CSS</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">JavaScript</span><span class="px-2 py-1 bg-cyan-50 border border-cyan-300 text-cyan-700 text-[9px] font-black uppercase rounded-md">Tailwind</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
@@ -986,39 +1897,39 @@ var rvs=document.querySelectorAll('.rv,.rv-l,.rv-r');
 var rob=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting)en.target.classList.add('show')})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 rvs.forEach(function(el){rob.observe(el)});
 
-// ===== iOS 27 REAL-TIME PRECISION NAV SYSTEM =====
+// ===== REAL-TIME PRECISION NAV ACTIVE TRACKER (ANTI-JUMP SYSTEM) =====
 (function(){
     var secs = ['about', 'skills', 'projects', 'certificates', 'contact'];
     var cur = 'about';
     var ticking = false;
+    var isNavClicking = false; // FLAG PENGUNCI LOMPATAN INDIKATOR
     
     var elNav = document.getElementById('bottomNav');
     var indicator = document.getElementById('navIndicator');
 
-    // Suntik langsung ke <body> agar terlepas dari belenggu layout container induk
-    if (elNav && elNav.parentElement !== document.body) {
-        document.body.appendChild(elNav);
-    }
-
-    // Fungsi utama pencari posisi koordinat absolut elemen menu aktif
-    function moveIndicatorAbsolute(activeLink) {
+function moveIndicatorAbsolute(activeLink) {
         if (!indicator || !elNav || !activeLink) return;
 
         requestAnimationFrame(function() {
             var navRect = elNav.getBoundingClientRect();
             var linkRect = activeLink.getBoundingClientRect();
+            
+            // KALKULASI MATEMATIKA UNTUK GEOMETRI CAPSULE SIMETRIS
+            var extraPadding = 12; // Menambah total lebar kapsul agar teks tidak mepet
+            var widthPos = linkRect.width + extraPadding;
+            
+            // Menggeser titik koordinat X ke kiri setengah dari extraPadding agar tetap center
+            var leftPos = (linkRect.left - navRect.left) - (extraPadding / 2);
 
-            // Hitung selisih jarak koordinat X antara kontainer bar dengan item menu
-            var leftPos = linkRect.left - navRect.left;
-            var widthPos = linkRect.width;
-
-            // Berikan kecocokan ukuran presisi 100% tepat di tengah kotak item menu
             indicator.style.width = widthPos + 'px';
             indicator.style.transform = 'translateX(' + leftPos + 'px)';
         });
     }
 
     function upd(){
+        // Batalkan pelacakan otomatis jika di layar PC atau jika user sedang klik menu jarak jauh
+        if (window.innerWidth >= 768 || isNavClicking) return;
+        
         var found = 'about';
         var triggerOffset = window.innerHeight * 0.35;
 
@@ -1032,47 +1943,49 @@ rvs.forEach(function(el){rob.observe(el)});
             }
         }
 
-// Gunakan script presisi pengukur getBoundingClientRect() yang kemarin kita buat.
-// Pastikan blok update kelasnya murni mengatur 'is-active' saja:
-document.querySelectorAll('.mob-link').forEach(function(a){
-    var match = a.getAttribute('data-nav') === cur;
-    if(match) {
-        a.classList.add('is-active');
-        activeTarget = a;
-    } else {
-        a.classList.remove('is-active');
-    }
-});
-
         if (found !== cur || !indicator.style.width || indicator.style.width === '0px') {
             cur = found;
-            var activeTarget = null;
-            
-            // Sinkronisasi Navigasi PC Desktop
-            document.querySelectorAll('.nav-link').forEach(function(a){
-                var match = a.getAttribute('data-nav') === cur;
-                a.classList.toggle('active', match);
-            });
-            
-            // Sinkronisasi Navigasi Mobile
-            document.querySelectorAll('.mob-link').forEach(function(a){
-                var match = a.getAttribute('data-nav') === cur;
-                if(match) {
-                    a.classList.remove('text-zinc-500');
-                    a.classList.add('is-active');
-                    activeTarget = a; // Tandai elemen HTML ini sebagai target kalkulasi
-                } else {
-                    a.classList.remove('is-active');
-                    a.classList.add('text-zinc-500');
-                }
-            });
-
-            if (activeTarget) {
-                moveIndicatorAbsolute(activeTarget);
-            }
+            activateMenu(cur);
         }
         ticking = false;
     }
+
+    function activateMenu(targetNav) {
+        var activeTarget = null;
+        
+        document.querySelectorAll('.mob-link').forEach(function(a){
+            var match = a.getAttribute('data-nav') === targetNav;
+            if(match) {
+                a.classList.remove('text-zinc-500');
+                a.classList.add('is-active');
+                activeTarget = a; 
+            } else {
+                a.classList.remove('is-active');
+                a.classList.add('text-zinc-500');
+            }
+        });
+
+        if (activeTarget) {
+            moveIndicatorAbsolute(activeTarget);
+        }
+    }
+
+    // TANGKAP EVENT KLIK: Mengunci detektor scroll agar indikator putih meluncur lurus ke target
+    document.querySelectorAll('.mob-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            var targetNav = this.getAttribute('data-nav');
+            if (targetNav) {
+                isNavClicking = true; // Aktifkan kunci detektor scroll
+                cur = targetNav;
+                activateMenu(targetNav);
+                
+                // Lepas pengunci secara halus setelah halaman selesai mendarat (800ms)
+                setTimeout(function() {
+                    isNavClicking = false;
+                }, 800);
+            }
+        });
+    });
 
     window.addEventListener('scroll', function(){
         if (!ticking) {
@@ -1081,18 +1994,16 @@ document.querySelectorAll('.mob-link').forEach(function(a){
         }
     });
 
-    // Jalankan kalkulasi ulang saat layar di-resize agar posisi indikator tidak tertinggal
     window.addEventListener('resize', function() {
+        if (!elNav || window.innerWidth >= 768) return;
         var activeLink = elNav.querySelector('.mob-link.is-active');
         if (activeLink) moveIndicatorAbsolute(activeLink);
     });
 
-    // Inisialisasi awal saat halaman selesai dimuat
     window.addEventListener('DOMContentLoaded', function() {
         setTimeout(upd, 150);
     });
     
-    // Pemicu darurat untuk memastikan rendering posisi langsung tepat sasaran
     setTimeout(upd, 350);
 })();
 
@@ -1110,10 +2021,98 @@ document.querySelectorAll('.mob-link').forEach(function(a){
         var rect = container.getBoundingClientRect();
         var x = e.clientX - rect.left;
         var y = e.clientY - rect.top;
-        
         var centerX = rect.width / 2;
         var centerY = rect.height / 2;
+        var rotateX = ((y - centerY) / centerY) * -12;
+        var rotateY = ((x - centerX) / centerX) * 12;
         
+        wrapper.style.transform = 'scale(1.28) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+    });
+    
+    container.addEventListener('mouseleave', function() {
+        wrapper.style.transform = 'scale(1.28) rotateX(0deg) rotateY(0deg)';
+    });
+})();
+
+// ===== AUTOMATIC POPUP OBSERVER SYSTEM (WELCOME-FIRST LOGIC) =====
+document.addEventListener('DOMContentLoaded', function() {
+    var mobileNav = document.getElementById('bottomNav');
+    if (!mobileNav) return;
+
+    var isNavCurrentlyShowing = false;
+    
+    function checkPopupStates() {
+        var welcomeScreen = document.getElementById('welcomeOverlay') || document.getElementById('welcome-screen') || document.querySelector('.welcome-popup');
+        var isWelcomeActive = false;
+        
+        if (welcomeScreen) {
+            var style = window.getComputedStyle(welcomeScreen);
+            if (style.display !== 'none' && style.visibility !== 'hidden' && !welcomeScreen.classList.contains('hidden') && style.opacity !== '0') {
+                isWelcomeActive = true;
+            }
+        }
+
+        var activeModals = Array.from(document.querySelectorAll('[role="dialog"], .modal, .popup, #projectModal, #certModal, #mO')).filter(function(modal) {
+            if (modal === mobileNav) return false;
+            var mStyle = window.getComputedStyle(modal);
+            var hasOnClass = modal.classList.contains('on');
+            var isVisible = mStyle.display !== 'none' && !modal.classList.contains('hidden') && mStyle.visibility !== 'hidden';
+            return hasOnClass || isVisible;
+        });
+
+        // Kondisi bersih: Welcome selesai dan tidak ada modal popup yang terbuka
+        var shouldShow = (!isWelcomeActive && activeModals.length === 0);
+
+        if (shouldShow && !isNavCurrentlyShowing) {
+            isNavCurrentlyShowing = true;
+            mobileNav.classList.add('nav-visible'); // Trigger CSS meluncur naik
+            
+            setTimeout(function() {
+                window.dispatchEvent(new Event('resize'));
+            }, 300);
+        } else if (!shouldShow && isNavCurrentlyShowing) {
+            isNavCurrentlyShowing = false;
+            mobileNav.classList.remove('nav-visible'); // Trigger CSS meluncur turun
+        }
+    }
+
+    // Interval cek aman untuk menyelaraskan hilangnya Welcome Screen
+    setTimeout(checkPopupStates, 100);
+    setTimeout(checkPopupStates, 2200); 
+
+    var observer = new MutationObserver(function(mutations) {
+        var isTriggeredBySelf = mutations.every(function(mutation) {
+            return mutation.target === mobileNav || mobileNav.contains(mutation.target);
+        });
+
+        if (!isTriggeredBySelf) {
+            checkPopupStates();
+        }
+    });
+
+    observer.observe(document.body, {
+        attributes: true,
+        subtree: true,
+        attributeFilter: ['class', 'style']
+    });
+});
+
+// ===== EPIC HEADER PHOTO - 3D TILT PARALLAX EFFECT =====
+(function() {
+    var container = document.getElementById('heroPhotoContainer');
+    var wrapper = document.getElementById('heroPhotoWrapper');
+    
+    if (!container || !wrapper) return;
+    
+    var isTouchDevice = window.matchMedia('(max-width: 1023px)').matches;
+    if (isTouchDevice) return;
+    
+    container.addEventListener('mousemove', function(e) {
+        var rect = container.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
         var rotateX = ((y - centerY) / centerY) * -12;
         var rotateY = ((x - centerX) / centerX) * 12;
         
