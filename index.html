@@ -407,10 +407,10 @@
         top: auto !important;
         bottom: 0 !important;
         height: 88vh !important;
-        transform: translateY(100%) !important;
+        transform: translate3d(0,100%,0) !important;
     }
     #mpPanel.open {
-        transform: translateY(0) !important;
+        transform: translate3d(0,0,0) !important;
     }
     #mpBackdrop {
         background: rgba(24,24,27,0.55) !important;
@@ -420,7 +420,7 @@
 /* Desktop: slide from right */
 @media (min-width: 641px) {
     #mpPanel.open {
-        transform: translateX(0) !important;
+        transform: translate3d(0,0,0) !important;
     }
 }
 
@@ -530,8 +530,8 @@
 
 <!-- MUSIC PLAYER SYSTEM v2 — Spotify Style Sidebar -->
 <div id="musicPlayerRoot" style="position:fixed;inset:0;z-index:99999999;font-family:'Inter',sans-serif;pointer-events:none;">
-  <div id="mpBackdrop" onclick="closeMusicPlayer()" style="position:absolute;inset:0;background:rgba(24,24,27,0.4);backdrop-filter:blur(4px);opacity:0;transition:opacity 0.4s ease;pointer-events:none;"></div>
-  <div id="mpPanel" style="position:absolute;top:0;right:0;height:100%;width:100%;max-width:420px;background:#F9F8F3;border-left:3px solid #18181b;box-shadow:-8px 0 32px rgba(0,0,0,0.25);transform:translateX(100%);transition:transform 0.55s cubic-bezier(0.32,0.72,0,1);display:flex;flex-direction:column;pointer-events:auto;overflow:hidden;">
+  <div id="mpBackdrop" onclick="closeMusicPlayer()" style="position:absolute;inset:0;background:rgba(24,24,27,0.35);opacity:0;transition:opacity 0.4s ease;pointer-events:none;"></div>
+  <div id="mpPanel" style="position:absolute;top:0;right:0;height:100%;width:100%;max-width:420px;background:#F9F8F3;border-left:3px solid #18181b;box-shadow:-8px 0 32px rgba(0,0,0,0.25);transform:translate3d(100%,0,0);will-change:transform;backface-visibility:hidden;transition:transform 0.55s cubic-bezier(0.32,0.72,0,1);display:flex;flex-direction:column;pointer-events:auto;overflow:hidden;">
     <div style="background:#18181b;color:white;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #18181b;flex-shrink:0;">
       <div style="display:flex;align-items:center;gap:10px;">
         <svg id="headerVinyl" style="width:22px;height:22px;" viewBox="0 0 24 24" fill="none">
@@ -548,7 +548,58 @@
     <div style="flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 20px;display:flex;flex-direction:column;gap:24px;">
       <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
         <div style="position:relative;width:240px;height:240px;display:flex;align-items:center;justify-content:center;">
-          <div id="vizRing" style="position:absolute;width:360px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;gap:2px;opacity:0.55;"></div>
+          <div id="vizRing" style="position:absolute;width:360px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;gap:2px;opacity:0;">
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:18%;animation:vz1 0.45s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:35%;animation:vz2 0.55s ease-in-out infinite alternate;opacity:0.8;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:25%;animation:vz3 0.4s ease-in-out infinite alternate;opacity:0.9;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:50%;animation:vz4 0.6s ease-in-out infinite alternate;opacity:0.7;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:30%;animation:vz5 0.5s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:42%;animation:vz6 0.35s ease-in-out infinite alternate;opacity:0.85;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:22%;animation:vz7 0.48s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:55%;animation:vz8 0.52s ease-in-out infinite alternate;opacity:0.75;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:28%;animation:vz9 0.42s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:38%;animation:vz10 0.58s ease-in-out infinite alternate;opacity:0.8;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:20%;animation:vz1 0.45s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:48%;animation:vz2 0.55s ease-in-out infinite alternate;opacity:0.8;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:32%;animation:vz3 0.4s ease-in-out infinite alternate;opacity:0.9;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:44%;animation:vz4 0.6s ease-in-out infinite alternate;opacity:0.7;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:26%;animation:vz5 0.5s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:40%;animation:vz6 0.35s ease-in-out infinite alternate;opacity:0.85;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:33%;animation:vz7 0.48s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:47%;animation:vz8 0.52s ease-in-out infinite alternate;opacity:0.75;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:21%;animation:vz9 0.42s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:36%;animation:vz10 0.58s ease-in-out infinite alternate;opacity:0.8;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:29%;animation:vz1 0.45s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:43%;animation:vz2 0.55s ease-in-out infinite alternate;opacity:0.8;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:24%;animation:vz3 0.4s ease-in-out infinite alternate;opacity:0.9;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:37%;animation:vz4 0.6s ease-in-out infinite alternate;opacity:0.7;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:31%;animation:vz5 0.5s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:45%;animation:vz6 0.35s ease-in-out infinite alternate;opacity:0.85;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:27%;animation:vz7 0.48s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:39%;animation:vz8 0.52s ease-in-out infinite alternate;opacity:0.75;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:34%;animation:vz9 0.42s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:46%;animation:vz10 0.58s ease-in-out infinite alternate;opacity:0.8;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:23%;animation:vz1 0.45s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:41%;animation:vz2 0.55s ease-in-out infinite alternate;opacity:0.8;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:19%;animation:vz3 0.4s ease-in-out infinite alternate;opacity:0.9;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:49%;animation:vz4 0.6s ease-in-out infinite alternate;opacity:0.7;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:30%;animation:vz5 0.5s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:44%;animation:vz6 0.35s ease-in-out infinite alternate;opacity:0.85;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:25%;animation:vz7 0.48s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:38%;animation:vz8 0.52s ease-in-out infinite alternate;opacity:0.75;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:32%;animation:vz9 0.42s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:47%;animation:vz10 0.58s ease-in-out infinite alternate;opacity:0.8;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:28%;animation:vz1 0.45s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:40%;animation:vz2 0.55s ease-in-out infinite alternate;opacity:0.8;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:35%;animation:vz3 0.4s ease-in-out infinite alternate;opacity:0.9;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:50%;animation:vz4 0.6s ease-in-out infinite alternate;opacity:0.7;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:22%;animation:vz5 0.5s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:36%;animation:vz6 0.35s ease-in-out infinite alternate;opacity:0.85;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:31%;animation:vz7 0.48s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:42%;animation:vz8 0.52s ease-in-out infinite alternate;opacity:0.75;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:27%;animation:vz9 0.42s ease-in-out infinite alternate;opacity:1;animation-play-state:paused;"></div>
+            <div class="vbar" style="width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:45%;animation:vz10 0.58s ease-in-out infinite alternate;opacity:0.8;animation-play-state:paused;"></div>
+          </div>
           <div id="vinylRecord" style="position:relative;width:200px;height:200px;border-radius:50%;background:#0a0a0a;border:3px solid #18181b;box-shadow:0 0 40px rgba(251,191,36,0.12),0 8px 24px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;overflow:hidden;">
             <div style="position:absolute;inset:8px;border:1px solid #27272a;border-radius:50%;"></div>
             <div style="position:absolute;inset:18px;border:1px solid #27272a;border-radius:50%;"></div>
@@ -1102,10 +1153,10 @@ var mdata={
 pa:{t:'FAYABI Workshops',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><video src="img/project_a.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Digital Automotive Platform</h4><p>FAYABI Workshops is a comprehensive digital platform for your two-wheeled automotive needs. It offers features for buying and selling new and used motorcycles, workshop service bookings, technical consultations, and vehicle maintenance management—all within one ecosystem.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-amber-50 border border-amber-300 text-amber-700 text-[9px] font-black uppercase rounded-md">HTML/CSS</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">JavaScript</span><span class="px-2 py-1 bg-cyan-50 border border-cyan-300 text-cyan-700 text-[9px] font-black uppercase rounded-md">Tailwind</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
 pb:{t:'PointKu - Digital Scoring',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50" style="aspect-ratio:16/9"><video src="img/project_b.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Transparent Competition Scoring System</h4><p>PointKu is a digital-based competition scoring application designed to ensure transparency, fairness, and accountability in every judging process. Judges can score in real time, and participants and the public can monitor the results directly.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-indigo-50 border border-indigo-300 text-indigo-700 text-[9px] font-black uppercase rounded-md">PHP</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span><span class="px-2 py-1 bg-sky-50 border border-sky-300 text-sky-700 text-[9px] font-black uppercase rounded-md">MySQL</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
 pc:{t:'Google Sheet',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><video src="img/project_c.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Spreadsheet Operasional</h4><p>Sheet demonstrates my expertise in designing and managing spreadsheets for operational needs — from recording financial data, inventory, scheduling, to automating calculations with neat and efficient formulas & pivot tables.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-emerald-50 border border-emerald-300 text-emerald-700 text-[9px] font-black uppercase rounded-md">Google Sheets</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">MS Excel</span><span class="px-2 py-1 bg-violet-50 border border-violet-300 text-violet-700 text-[9px] font-black uppercase rounded-md">Data Analysis</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
-cs:{t:'Pramuka Garuda Certification',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 mx-auto" style="aspect-ratio:3/4;max-width:360px"><img src="sertificate/ser_garuda.png" draggable="false" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Highest Scout Rank Achievement</h4><p>The Pramuka Garuda is the highest rank in Indonesian Scouting, awarded only to those who demonstrate exceptional character:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Absolute Honesty</strong> — unwavering truthfulness in all actions</li><li><strong class="text-zinc-900">Systematic Discipline</strong> — consistent adherence to commitments</li><li><strong class="text-zinc-900">Dependable Task Management</strong> — reliable execution under pressure</li><li><strong class="text-zinc-900">Community Leadership</strong> — responsibility for the welfare of others</li></ul><p class="text-[11px] text-zinc-500">Issued by: Kwarcab Jakarta Selatan | Year: 2024</p></div>'},
-ci:{t:'Industrial Internship Certificate',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><img src="sertificate/ser_jip.jpg" draggable="false" alt="Internship Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">PT JIP Internship Verification</h4><p>Official verification of successful 6-month frontend development internship at PT Jakarta Infrastruktur Propertindo — Telco Business Engineering Development division:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Frontend Interface Development</strong> — pixel-perfect web interfaces</li><li><strong class="text-zinc-900">Sprint Target Achievement</strong> — consistent enterprise delivery</li><li><strong class="text-zinc-900">Team Collaboration</strong> — formal engineering environments</li><li><strong class="text-zinc-900">Technical Documentation</strong> — structured project reports</li></ul><p class="text-[11px] text-zinc-500">Period: July 2025 — December 2025</p></div>'},
-co:{t:'OSIS Division 3 & Vice Chairman',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><img src="sertificate/ser_osis.png" draggable="false" alt="OSIS Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Division 3 Member — Character Development</h4><p>Appointed as a member of <strong>Division 3: Character and Noble Values Development</strong> within OSIS SMK Negeri 2 Jakarta:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Character Building Programs</strong> — designing activities that foster moral integrity</li><li><strong class="text-zinc-900">Student Mentorship</strong> — guiding peers in ethical decision-making</li><li><strong class="text-zinc-900">Event Coordination</strong> — organizing school events and programs</li></ul><div class="mt-3 p-3 bg-zinc-900 text-white rounded-xl border-2 border-zinc-900"><span class="text-[9px] font-mono font-black text-amber-400 uppercase block mb-1">Previous Role</span><p class="text-xs font-bold">Served as <span class="text-amber-400 font-black">Vice Chairman of OSIS (2023/2024)</span> — certificate was not issued for that term, but the leadership experience was real and impactful.</p></div><p class="text-[11px] text-zinc-500">Certificate issued: 2025</p></div>'},
-cp:{t:'1st Place — Terompah Panjang Race',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50" style="aspect-ratio:16/9"><img src="sertificate/ser_potrad.png" draggable="false" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Juara 1 — Lomba Terompah Panjang Beregu Putra</h4><p>Won <strong>1st Place</strong> in the Traditional Stilts Team Race (Terompah Panjang Beregu Putra) at the <strong>Kejuaraan Pekan Olahraga Tradisional Wilayah Jakarta Pusat</strong> (Central Jakarta Traditional Sports Championship).</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Team Coordination</strong> — synchronized movement with teammates on traditional stilts</li><li><strong class="text-zinc-900">Physical Endurance</strong> — sustained balance and speed under competitive pressure</li><li><strong class="text-zinc-900">Cultural Preservation</strong> — representing and promoting Indonesian traditional sports</li><li><strong class="text-zinc-900">Competitive Spirit</strong> — achieving the top position among schools across Central Jakarta</li></ul><p class="text-[11px] text-zinc-500">Organized by: Suku Dinas Pemuda dan Olahraga Kota Administrasi Jakarta Pusat | Date: May 8, 2025</p></div>'},
+cs:{t:'Pramuka Garuda Certification',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 mx-auto" style="aspect-ratio:3/4;max-width:360px"><img src="sertificate/ser_garuda.png" draggable="false" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Highest Scout Rank Achievement</h4><p>The Pramuka Garuda is the highest rank in Indonesian Scouting, awarded only to those who demonstrate exceptional character:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Absolute Honesty</strong> — unwavering truthfulness in all actions</li><li><strong class="text-zinc-900">Systematic Discipline</strong> — consistent adherence to commitments</li><li><strong class="text-zinc-900">Dependable Task Management</strong> — reliable execution under pressure</li><li><strong class="text-zinc-900">Community Leadership</strong> — responsibility for the welfare of others</li></ul><p class="text-[11px] text-zinc-500">Issued by: Kwarcab Jakarta Selatan | Year: 2024</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_garuda.png\',\'Pramuka_Garuda_Certificate\')">⬇ Download Certificate</button></div>'},
+ci:{t:'Industrial Internship Certificate',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><img src="sertificate/ser_jip.jpg" draggable="false" alt="Internship Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">PT JIP Internship Verification</h4><p>Official verification of successful 6-month frontend development internship at PT Jakarta Infrastruktur Propertindo — Telco Business Engineering Development division:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Frontend Interface Development</strong> — pixel-perfect web interfaces</li><li><strong class="text-zinc-900">Sprint Target Achievement</strong> — consistent enterprise delivery</li><li><strong class="text-zinc-900">Team Collaboration</strong> — formal engineering environments</li><li><strong class="text-zinc-900">Technical Documentation</strong> — structured project reports</li></ul><p class="text-[11px] text-zinc-500">Period: July 2025 — December 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_jip.jpg\',\'JIP_Internship_Certificate\')">⬇ Download Certificate</button></div>'},
+co:{t:'OSIS Division 3 & Vice Chairman',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><img src="sertificate/ser_osis.png" draggable="false" alt="OSIS Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Division 3 Member — Character Development</h4><p>Appointed as a member of <strong>Division 3: Character and Noble Values Development</strong> within OSIS SMK Negeri 2 Jakarta:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Character Building Programs</strong> — designing activities that foster moral integrity</li><li><strong class="text-zinc-900">Student Mentorship</strong> — guiding peers in ethical decision-making</li><li><strong class="text-zinc-900">Event Coordination</strong> — organizing school events and programs</li></ul><div class="mt-3 p-3 bg-zinc-900 text-white rounded-xl border-2 border-zinc-900"><span class="text-[9px] font-mono font-black text-amber-400 uppercase block mb-1">Previous Role</span><p class="text-xs font-bold">Served as <span class="text-amber-400 font-black">Vice Chairman of OSIS (2023/2024)</span> — certificate was not issued for that term, but the leadership experience was real and impactful.</p></div><p class="text-[11px] text-zinc-500">Certificate issued: 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_osis.png\',\'OSIS_Division3_Certificate\')">⬇ Download Certificate</button></div>'},
+cp:{t:'1st Place — Terompah Panjang Race',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50" style="aspect-ratio:16/9"><img src="sertificate/ser_potrad.png" draggable="false" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Juara 1 — Lomba Terompah Panjang Beregu Putra</h4><p>Won <strong>1st Place</strong> in the Traditional Stilts Team Race (Terompah Panjang Beregu Putra) at the <strong>Kejuaraan Pekan Olahraga Tradisional Wilayah Jakarta Pusat</strong> (Central Jakarta Traditional Sports Championship).</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Team Coordination</strong> — synchronized movement with teammates on traditional stilts</li><li><strong class="text-zinc-900">Physical Endurance</strong> — sustained balance and speed under competitive pressure</li><li><strong class="text-zinc-900">Cultural Preservation</strong> — representing and promoting Indonesian traditional sports</li><li><strong class="text-zinc-900">Competitive Spirit</strong> — achieving the top position among schools across Central Jakarta</li></ul><p class="text-[11px] text-zinc-500">Organized by: Suku Dinas Pemuda dan Olahraga Kota Administrasi Jakarta Pusat | Date: May 8, 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_potrad.png\',\'Terompah_Panjang_1st_Place\')">⬇ Download Certificate</button></div>'},
 };
 
 function openM(id){
@@ -1497,7 +1548,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (pauseIcon) pauseIcon.style.display = 'block';
       if (vinyl) vinyl.classList.add('vinyl-spin');
       if (headerVinyl) headerVinyl.classList.add('header-spin');
-      if (viz) viz.style.opacity = '0.55';
+      if (viz) { viz.style.opacity = '0.55'; viz.querySelectorAll('.vbar').forEach(function(bar){ bar.style.animationPlayState = 'running'; }); }
       if (audio) audio.play().catch(function(){});
       startProgress();
     } else {
@@ -1505,17 +1556,19 @@ document.addEventListener('DOMContentLoaded', function() {
       if (pauseIcon) pauseIcon.style.display = 'none';
       if (vinyl) vinyl.classList.remove('vinyl-spin');
       if (headerVinyl) headerVinyl.classList.remove('header-spin');
-      if (viz) viz.style.opacity = '0.2';
+      if (viz) { viz.style.opacity = '0'; viz.querySelectorAll('.vbar').forEach(function(bar){ bar.style.animationPlayState = 'paused'; }); }
       if (audio) audio.pause();
       stopProgress();
     }
     renderPlaylist();
+    updateMusicNavUI();
   };
 
   window.selectTrack = function(idx) {
     currentIndex = idx;
     isPlaying = true;
     updateDisplay();
+  updateMusicNavUI();
     var playIcon = document.getElementById('iconPlay');
     var pauseIcon = document.getElementById('iconPause');
     var vinyl = document.getElementById('vinylRecord');
@@ -1525,10 +1578,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (pauseIcon) pauseIcon.style.display = 'block';
     if (vinyl) vinyl.classList.add('vinyl-spin');
     if (headerVinyl) headerVinyl.classList.add('header-spin');
-    if (viz) viz.style.opacity = '0.55';
+    if (viz) { viz.style.opacity = '0.55'; viz.querySelectorAll('.vbar').forEach(function(bar){ bar.style.animationPlayState = 'running'; }); }
     if (audio) audio.play().catch(function(){});
     stopProgress(); startProgress();
     renderPlaylist();
+    updateMusicNavUI();
   };
 
   window.nextTrack = function() { selectTrack((currentIndex + 1) % tracks.length); };
@@ -1546,27 +1600,92 @@ document.addEventListener('DOMContentLoaded', function() {
     if (audio) audio.currentTime = currentSeconds;
   };
 
-  window.openMusicPlayer = function() {
+  
+  // Sync music status with bottom nav & desktop nav
+  function updateMusicNavUI() {
+    var musicTextStatus = document.getElementById('musicTextStatus');
+    var navMusicWrapper = document.getElementById('navMusicWrapper');
+    var musicIcon = document.getElementById('musicIcon');
+    var desktopMusicIcon = document.getElementById('desktopMusicIcon');
+
+    if (isPlaying) {
+      if (musicTextStatus) {
+        musicTextStatus.innerText = 'ON';
+        musicTextStatus.className = 'text-[7px] text-amber-400 font-black uppercase tracking-widest mt-0.5';
+      }
+      if (navMusicWrapper) {
+        navMusicWrapper.className = 'p-1.5 rounded-full bg-white/10 transition-all duration-300';
+      }
+      if (musicIcon) {
+        musicIcon.classList.add('animate-spin-slow');
+        musicIcon.style.opacity = '1';
+        musicIcon.style.color = '#fbbf24';
+      }
+      if (desktopMusicIcon) {
+        desktopMusicIcon.classList.add('animate-spin-slow');
+        desktopMusicIcon.parentElement.style.opacity = '1';
+      }
+    } else {
+      if (musicTextStatus) {
+        musicTextStatus.innerText = 'OFF';
+        musicTextStatus.className = 'text-[7px] text-white/40 font-black uppercase tracking-widest mt-0.5';
+      }
+      if (navMusicWrapper) {
+        navMusicWrapper.className = 'p-1 rounded-full bg-transparent transition-all duration-300';
+      }
+      if (musicIcon) {
+        musicIcon.classList.remove('animate-spin-slow');
+        musicIcon.style.opacity = '0.5';
+        musicIcon.style.color = '';
+      }
+      if (desktopMusicIcon) {
+        desktopMusicIcon.classList.remove('animate-spin-slow');
+        desktopMusicIcon.parentElement.style.opacity = '0.6';
+      }
+    }
+  }
+
+window.openMusicPlayer = function() {
     var root = document.getElementById('musicPlayerRoot');
     var panel = document.getElementById('mpPanel');
     var backdrop = document.getElementById('mpBackdrop');
+    var viz = document.getElementById('vizRing');
     if (!root || !panel || !backdrop) return;
     root.style.pointerEvents = 'auto';
     backdrop.style.pointerEvents = 'auto';
     backdrop.style.opacity = '1';
     panel.classList.add('open');
     document.body.style.overflow = 'hidden';
+    if (viz) {
+      viz.style.opacity = isPlaying ? '0.55' : '0';
+      viz.querySelectorAll('.vbar').forEach(function(bar) {
+        bar.style.animationPlayState = isPlaying ? 'running' : 'paused';
+      });
+    }
+    // Force GPU compositing for smooth entry
+    if (panel) panel.style.willChange = 'transform';
   };
 
   window.closeMusicPlayer = function() {
     var root = document.getElementById('musicPlayerRoot');
     var panel = document.getElementById('mpPanel');
     var backdrop = document.getElementById('mpBackdrop');
+    var viz = document.getElementById('vizRing');
     if (!root || !panel || !backdrop) return;
     backdrop.style.opacity = '0';
     backdrop.style.pointerEvents = 'none';
     panel.classList.remove('open');
-    setTimeout(function() { root.style.pointerEvents = 'none'; document.body.style.overflow = ''; }, 500);
+    if (viz) {
+      viz.style.opacity = '0';
+      viz.querySelectorAll('.vbar').forEach(function(bar) {
+        bar.style.animationPlayState = 'paused';
+      });
+    }
+    if (panel) panel.style.willChange = 'auto';
+    setTimeout(function() { 
+      root.style.pointerEvents = 'none';
+      document.body.style.overflow = ''; 
+    }, 500);
   };
 
   // Override toggleMusic for both desktop and mobile nav
@@ -1582,23 +1701,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Init
   renderPlaylist();
   updateDisplay();
+  updateMusicNavUI();
 
-  // Generate visualizer bars (50 bars, wider spread, half vinyl height)
-  (function(){
-    var viz = document.getElementById('vizRing');
-    if (!viz) return;
-    var count = 50;
-    var anims = ['vz1','vz2','vz3','vz4','vz5','vz6','vz7','vz8','vz9','vz10'];
-    var durs = [0.45,0.55,0.4,0.6,0.5,0.35,0.48,0.52,0.42,0.58];
-    var ops = [1,0.8,0.9,0.7,1,0.85,1,0.75,1,0.8];
-    var baseHeights = [18,35,25,50,30,42,22,55,28,38,20,48,32,44,26,40,33,47,21,36,29,43,24,37,31,45,27,39,34,46,23,41,19,49,30,44,25,38,32,47,28,40,35,50,22,36,31,42,27,45];
-    for (var i = 0; i < count; i++) {
-      var bar = document.createElement('div');
-      var idx = i % 10;
-      bar.style.cssText = 'width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:' + baseHeights[i] + '%;animation:' + anims[idx] + ' ' + durs[idx] + 's ease-in-out infinite alternate;opacity:' + ops[idx] + ';';
-      viz.appendChild(bar);
-    }
-  })();
+  
 })();
 
 // ============================================================
