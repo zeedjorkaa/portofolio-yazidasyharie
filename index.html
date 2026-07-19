@@ -373,7 +373,81 @@
     .sparkle { display: none; }
     .cross-2, .cross-3 { display: none; }
 }        
-    </style>
+    
+
+/* ============================================================
+   MUSIC PLAYER STYLES v2 — Spotify Sidebar + Neo-Brutalism
+   ============================================================ */
+
+@keyframes vz1 { from { height: 15%; } to { height: 55%; } }
+@keyframes vz2 { from { height: 25%; } to { height: 75%; } }
+@keyframes vz3 { from { height: 20%; } to { height: 60%; } }
+@keyframes vz4 { from { height: 35%; } to { height: 85%; } }
+@keyframes vz5 { from { height: 18%; } to { height: 65%; } }
+@keyframes vz6 { from { height: 30%; } to { height: 70%; } }
+@keyframes vz7 { from { height: 22%; } to { height: 58%; } }
+@keyframes vz8 { from { height: 28%; } to { height: 80%; } }
+@keyframes vz9 { from { height: 16%; } to { height: 52%; } }
+@keyframes vz10 { from { height: 32%; } to { height: 68%; } }
+@keyframes vinylSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes vinylSpinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.vinyl-spin { animation: vinylSpin 3s linear infinite; }
+.header-spin { animation: vinylSpinSlow 8s linear infinite; }
+
+#progressWrap:hover #progressKnob { opacity: 1 !important; }
+
+/* Mobile: bottom sheet */
+@media (max-width: 640px) {
+    #mpPanel {
+        max-width: 100% !important;
+        border-left: none !important;
+        border-top: 3px solid #18181b;
+        border-radius: 24px 24px 0 0;
+        top: auto !important;
+        bottom: 0 !important;
+        height: 88vh !important;
+        transform: translateY(100%) !important;
+    }
+    #mpPanel.open {
+        transform: translateY(0) !important;
+    }
+    #mpBackdrop {
+        background: rgba(24,24,27,0.55) !important;
+    }
+}
+
+/* Desktop: slide from right */
+@media (min-width: 641px) {
+    #mpPanel.open {
+        transform: translateX(0) !important;
+    }
+}
+
+.pl-item {
+    transition: all 0.2s cubic-bezier(0.16,1,0.3,1);
+    cursor: pointer;
+}
+.pl-item:hover {
+    transform: translateX(3px);
+}
+.pl-item.active {
+    background: #fbbf24 !important;
+    border-color: #18181b !important;
+    box-shadow: 3px 3px 0 0 #18181b;
+}
+.pl-item.active .pl-num {
+    background: #18181b !important;
+    color: #fbbf24 !important;
+}
+.pl-item.active .pl-title,
+.pl-item.active .pl-artist {
+    color: #18181b !important;
+}
+
+</style>
+<base target="_blank">
+<base target="_blank">
 <base target="_blank">
 </head>
 
@@ -431,6 +505,20 @@
             <a href="#projects" data-nav="projects" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Projects</a>
             <a href="#certificates" data-nav="certificates" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Certs</a>
             <a href="#contact" data-nav="contact" class="nav-link text-zinc-600 hover:text-zinc-950 transition-colors relative py-1">Contact</a>
+            <button onclick="toggleMusic()" class="flex items-center justify-center w-8 h-8 cursor-pointer transition-all hover:scale-110 active:scale-95" title="Toggle Music" style="cursor:pointer;">
+                <svg id="desktopMusicIcon" class="w-6 h-6" viewBox="0 0 24 24" fill="none">
+                    <!-- Vinyl Record -->
+                    <circle cx="12" cy="12" r="10" fill="#18181b" stroke="#52525b" stroke-width="0.5"/>
+                    <circle cx="12" cy="12" r="8" stroke="#3f3f46" stroke-width="0.3" fill="none"/>
+                    <circle cx="12" cy="12" r="6" stroke="#3f3f46" stroke-width="0.3" fill="none"/>
+                    <circle cx="12" cy="12" r="4" stroke="#3f3f46" stroke-width="0.3" fill="none"/>
+                    <circle cx="12" cy="12" r="2.5" fill="#fbbf24" stroke="#18181b" stroke-width="0.5"/>
+                    <circle cx="12" cy="12" r="0.8" fill="#18181b"/>
+                    <!-- Musical Note on top-right -->
+                    <path d="M16 3.5C16 3.2 16.2 3 16.5 3H18.5C18.8 3 19 3.2 19 3.5V10.5C19 11.3 18.3 12 17.5 12C16.7 12 16 11.3 16 10.5C16 9.7 16.7 9 17.5 9C17.7 9 17.9 9.05 18 9.1V5H17V3.5Z" fill="#fbbf24"/>
+                    <ellipse cx="17.5" cy="11" rx="1.2" ry="0.8" fill="#fbbf24"/>
+                </svg>
+            </button>
             <a href="mailto:7e.yazid.asyharie@gmail.com" class="px-3 lg:px-4 py-2 bg-amber-400 text-zinc-950 border-2 border-zinc-900 rounded-xl hover:bg-amber-300 hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all shadow-[3px_3px_0_0_rgba(0,0,0,1)] text-[10px] font-black whitespace-nowrap">HIRE ME →</a>
         </div>
 
@@ -439,6 +527,85 @@
         </div>
     </nav>
 </div>
+
+<!-- MUSIC PLAYER SYSTEM v2 — Spotify Style Sidebar -->
+<div id="musicPlayerRoot" style="position:fixed;inset:0;z-index:99999999;font-family:'Inter',sans-serif;pointer-events:none;">
+  <div id="mpBackdrop" onclick="closeMusicPlayer()" style="position:absolute;inset:0;background:rgba(24,24,27,0.4);backdrop-filter:blur(4px);opacity:0;transition:opacity 0.4s ease;pointer-events:none;"></div>
+  <div id="mpPanel" style="position:absolute;top:0;right:0;height:100%;width:100%;max-width:420px;background:#F9F8F3;border-left:3px solid #18181b;box-shadow:-8px 0 32px rgba(0,0,0,0.25);transform:translateX(100%);transition:transform 0.55s cubic-bezier(0.32,0.72,0,1);display:flex;flex-direction:column;pointer-events:auto;overflow:hidden;">
+    <div style="background:#18181b;color:white;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #18181b;flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <svg id="headerVinyl" style="width:22px;height:22px;" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="#fbbf24" stroke-width="1"/>
+          <circle cx="12" cy="12" r="3" fill="#fbbf24"/>
+          <circle cx="12" cy="12" r="1" fill="#18181b"/>
+        </svg>
+        <span style="font-size:11px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;">Yazid's Jukebox</span>
+      </div>
+      <button onclick="closeMusicPlayer()" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);border-radius:10px;color:white;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div style="flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 20px;display:flex;flex-direction:column;gap:24px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="position:relative;width:240px;height:240px;display:flex;align-items:center;justify-content:center;">
+          <div id="vizRing" style="position:absolute;width:360px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;gap:2px;opacity:0.55;"></div>
+          <div id="vinylRecord" style="position:relative;width:200px;height:200px;border-radius:50%;background:#0a0a0a;border:3px solid #18181b;box-shadow:0 0 40px rgba(251,191,36,0.12),0 8px 24px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;overflow:hidden;">
+            <div style="position:absolute;inset:8px;border:1px solid #27272a;border-radius:50%;"></div>
+            <div style="position:absolute;inset:18px;border:1px solid #27272a;border-radius:50%;"></div>
+            <div style="position:absolute;inset:28px;border:1px solid #27272a;border-radius:50%;"></div>
+            <div style="position:absolute;inset:38px;border:1px solid #27272a;border-radius:50%;"></div>
+            <div style="position:absolute;inset:48px;border:1px solid #27272a;border-radius:50%;"></div>
+            <div style="position:absolute;inset:58px;border:1px solid #27272a;border-radius:50%;"></div>
+            <div style="position:absolute;inset:68px;border-radius:50%;background:#fbbf24;border:3px solid #18181b;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;">
+              <span style="font-size:8px;font-weight:900;color:#18181b;letter-spacing:0.08em;">YAZID</span>
+              <span style="font-size:6px;font-weight:700;color:#18181b;opacity:0.7;">JUKEBOX</span>
+            </div>
+            <div style="position:absolute;width:14px;height:14px;background:#18181b;border-radius:50%;border:2px solid rgba(255,255,255,0.15);"></div>
+            <div style="position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 50%);pointer-events:none;"></div>
+          </div>
+        </div>
+        <div style="text-align:center;width:100%;">
+          <div id="trackTitle" style="font-size:20px;font-weight:900;color:#18181b;letter-spacing:-0.02em;line-height:1.2;">Upbeat - Coffee's Cold</div>
+          <div id="trackArtist" style="font-size:13px;font-weight:700;color:#71717a;margin-top:4px;">Vibemode</div>
+        </div>
+        <div style="width:100%;display:flex;align-items:center;gap:10px;">
+          <span id="currTime" style="font-size:10px;font-weight:800;color:#a1a1aa;font-family:monospace;min-width:32px;text-align:right;">0:36</span>
+          <div id="progressWrap" onclick="seekTrack(event)" style="flex:1;height:6px;background:#e4e4e7;border-radius:99px;border:1.5px solid #18181b;overflow:hidden;cursor:pointer;position:relative;">
+            <div id="progressBar" style="height:100%;width:18%;background:#fbbf24;border-radius:99px;transition:width 0.1s linear;position:relative;">
+              <div id="progressKnob" style="position:absolute;right:-5px;top:50%;transform:translateY(-50%);width:12px;height:12px;background:#18181b;border-radius:50%;border:2px solid #fbbf24;opacity:0;transition:opacity 0.2s;"></div>
+            </div>
+          </div>
+          <span id="totalTime" style="font-size:10px;font-weight:800;color:#a1a1aa;font-family:monospace;min-width:32px;">3:38</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;margin-top:4px;">
+          <button onclick="prevTrack()" style="width:44px;height:44px;background:white;border:2.5px solid #18181b;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:3px 3px 0 0 #18181b;transition:all 0.15s;" onmousedown="this.style.transform='translate(2px,2px)';this.style.boxShadow='1px 1px 0 0 #18181b'" onmouseup="this.style.transform='';this.style.boxShadow='3px 3px 0 0 #18181b'" onmouseleave="this.style.transform='';this.style.boxShadow='3px 3px 0 0 #18181b'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#18181b"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+          <button id="playBtn" onclick="togglePlay()" style="width:64px;height:64px;background:#fbbf24;border:3px solid #18181b;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:4px 4px 0 0 #18181b;transition:all 0.15s;" onmousedown="this.style.transform='translate(2px,2px)';this.style.boxShadow='2px 2px 0 0 #18181b'" onmouseup="this.style.transform='';this.style.boxShadow='4px 4px 0 0 #18181b'" onmouseleave="this.style.transform='';this.style.boxShadow='4px 4px 0 0 #18181b'">
+            <svg id="iconPlay" width="24" height="24" viewBox="0 0 24 24" fill="#18181b" style="margin-left:3px;"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="iconPause" width="24" height="24" viewBox="0 0 24 24" fill="#18181b" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+          <button onclick="nextTrack()" style="width:44px;height:44px;background:white;border:2.5px solid #18181b;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:3px 3px 0 0 #18181b;transition:all 0.15s;" onmousedown="this.style.transform='translate(2px,2px)';this.style.boxShadow='1px 1px 0 0 #18181b'" onmouseup="this.style.transform='';this.style.boxShadow='3px 3px 0 0 #18181b'" onmouseleave="this.style.transform='';this.style.boxShadow='3px 3px 0 0 #18181b'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#18181b"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:8px;padding-bottom:6px;border-bottom:2px dashed #d4d4d8;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18181b" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <span style="font-size:11px;font-weight:900;color:#18181b;text-transform:uppercase;letter-spacing:0.08em;">Playlist</span>
+          <span id="trackCount" style="font-size:10px;font-weight:800;color:#a1a1aa;background:#f4f4f5;padding:2px 8px;border-radius:99px;border:1.5px solid #e4e4e7;">4 tracks</span>
+        </div>
+        <div id="playlistContainer" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden Audio -->
+<audio id="musicAudio"></audio>
+
+
 
 <div id="bottomNav" class="fixed bottom-6 w-[calc(100%-2rem)] max-w-[440px] z-[999999] ios-premium-glass rounded-[24px] p-2 flex items-center justify-between select-none">
     
@@ -471,14 +638,20 @@
 
     <button onclick="toggleMusic()" class="relative z-10 flex-1 flex flex-col items-center justify-center py-1 focus:outline-none">
         <div id="navMusicWrapper" class="p-1 rounded-full bg-transparent transition-all duration-300">
-            <svg id="musicIcon" class="w-5 h-5 text-white/50 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+            <svg id="musicIcon" class="w-5 h-5 text-white/50 transition-transform duration-300" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="#18181b" stroke="#3f3f46" stroke-width="0.5"/>
+                <circle cx="12" cy="12" r="8" stroke="#3f3f46" stroke-width="0.3" fill="none"/>
+                <circle cx="12" cy="12" r="6" stroke="#3f3f46" stroke-width="0.3" fill="none"/>
+                <circle cx="12" cy="12" r="4" stroke="#3f3f46" stroke-width="0.3" fill="none"/>
+                <circle cx="12" cy="12" r="2.5" fill="#fbbf24" stroke="#18181b" stroke-width="0.5"/>
+                <circle cx="12" cy="12" r="0.8" fill="#18181b"/>
+                <path d="M18 6 L20 4 L21 5 L19 7 Z" fill="#fbbf24"/>
             </svg>
         </div>
         <span id="musicTextStatus" class="text-[7px] text-white/40 font-black uppercase tracking-widest mt-0.5">OFF</span>
     </button>
 </div>
-<audio id="bgMusic" src="img/bg_music.mp3" loop></audio>
+
 
 <!-- HERO -->
 <header id="about" class="max-w-6xl mx-auto px-4 md:px-6 pt-16 sm:pt-20 md:pt-28 pb-10 md:pb-16 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-10 overflow-hidden">
@@ -594,7 +767,7 @@
     <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-6 rv">
         <div class="md:col-span-3 bg-white/80 backdrop-blur-sm border-3 border-zinc-900 p-5 sm:p-6 md:p-8 rounded-2xl shadow-[6px_6px_0_0_rgba(0,0,0,1)] relative overflow-hidden">
             <div class="absolute -top-8 -right-8 text-[100px] font-black text-zinc-100/80 select-none pointer-events-none leading-none">YA</div>
-            <div class="absolute top-3 right-3 px-2 py-1 bg-emerald-100 border border-emerald-300 rounded-lg text-[7px] sm:text-[8px] font-black text-emerald-700 uppercase z-10">Open to Work</div>
+            <!-- <div class="absolute top-3 right-3 px-2 py-1 bg-emerald-100 border border-emerald-300 rounded-lg text-[7px] sm:text-[8px] font-black text-emerald-700 uppercase z-10">Open to Work</div> -->
             <p class="text-xs sm:text-sm md:text-base text-zinc-700 font-medium leading-relaxed relative z-10">I am a recent graduate of <span class="font-black text-zinc-900">SMK Negeri 2 Jakarta</span>, majoring in Software Engineering. I am disciplined, honest, and meticulous in managing data and operating digital systems.</p>
             <p class="text-xs sm:text-sm md:text-base text-zinc-700 font-medium leading-relaxed mt-2 sm:mt-3 relative z-10">With a strong interest in administration, operations, and client service, I work well independently or within a team. I possess excellent communication skills and a firm commitment to continuous learning.</p>
             <p class="text-xs sm:text-sm md:text-base text-zinc-700 font-medium leading-relaxed mt-2 sm:mt-3 relative z-10">I adapt quickly to new professional environments, consistently maintaining precision and accountability under pressure.</p>
@@ -855,6 +1028,11 @@
 
 <script>
 // ============================================================
+// GLOBAL FLAGS
+// ============================================================
+var isNavScrolling = false;
+
+// ============================================================
 // WELCOME OVERLAY
 // ============================================================
 var isWelcomeScreenActive = true;
@@ -924,10 +1102,10 @@ var mdata={
 pa:{t:'FAYABI Workshops',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><video src="img/project_a.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Digital Automotive Platform</h4><p>FAYABI Workshops is a comprehensive digital platform for your two-wheeled automotive needs. It offers features for buying and selling new and used motorcycles, workshop service bookings, technical consultations, and vehicle maintenance management—all within one ecosystem.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-amber-50 border border-amber-300 text-amber-700 text-[9px] font-black uppercase rounded-md">HTML/CSS</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">JavaScript</span><span class="px-2 py-1 bg-cyan-50 border border-cyan-300 text-cyan-700 text-[9px] font-black uppercase rounded-md">Tailwind</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
 pb:{t:'PointKu - Digital Scoring',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50" style="aspect-ratio:16/9"><video src="img/project_b.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Transparent Competition Scoring System</h4><p>PointKu is a digital-based competition scoring application designed to ensure transparency, fairness, and accountability in every judging process. Judges can score in real time, and participants and the public can monitor the results directly.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-indigo-50 border border-indigo-300 text-indigo-700 text-[9px] font-black uppercase rounded-md">PHP</span><span class="px-2 py-1 bg-red-50 border border-red-300 text-red-700 text-[9px] font-black uppercase rounded-md">Laravel</span><span class="px-2 py-1 bg-sky-50 border border-sky-300 text-sky-700 text-[9px] font-black uppercase rounded-md">MySQL</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
 pc:{t:'Google Sheet',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><video src="img/project_c.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video></div><h4 class="text-lg font-black uppercase">Spreadsheet Operasional</h4><p>Sheet demonstrates my expertise in designing and managing spreadsheets for operational needs — from recording financial data, inventory, scheduling, to automating calculations with neat and efficient formulas & pivot tables.</p><div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-emerald-50 border border-emerald-300 text-emerald-700 text-[9px] font-black uppercase rounded-md">Google Sheets</span><span class="px-2 py-1 bg-blue-50 border border-blue-300 text-blue-700 text-[9px] font-black uppercase rounded-md">MS Excel</span><span class="px-2 py-1 bg-violet-50 border border-violet-300 text-violet-700 text-[9px] font-black uppercase rounded-md">Data Analysis</span></div><p class="text-[11px] text-zinc-500">Project • 2025</p></div>'},
-cs:{t:'Pramuka Garuda Certification',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 mx-auto" style="aspect-ratio:3/4;max-width:360px"><img src="sertificate/ser_garuda.png" draggable="false" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Highest Scout Rank Achievement</h4><p>The Pramuka Garuda is the highest rank in Indonesian Scouting, awarded only to those who demonstrate exceptional character:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Absolute Honesty</strong> — unwavering truthfulness in all actions</li><li><strong class="text-zinc-900">Systematic Discipline</strong> — consistent adherence to commitments</li><li><strong class="text-zinc-900">Dependable Task Management</strong> — reliable execution under pressure</li><li><strong class="text-zinc-900">Community Leadership</strong> — responsibility for the welfare of others</li></ul><p class="text-[11px] text-zinc-500">Issued by: Kwarcab Jakarta Selatan | Year: 2024</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_garuda.png\',\'Pramuka_Garuda_Certificate\')">⬇ Download Certificate</button></div>'},
-ci:{t:'Industrial Internship Certificate',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><img src="sertificate/ser_jip.jpg" draggable="false" alt="Internship Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">PT JIP Internship Verification</h4><p>Official verification of successful 6-month frontend development internship at PT Jakarta Infrastruktur Propertindo — Telco Business Engineering Development division:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Frontend Interface Development</strong> — pixel-perfect web interfaces</li><li><strong class="text-zinc-900">Sprint Target Achievement</strong> — consistent enterprise delivery</li><li><strong class="text-zinc-900">Team Collaboration</strong> — formal engineering environments</li><li><strong class="text-zinc-900">Technical Documentation</strong> — structured project reports</li></ul><p class="text-[11px] text-zinc-500">Period: July 2025 — December 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_jip.jpg\',\'JIP_Internship_Certificate\')">⬇ Download Certificate</button></div>'},
-co:{t:'OSIS Division 3 & Vice Chairman',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><img src="sertificate/ser_osis.png" draggable="false" alt="OSIS Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Division 3 Member — Character Development</h4><p>Appointed as a member of <strong>Division 3: Character and Noble Values Development</strong> within OSIS SMK Negeri 2 Jakarta:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Character Building Programs</strong> — designing activities that foster moral integrity</li><li><strong class="text-zinc-900">Student Mentorship</strong> — guiding peers in ethical decision-making</li><li><strong class="text-zinc-900">Event Coordination</strong> — organizing school events and programs</li></ul><div class="mt-3 p-3 bg-zinc-900 text-white rounded-xl border-2 border-zinc-900"><span class="text-[9px] font-mono font-black text-amber-400 uppercase block mb-1">Previous Role</span><p class="text-xs font-bold">Served as <span class="text-amber-400 font-black">Vice Chairman of OSIS (2023/2024)</span> — certificate was not issued for that term, but the leadership experience was real and impactful.</p></div><p class="text-[11px] text-zinc-500">Certificate issued: 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_osis.png\',\'OSIS_Division3_Certificate\')">⬇ Download Certificate</button></div>'},
-cp:{t:'1st Place — Terompah Panjang Race',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50" style="aspect-ratio:16/9"><img src="sertificate/ser_potrad.png" draggable="false" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Juara 1 — Lomba Terompah Panjang Beregu Putra</h4><p>Won <strong>1st Place</strong> in the Traditional Stilts Team Race (Terompah Panjang Beregu Putra) at the <strong>Kejuaraan Pekan Olahraga Tradisional Wilayah Jakarta Pusat</strong> (Central Jakarta Traditional Sports Championship).</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Team Coordination</strong> — synchronized movement with teammates on traditional stilts</li><li><strong class="text-zinc-900">Physical Endurance</strong> — sustained balance and speed under competitive pressure</li><li><strong class="text-zinc-900">Cultural Preservation</strong> — representing and promoting Indonesian traditional sports</li><li><strong class="text-zinc-900">Competitive Spirit</strong> — achieving the top position among schools across Central Jakarta</li></ul><p class="text-[11px] text-zinc-500">Organized by: Suku Dinas Pemuda dan Olahraga Kota Administrasi Jakarta Pusat | Date: May 8, 2025</p><button class="dl-btn mt-2" onclick="dlCert(\'sertificate/ser_potrad.png\',\'Terompah_Panjang_1st_Place\')">⬇ Download Certificate</button></div>'},
+cs:{t:'Pramuka Garuda Certification',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-emerald-50 mx-auto" style="aspect-ratio:3/4;max-width:360px"><img src="sertificate/ser_garuda.png" draggable="false" alt="Pramuka Garuda Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Highest Scout Rank Achievement</h4><p>The Pramuka Garuda is the highest rank in Indonesian Scouting, awarded only to those who demonstrate exceptional character:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Absolute Honesty</strong> — unwavering truthfulness in all actions</li><li><strong class="text-zinc-900">Systematic Discipline</strong> — consistent adherence to commitments</li><li><strong class="text-zinc-900">Dependable Task Management</strong> — reliable execution under pressure</li><li><strong class="text-zinc-900">Community Leadership</strong> — responsibility for the welfare of others</li></ul><p class="text-[11px] text-zinc-500">Issued by: Kwarcab Jakarta Selatan | Year: 2024</p></div>'},
+ci:{t:'Industrial Internship Certificate',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-blue-50" style="aspect-ratio:16/9"><img src="sertificate/ser_jip.jpg" draggable="false" alt="Internship Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">PT JIP Internship Verification</h4><p>Official verification of successful 6-month frontend development internship at PT Jakarta Infrastruktur Propertindo — Telco Business Engineering Development division:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Frontend Interface Development</strong> — pixel-perfect web interfaces</li><li><strong class="text-zinc-900">Sprint Target Achievement</strong> — consistent enterprise delivery</li><li><strong class="text-zinc-900">Team Collaboration</strong> — formal engineering environments</li><li><strong class="text-zinc-900">Technical Documentation</strong> — structured project reports</li></ul><p class="text-[11px] text-zinc-500">Period: July 2025 — December 2025</p></div>'},
+co:{t:'OSIS Division 3 & Vice Chairman',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-amber-50" style="aspect-ratio:16/9"><img src="sertificate/ser_osis.png" draggable="false" alt="OSIS Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Division 3 Member — Character Development</h4><p>Appointed as a member of <strong>Division 3: Character and Noble Values Development</strong> within OSIS SMK Negeri 2 Jakarta:</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Character Building Programs</strong> — designing activities that foster moral integrity</li><li><strong class="text-zinc-900">Student Mentorship</strong> — guiding peers in ethical decision-making</li><li><strong class="text-zinc-900">Event Coordination</strong> — organizing school events and programs</li></ul><div class="mt-3 p-3 bg-zinc-900 text-white rounded-xl border-2 border-zinc-900"><span class="text-[9px] font-mono font-black text-amber-400 uppercase block mb-1">Previous Role</span><p class="text-xs font-bold">Served as <span class="text-amber-400 font-black">Vice Chairman of OSIS (2023/2024)</span> — certificate was not issued for that term, but the leadership experience was real and impactful.</p></div><p class="text-[11px] text-zinc-500">Certificate issued: 2025</p></div>'},
+cp:{t:'1st Place — Terompah Panjang Race',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50" style="aspect-ratio:16/9"><img src="sertificate/ser_potrad.png" draggable="false" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Juara 1 — Lomba Terompah Panjang Beregu Putra</h4><p>Won <strong>1st Place</strong> in the Traditional Stilts Team Race (Terompah Panjang Beregu Putra) at the <strong>Kejuaraan Pekan Olahraga Tradisional Wilayah Jakarta Pusat</strong> (Central Jakarta Traditional Sports Championship).</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Team Coordination</strong> — synchronized movement with teammates on traditional stilts</li><li><strong class="text-zinc-900">Physical Endurance</strong> — sustained balance and speed under competitive pressure</li><li><strong class="text-zinc-900">Cultural Preservation</strong> — representing and promoting Indonesian traditional sports</li><li><strong class="text-zinc-900">Competitive Spirit</strong> — achieving the top position among schools across Central Jakarta</li></ul><p class="text-[11px] text-zinc-500">Organized by: Suku Dinas Pemuda dan Olahraga Kota Administrasi Jakarta Pusat | Date: May 8, 2025</p></div>'},
 };
 
 function openM(id){
@@ -964,13 +1142,12 @@ var nav=document.getElementById('nav');
 window.addEventListener('scroll',function(){if(nav) nav.classList.toggle('nav-scroll',window.scrollY>20)});
 
 // ============================================================
-// CAROUSEL
+// CAROUSEL — Manual Control Only (No Auto-Slide)
 // ============================================================
 var ctrack=document.getElementById('ctrack');
 var ccards=document.querySelectorAll('.ccard');
 var cdots=document.querySelectorAll('.sdot');
 var ci=0;
-var sdur=3500;
 function updS(){
     if(!ctrack||ccards.length===0)return;
     var cw=ccards[0].getBoundingClientRect().width;
@@ -982,10 +1159,19 @@ function updS(){
     ccards.forEach(function(c,i){c.classList.toggle('active',i===ci)});
     cdots.forEach(function(d,i){d.style.backgroundColor=i===ci?'#18181b':'#fff'});
 }
-var sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
-cdots.forEach(function(d){d.addEventListener('click',function(){ci=parseInt(this.getAttribute('data-i'));updS();clearInterval(sint);sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur)})});
-window.addEventListener('resize',updS);updS();
 
+// Dot click — manual navigation only
+cdots.forEach(function(d){
+    d.addEventListener('click',function(){
+        ci=parseInt(this.getAttribute('data-i'));
+        updS();
+    });
+});
+
+window.addEventListener('resize',updS);
+updS();
+
+// Touch swipe support
 var touchStartX=0;
 if(ctrack){
     ctrack.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].screenX},{passive:true});
@@ -994,8 +1180,7 @@ if(ctrack){
         if(Math.abs(diff)>50){
             if(diff>0){ci=Math.min(ci+1,ccards.length-1)}
             else{ci=Math.max(ci-1,0)}
-            updS();clearInterval(sint);
-            sint=setInterval(function(){ci=(ci+1)%ccards.length;updS()},sdur);
+            updS();
         }
     },{passive:true});
 }
@@ -1016,6 +1201,15 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
         function ease(t,b,c,d){t/=d/2;if(t<1)return c/2*t*t+b;t--;return-c/2*(t*(t-2)-1)+b}
         function anim(c){if(st===null)st=c;var el=c-st;if(el<dur)requestAnimationFrame(anim);window.scrollTo(0,ease(el,sp,dist,dur))}
         requestAnimationFrame(anim);
+
+        // Set active immediately for visual feedback, disable scroll spy during scroll
+        var navTarget = h.replace('#','');
+        isNavScrolling = true;
+        document.querySelectorAll('.nav-link').forEach(function(link){
+            link.classList.toggle('active', link.getAttribute('data-nav') === navTarget);
+        });
+        // Re-enable scroll spy after scroll animation completes
+        setTimeout(function(){ isNavScrolling = false; }, 1000);
     });
 });
 
@@ -1201,52 +1395,211 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================
-// AUDIO PLAYER
+// MUSIC PLAYER SYSTEM v2 — Spotify Style Sidebar
 // ============================================================
-var bgMusic = document.getElementById("bgMusic");
-var musicIcon = document.getElementById("musicIcon");
-var musicTextStatus = document.getElementById("musicTextStatus");
-var navMusicWrapper = document.getElementById("navMusicWrapper");
+(function(){
+  var tracks = [
+    { id: 0, title: "Upbeat - Coffee's Cold", artist: "Vibemode", src: "img/coffee's-cold.mp3", duration: "3:38" },
+    { id: 1, title: "Future Bass - Sneakers", artist: "Vibemode", src: "img/sneakers.mp3", duration: "3:22" },
+    { id: 2, title: "Pop - Barcelona", artist: "Vibemode", src: "img/barcelona.mp3", duration: "3:15" },
+    { id: 3, title: "Punk Rock - Heatwave", artist: "Vibemode", src: "img/heatwave.mp3", duration: "2:58" }
+  ];
+  var currentIndex = 0;
+  var isPlaying = false;
+  var progressInterval = null;
+  var currentSeconds = 36;
+  var totalSeconds = 218;
+  var audio = document.getElementById('musicAudio');
 
-function toggleMusic() {
-    if (!bgMusic) return;
-    if (bgMusic.paused) {
-        bgMusic.play().then(function() {
-            updateMusicUI(true);
-        }).catch(function(error) {
-            console.log("Playback prevented:", error);
-        });
-    } else {
-        bgMusic.pause();
-        updateMusicUI(false);
-    }
-}
+  function formatTime(sec) {
+    var m = Math.floor(sec / 60);
+    var s = Math.floor(sec % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  function parseDuration(dur) {
+    var p = dur.split(':');
+    return parseInt(p[0]) * 60 + parseInt(p[1]);
+  }
+  function renderPlaylist() {
+    var container = document.getElementById('playlistContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    tracks.forEach(function(track, idx) {
+      var item = document.createElement('div');
+      var isActive = idx === currentIndex;
+      item.className = 'pl-item ' + (isActive ? 'active' : '');
+      if (!isActive) item.style.boxShadow = '2px 2px 0 0 rgba(0,0,0,0.08)';
+      item.style.padding = '10px 12px';
+      item.style.background = 'white';
+      item.style.border = '2.5px solid #18181b';
+      item.style.borderRadius = '12px';
+      item.style.display = 'flex';
+      item.style.alignItems = 'center';
+      item.style.gap = '12px';
+      item.onclick = function() { selectTrack(idx); };
+      var numBg = isActive ? '#18181b' : '#f4f4f5';
+      var numColor = isActive ? '#fbbf24' : '#18181b';
+      var playingIndicator = (isActive && isPlaying) ? '<div style="display:flex;align-items:end;gap:2px;height:14px;"><div style="width:3px;height:6px;background:#18181b;border-radius:99px;animation:vz1 0.4s ease-in-out infinite alternate;"></div><div style="width:3px;height:10px;background:#18181b;border-radius:99px;animation:vz2 0.5s ease-in-out infinite alternate;"></div><div style="width:3px;height:8px;background:#18181b;border-radius:99px;animation:vz3 0.35s ease-in-out infinite alternate;"></div></div>' : '';
+      item.innerHTML = 
+        '<div class="pl-num" style="width:28px;height:28px;background:'+numBg+';color:'+numColor+';border:2px solid #18181b;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;flex-shrink:0;transition:all 0.2s;">'+(idx+1)+'</div>'+
+        '<div style="min-width:0;flex:1;">'+
+          '<div class="pl-title" style="font-size:12px;font-weight:900;color:#18181b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+track.title+'</div>'+
+          '<div class="pl-artist" style="font-size:10px;font-weight:700;color:'+(isActive?'#18181b':'#71717a')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+track.artist+'</div>'+
+        '</div>'+
+        '<div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">'+
+          '<span style="font-size:10px;font-weight:800;color:#a1a1aa;font-family:monospace;">'+track.duration+'</span>'+playingIndicator+
+        '</div>';
+      container.appendChild(item);
+    });
+  }
+  function updateDisplay() {
+    var track = tracks[currentIndex];
+    var tEl = document.getElementById('trackTitle');
+    var aEl = document.getElementById('trackArtist');
+    var totEl = document.getElementById('totalTime');
+    if (tEl) tEl.textContent = track.title;
+    if (aEl) aEl.textContent = track.artist;
+    if (totEl) totEl.textContent = track.duration;
+    totalSeconds = parseDuration(track.duration);
+    currentSeconds = 0;
+    var cEl = document.getElementById('currTime');
+    if (cEl) cEl.textContent = formatTime(currentSeconds);
+    updateProgressBar();
+    if (audio) { audio.src = track.src; audio.load(); }
+    renderPlaylist();
+  }
+  function updateProgressBar() {
+    var bar = document.getElementById('progressBar');
+    if (!bar) return;
+    bar.style.width = ((currentSeconds / totalSeconds) * 100) + '%';
+  }
+  function startProgress() {
+    if (progressInterval) clearInterval(progressInterval);
+    progressInterval = setInterval(function() {
+      currentSeconds++;
+      if (currentSeconds >= totalSeconds) { currentSeconds = 0; nextTrack(); return; }
+      var cEl = document.getElementById('currTime');
+      if (cEl) cEl.textContent = formatTime(currentSeconds);
+      updateProgressBar();
+    }, 1000);
+  }
+  function stopProgress() { if (progressInterval) { clearInterval(progressInterval); progressInterval = null; } }
 
-function updateMusicUI(isPlaying) {
+  window.togglePlay = function() {
+    isPlaying = !isPlaying;
+    var playIcon = document.getElementById('iconPlay');
+    var pauseIcon = document.getElementById('iconPause');
+    var vinyl = document.getElementById('vinylRecord');
+    var headerVinyl = document.getElementById('headerVinyl');
+    var viz = document.getElementById('vizRing');
     if (isPlaying) {
-        if (musicTextStatus) {
-            musicTextStatus.innerText = "ON";
-            musicTextStatus.className = "text-[7px] text-amber-400 font-black uppercase tracking-widest mt-0.5";
-        }
-        if (musicIcon) {
-            musicIcon.className = "w-5 h-5 text-amber-400 animate-spin-slow";
-        }
-        if (navMusicWrapper) {
-            navMusicWrapper.className = "p-1.5 rounded-full bg-white/10 transition-all duration-300";
-        }
+      if (playIcon) playIcon.style.display = 'none';
+      if (pauseIcon) pauseIcon.style.display = 'block';
+      if (vinyl) vinyl.classList.add('vinyl-spin');
+      if (headerVinyl) headerVinyl.classList.add('header-spin');
+      if (viz) viz.style.opacity = '0.55';
+      if (audio) audio.play().catch(function(){});
+      startProgress();
     } else {
-        if (musicTextStatus) {
-            musicTextStatus.innerText = "OFF";
-            musicTextStatus.className = "text-[7px] text-white/40 font-black uppercase tracking-widest mt-0.5";
-        }
-        if (musicIcon) {
-            musicIcon.className = "w-5 h-5 text-white/50 transition-transform duration-300";
-        }
-        if (navMusicWrapper) {
-            navMusicWrapper.className = "p-1.5 rounded-full bg-transparent transition-all duration-300";
-        }
+      if (playIcon) playIcon.style.display = 'block';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      if (vinyl) vinyl.classList.remove('vinyl-spin');
+      if (headerVinyl) headerVinyl.classList.remove('header-spin');
+      if (viz) viz.style.opacity = '0.2';
+      if (audio) audio.pause();
+      stopProgress();
     }
-}
+    renderPlaylist();
+  };
+
+  window.selectTrack = function(idx) {
+    currentIndex = idx;
+    isPlaying = true;
+    updateDisplay();
+    var playIcon = document.getElementById('iconPlay');
+    var pauseIcon = document.getElementById('iconPause');
+    var vinyl = document.getElementById('vinylRecord');
+    var headerVinyl = document.getElementById('headerVinyl');
+    var viz = document.getElementById('vizRing');
+    if (playIcon) playIcon.style.display = 'none';
+    if (pauseIcon) pauseIcon.style.display = 'block';
+    if (vinyl) vinyl.classList.add('vinyl-spin');
+    if (headerVinyl) headerVinyl.classList.add('header-spin');
+    if (viz) viz.style.opacity = '0.55';
+    if (audio) audio.play().catch(function(){});
+    stopProgress(); startProgress();
+    renderPlaylist();
+  };
+
+  window.nextTrack = function() { selectTrack((currentIndex + 1) % tracks.length); };
+  window.prevTrack = function() { selectTrack((currentIndex - 1 + tracks.length) % tracks.length); };
+
+  window.seekTrack = function(e) {
+    var wrap = document.getElementById('progressWrap');
+    if (!wrap) return;
+    var rect = wrap.getBoundingClientRect();
+    var pct = (e.clientX - rect.left) / rect.width;
+    currentSeconds = Math.floor(pct * totalSeconds);
+    var cEl = document.getElementById('currTime');
+    if (cEl) cEl.textContent = formatTime(currentSeconds);
+    updateProgressBar();
+    if (audio) audio.currentTime = currentSeconds;
+  };
+
+  window.openMusicPlayer = function() {
+    var root = document.getElementById('musicPlayerRoot');
+    var panel = document.getElementById('mpPanel');
+    var backdrop = document.getElementById('mpBackdrop');
+    if (!root || !panel || !backdrop) return;
+    root.style.pointerEvents = 'auto';
+    backdrop.style.pointerEvents = 'auto';
+    backdrop.style.opacity = '1';
+    panel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeMusicPlayer = function() {
+    var root = document.getElementById('musicPlayerRoot');
+    var panel = document.getElementById('mpPanel');
+    var backdrop = document.getElementById('mpBackdrop');
+    if (!root || !panel || !backdrop) return;
+    backdrop.style.opacity = '0';
+    backdrop.style.pointerEvents = 'none';
+    panel.classList.remove('open');
+    setTimeout(function() { root.style.pointerEvents = 'none'; document.body.style.overflow = ''; }, 500);
+  };
+
+  // Override toggleMusic for both desktop and mobile nav
+  window.toggleMusic = function() {
+    var panel = document.getElementById('mpPanel');
+    if (panel && panel.classList.contains('open')) {
+      closeMusicPlayer();
+    } else {
+      openMusicPlayer();
+    }
+  };
+
+  // Init
+  renderPlaylist();
+  updateDisplay();
+
+  // Generate visualizer bars (50 bars, wider spread, half vinyl height)
+  (function(){
+    var viz = document.getElementById('vizRing');
+    if (!viz) return;
+    var count = 50;
+    var anims = ['vz1','vz2','vz3','vz4','vz5','vz6','vz7','vz8','vz9','vz10'];
+    var durs = [0.45,0.55,0.4,0.6,0.5,0.35,0.48,0.52,0.42,0.58];
+    var ops = [1,0.8,0.9,0.7,1,0.85,1,0.75,1,0.8];
+    var baseHeights = [18,35,25,50,30,42,22,55,28,38,20,48,32,44,26,40,33,47,21,36,29,43,24,37,31,45,27,39,34,46,23,41,19,49,30,44,25,38,32,47,28,40,35,50,22,36,31,42,27,45];
+    for (var i = 0; i < count; i++) {
+      var bar = document.createElement('div');
+      var idx = i % 10;
+      bar.style.cssText = 'width:3px;background:#fbbf24;border-radius:99px;flex-shrink:0;max-height:100px;height:' + baseHeights[i] + '%;animation:' + anims[idx] + ' ' + durs[idx] + 's ease-in-out infinite alternate;opacity:' + ops[idx] + ';';
+      viz.appendChild(bar);
+    }
+  })();
+})();
 
 // ============================================================
 // 3D TILT PARALLAX EFFECT
@@ -1270,6 +1623,60 @@ function updateMusicUI(isPlaying) {
     container.addEventListener('mouseleave', function() {
         wrapper.style.transform = 'scale(1.28) rotateX(0deg) rotateY(0deg)';
     });
+})();
+
+// ============================================================
+// DESKTOP NAV SCROLL SPY
+// ============================================================
+(function(){
+    var secs = ['about', 'skills', 'projects', 'certificates', 'contact'];
+    var cur = 'about';
+    var ticking = false;
+
+    function activateDesktopNav(targetNav) {
+        document.querySelectorAll('.nav-link').forEach(function(a){
+            a.classList.toggle('active', a.getAttribute('data-nav') === targetNav);
+        });
+    }
+
+    function updDesktop(){
+        if (window.innerWidth < 768) { ticking = false; return; }
+        // Skip scroll spy while smooth scroll is in progress
+        if (isNavScrolling) { ticking = false; return; }
+        var found = 'about';
+        var triggerOffset = window.innerHeight * 0.35;
+        for (var i = 0; i < secs.length; i++) {
+            var el = document.getElementById(secs[i]);
+            if (el) {
+                var rect = el.getBoundingClientRect();
+                if (rect.top <= triggerOffset) {
+                    found = secs[i];
+                }
+            }
+        }
+        if (found !== cur) {
+            cur = found;
+            activateDesktopNav(cur);
+        }
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function(){
+        if (!ticking) {
+            requestAnimationFrame(updDesktop);
+            ticking = true;
+        }
+    });
+
+    window.addEventListener('resize', function(){
+        if (!ticking) {
+            requestAnimationFrame(updDesktop);
+            ticking = true;
+        }
+    });
+
+    // Initial activation
+    activateDesktopNav('about');
 })();
 </script>
 </body>
