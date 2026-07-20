@@ -445,7 +445,15 @@
     color: #18181b !important;
 }
 
+
+/* ===== MODAL SCROLL LOCK ===== */
+.mo-b {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
 </style>
+<base target="_blank">
+<base target="_blank">
 <base target="_blank">
 <base target="_blank">
 <base target="_blank">
@@ -1160,19 +1168,26 @@ co:{t:'OSIS Division 3 & Vice Chairman',b:'<div class="space-y-3"><div class="w-
 cp:{t:'1st Place — Terompah Panjang Race',b:'<div class="space-y-3"><div class="w-full rounded-xl border-2 border-zinc-900 overflow-hidden bg-violet-50" style="aspect-ratio:16/9"><img src="sertificate/ser_potrad.png" draggable="false" alt="Terompah Panjang Certificate" class="w-full h-full object-cover"></div><h4 class="text-lg font-black uppercase">Juara 1 — Lomba Terompah Panjang Beregu Putra</h4><p>Won <strong>1st Place</strong> in the Traditional Stilts Team Race (Terompah Panjang Beregu Putra) at the <strong>Kejuaraan Pekan Olahraga Tradisional Wilayah Jakarta Pusat</strong> (Central Jakarta Traditional Sports Championship).</p><ul class="list-disc list-inside space-y-1 text-zinc-600"><li><strong class="text-zinc-900">Team Coordination</strong> — synchronized movement with teammates on traditional stilts</li><li><strong class="text-zinc-900">Physical Endurance</strong> — sustained balance and speed under competitive pressure</li><li><strong class="text-zinc-900">Cultural Preservation</strong> — representing and promoting Indonesian traditional sports</li><li><strong class="text-zinc-900">Competitive Spirit</strong> — achieving the top position among schools across Central Jakarta</li></ul><p class="text-[11px] text-zinc-500">Organized by: Suku Dinas Pemuda dan Olahraga Kota Administrasi Jakarta Pusat | Date: May 8, 2025</p></div>'},
 };
 
+var savedScrollY = 0;
 function openM(id){
     var d=mdata[id];
     if(!d)return;
+    savedScrollY = window.pageYOffset || document.documentElement.scrollTop;
     document.getElementById('mT').textContent=d.t;
     document.getElementById('mB').innerHTML=d.b;
     document.getElementById('mO').classList.add('on');
-    document.body.style.overflow='hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
     if(mobileNav) mobileNav.classList.remove('nav-visible');
 }
 
 function closeM(){
     document.getElementById('mO').classList.remove('on');
-    document.body.style.overflow='';
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    document.body.style.touchAction = '';
+    window.scrollTo(0, savedScrollY);
 }
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeM()});
 
@@ -1192,50 +1207,6 @@ function dlCert(url,filename){
 // ============================================================
 var nav=document.getElementById('nav');
 window.addEventListener('scroll',function(){if(nav) nav.classList.toggle('nav-scroll',window.scrollY>20)});
-
-// ============================================================
-// CAROUSEL — Manual Control Only (No Auto-Slide)
-// ============================================================
-var ctrack=document.getElementById('ctrack');
-var ccards=document.querySelectorAll('.ccard');
-var cdots=document.querySelectorAll('.sdot');
-var ci=0;
-function updS(){
-    if(!ctrack||ccards.length===0)return;
-    var cw=ccards[0].getBoundingClientRect().width;
-    var tw=ctrack.parentElement.getBoundingClientRect().width;
-    var gp=window.innerWidth>=768?32:24;
-    var co=(tw-cw)/2;
-    var mv=-ci*(cw+gp)+co;
-    ctrack.style.transform='translateX('+mv+'px)';
-    ccards.forEach(function(c,i){c.classList.toggle('active',i===ci)});
-    cdots.forEach(function(d,i){d.style.backgroundColor=i===ci?'#18181b':'#fff'});
-}
-
-// Dot click — manual navigation only
-cdots.forEach(function(d){
-    d.addEventListener('click',function(){
-        ci=parseInt(this.getAttribute('data-i'));
-        updS();
-    });
-});
-
-window.addEventListener('resize',updS);
-updS();
-
-// Touch swipe support
-var touchStartX=0;
-if(ctrack){
-    ctrack.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].screenX},{passive:true});
-    ctrack.addEventListener('touchend',function(e){
-        var diff=touchStartX-e.changedTouches[0].screenX;
-        if(Math.abs(diff)>50){
-            if(diff>0){ci=Math.min(ci+1,ccards.length-1)}
-            else{ci=Math.max(ci-1,0)}
-            updS();
-        }
-    },{passive:true});
-}
 
 // ============================================================
 // SMOOTH SCROLL
@@ -1652,11 +1623,18 @@ window.openMusicPlayer = function() {
     var backdrop = document.getElementById('mpBackdrop');
     var viz = document.getElementById('vizRing');
     if (!root || !panel || !backdrop) return;
+    // Save scroll position before locking
+    if (!window.musicPlayerScrollY) {
+      window.musicPlayerScrollY = window.pageYOffset || document.documentElement.scrollTop;
+    }
     root.style.pointerEvents = 'auto';
     backdrop.style.pointerEvents = 'auto';
     backdrop.style.opacity = '1';
     panel.classList.add('open');
+    // Lock scroll on both html and body
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
     if (viz) {
       viz.style.opacity = isPlaying ? '0.55' : '0';
       viz.querySelectorAll('.vbar').forEach(function(bar) {
@@ -1685,7 +1663,15 @@ window.openMusicPlayer = function() {
     if (panel) panel.style.willChange = 'auto';
     setTimeout(function() { 
       root.style.pointerEvents = 'none';
-      document.body.style.overflow = ''; 
+      // Unlock scroll
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      // Restore scroll position
+      if (window.musicPlayerScrollY) {
+        window.scrollTo(0, window.musicPlayerScrollY);
+        window.musicPlayerScrollY = null;
+      }
     }, 500);
   };
 
@@ -1785,7 +1771,7 @@ window.openMusicPlayer = function() {
     activateDesktopNav('about');
 })();
 
-// ===== PROJECT SHOWCASE AUTO SLIDER (CLEAN LOOP) =====
+// ===== PROJECT SHOWCASE — UNIFIED SLIDER =====
 (function(){
   var track = document.getElementById('ctrack');
   if(!track) return;
@@ -1793,22 +1779,22 @@ window.openMusicPlayer = function() {
   var cards = Array.from(track.querySelectorAll('.ccard'));
   if(cards.length === 0) return;
 
-  var total = cards.length; // 3
+  var total = cards.length;
   var autoTimer = null;
   var isManual = false;
-  var SLIDE_INTERVAL = 2500; // 2 detik per slide
+  var SLIDE_INTERVAL = 3000;
+  var currentIdx = 0;
 
-  function getMetrics(){
+  function goTo(idx, animate){
+    currentIdx = idx;
+    if(typeof ci !== 'undefined') ci = idx;
+
     var cw = cards[0].getBoundingClientRect().width;
     var gp = window.innerWidth >= 768 ? 32 : 24;
     var tw = track.parentElement.getBoundingClientRect().width;
     var co = (tw - cw) / 2;
-    return { cw:cw, gp:gp, co:co };
-  }
+    var mv = -idx * (cw + gp) + co;
 
-  function goTo(idx, animate){
-    var m = getMetrics();
-    var mv = -idx * (m.cw + m.gp) + m.co;
     if(!animate){
       track.style.transition = 'none';
     } else {
@@ -1816,23 +1802,18 @@ window.openMusicPlayer = function() {
     }
     track.style.transform = 'translateX(' + mv + 'px)';
 
-    // Sync dots
     document.querySelectorAll('.sdot').forEach(function(d, i){
       d.style.backgroundColor = i === idx ? '#18181b' : '#fff';
     });
-    // Sync active card
     cards.forEach(function(c, i){
       c.classList.toggle('active', i === idx);
     });
-    // Sync global ci
-    if(typeof ci !== 'undefined') ci = idx;
   }
 
   function nextAuto(){
     if(isManual) return;
-    ci = (typeof ci !== 'undefined' ? ci : 0);
-    ci = (ci + 1) % total;
-    goTo(ci, true);
+    currentIdx = (currentIdx + 1) % total;
+    goTo(currentIdx, true);
   }
 
   function startAuto(){
@@ -1844,27 +1825,15 @@ window.openMusicPlayer = function() {
     if(autoTimer){ clearInterval(autoTimer); autoTimer = null; }
   }
 
-  // Start auto-slide
-  startAuto();
-
-  // Pause when hovering Projects section
-  var section = document.getElementById('projects');
-  if(section){
-    section.addEventListener('mouseenter', stopAuto);
-    section.addEventListener('mouseleave', function(){ if(!isManual) startAuto(); });
-  }
-
-  // Manual dot click → stop auto, switch to manual mode
   document.querySelectorAll('.sdot').forEach(function(dot){
     dot.addEventListener('click', function(){
       stopAuto();
       isManual = true;
-      ci = parseInt(dot.getAttribute('data-i')) || 0;
-      goTo(ci, true);
+      var idx = parseInt(this.getAttribute('data-i')) || 0;
+      goTo(idx, true);
     });
   });
 
-  // Manual swipe → stop auto, switch to manual mode
   var touchStartX = 0;
   track.addEventListener('touchstart', function(e){
     touchStartX = e.changedTouches[0].screenX;
@@ -1875,21 +1844,25 @@ window.openMusicPlayer = function() {
   track.addEventListener('touchend', function(e){
     var diff = touchStartX - e.changedTouches[0].screenX;
     if(Math.abs(diff) > 50){
-      ci = (typeof ci !== 'undefined' ? ci : 0);
-      if(diff > 0) ci = Math.min(ci + 1, total - 1);
-      else ci = Math.max(ci - 1, 0);
-      goTo(ci, true);
+      if(diff > 0) currentIdx = Math.min(currentIdx + 1, total - 1);
+      else currentIdx = Math.max(currentIdx - 1, 0);
+      goTo(currentIdx, true);
     }
   }, {passive:true});
 
-  // Init position (centered, no animation)
-  goTo(0, false);
+  var section = document.getElementById('projects');
+  if(section){
+    section.addEventListener('mouseenter', stopAuto);
+    section.addEventListener('mouseleave', function(){ if(!isManual) startAuto(); });
+  }
 
-  // Re-center on resize
+  goTo(0, false);
+  startAuto();
+
   var resizeTimer;
   window.addEventListener('resize', function(){
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function(){ goTo(ci, false); }, 100);
+    resizeTimer = setTimeout(function(){ goTo(currentIdx, false); }, 100);
   });
 })();
 </script>
